@@ -16,6 +16,127 @@ const TABS = [
   { id: 'moves', label: '招式列表' },
 ];
 
+// Nature matrix constants
+const STAT_AXES = ['attack', 'defense', 'special-attack', 'special-defense', 'speed'];
+const NEUTRAL_NATURE_ENS = ['Hardy', 'Docile', 'Bashful', 'Quirky', 'Serious'];
+const STAT_SHORT_ZH = { attack: '攻', defense: '防', 'special-attack': '特攻', 'special-defense': '特防', speed: '速' };
+const STAT_SHORT_EN = { attack: 'Atk', defense: 'Def', 'special-attack': 'SpA', 'special-defense': 'SpD', speed: 'Spe' };
+
+function statShort(stat, lang) {
+  return lang === 'zh' ? (STAT_SHORT_ZH[stat] || stat) : (STAT_SHORT_EN[stat] || stat);
+}
+
+function statLabel(statKey, lang) {
+  if (lang === 'en') {
+    const map = { attack: 'Atk', defense: 'Def', 'special-attack': 'Sp.Atk', 'special-defense': 'Sp.Def', speed: 'Spe' };
+    return map[statKey] || statKey;
+  }
+  const map = { attack: '攻擊', defense: '防禦', 'special-attack': '特攻', 'special-defense': '特防', speed: '速度' };
+  return map[statKey] || statKey;
+}
+
+function getNatureForCell(colIdx, rowIdx) {
+  if (colIdx === rowIdx) {
+    return NATURES.find(n => n.en === NEUTRAL_NATURE_ENS[rowIdx]);
+  }
+  const inc = STAT_AXES[colIdx];
+  const dec = STAT_AXES[rowIdx];
+  return NATURES.find(n => n.increased === inc && n.decreased === dec);
+}
+
+function NatureMatrix({ nature, onChange, lang }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="text-[10px] border-collapse w-full">
+        <thead>
+          <tr>
+            <th className="w-8"></th>
+            {STAT_AXES.map(s => (
+              <th key={s} className="text-center font-bold text-red-500 pb-1 px-0.5 whitespace-nowrap">
+                ↑{statShort(s, lang)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {STAT_AXES.map((decStat, rowIdx) => (
+            <tr key={decStat}>
+              <td className="text-right font-bold text-blue-500 pr-1 whitespace-nowrap">
+                ↓{statShort(decStat, lang)}
+              </td>
+              {STAT_AXES.map((incStat, colIdx) => {
+                const n = getNatureForCell(colIdx, rowIdx);
+                const isNeutral = colIdx === rowIdx;
+                const isSelected = n && nature.en === n.en;
+                return (
+                  <td key={incStat}
+                    onClick={() => { if (n) onChange(n); }}
+                    className={`
+                      text-center cursor-pointer px-0.5 py-1 rounded transition-colors
+                      ${isSelected
+                        ? 'bg-blue-500 text-white font-bold'
+                        : isNeutral
+                        ? 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                        : 'text-gray-700 hover:bg-blue-50'}
+                    `}
+                  >
+                    {n ? (lang === 'zh' ? n.zh : n.en) : '?'}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function NatureSelector({ nature, setNature, lang }) {
+  const [open, setOpen] = useState(false);
+
+  function select(n) {
+    setNature(n);
+    setOpen(false);
+  }
+
+  return (
+    <div className="border border-gray-200 rounded-xl overflow-hidden">
+      {/* Summary row — always visible */}
+      <button
+        onClick={() => setOpen(v => !v)}
+        className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-gray-50 transition-colors"
+      >
+        <span className="font-semibold text-gray-500 shrink-0">{lang === 'zh' ? '個性' : 'Nature'}</span>
+        <span className="font-bold text-gray-800">
+          {lang === 'zh' ? nature.zh : nature.en}
+        </span>
+        {nature.increased && (
+          <span className="text-red-500 font-semibold shrink-0">
+            ↑{statLabel(nature.increased, lang)}
+          </span>
+        )}
+        {nature.decreased && (
+          <span className="text-blue-500 font-semibold shrink-0">
+            ↓{statLabel(nature.decreased, lang)}
+          </span>
+        )}
+        {!nature.increased && !nature.decreased && (
+          <span className="text-gray-400 shrink-0">{lang === 'zh' ? '無效果' : 'Neutral'}</span>
+        )}
+        <span className="ml-auto text-gray-400">{open ? '▴' : '▾'}</span>
+      </button>
+
+      {/* Matrix — shown when open */}
+      {open && (
+        <div className="border-t border-gray-100 px-3 pb-3 pt-2">
+          <NatureMatrix nature={nature} onChange={select} lang={lang} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function formatAbility(name) {
   return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
@@ -26,7 +147,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
   const [abilityNames, setAbilityNames] = useState({});
   const { lang } = useLang();
 
-  // Fetch ability names for language display
   useEffect(() => {
     if (!pokemon?.abilities?.length) return;
     const apiNames = pokemon.abilities.map(a => a.ability.name);
@@ -49,7 +169,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
 
   const baseName = lang === 'zh' ? zhName : enName;
 
-  // Variant label by language
   const enLabel = (() => {
     const a = pokemon.name;
     if (a.includes('-alola'))         return 'Alolan Form';
@@ -69,7 +188,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
   })();
   const activeLabel = lang === 'zh' ? variantLabel : (enLabel || variantLabel);
 
-  // For non-mega variants, append label to name
   const displayName = activeLabel && !isMegaVariant
     ? `${baseName} ${activeLabel}`
     : baseName;
@@ -121,7 +239,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
                 <TypeBadge key={type.name} type={type.name} />
               ))}
             </div>
-            {/* Abilities */}
             <div className="flex flex-wrap gap-1.5">
               {normalAbilities.map(a => (
                 <span key={a.ability.name}
@@ -150,35 +267,10 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
         ))}
       </div>
 
-      {/* Nature selector — shown for stats and speed tabs */}
+      {/* Nature selector — collapsible, shown for stats and speed tabs */}
       {showNature && (
         <div className="px-5 pt-4 pb-0">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-gray-500 shrink-0">
-              {lang === 'zh' ? '個性' : 'Nature'}
-            </span>
-            <select
-              value={nature.en}
-              onChange={e => setNature(NATURES.find(n => n.en === e.target.value))}
-              className="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-300 bg-white text-gray-700"
-            >
-              {NATURES.map(n => (
-                <option key={n.en} value={n.en}>
-                  {lang === 'zh' ? `${n.zh}（${n.en}）` : n.en}
-                </option>
-              ))}
-            </select>
-            {nature.increased && (
-              <span className="text-xs text-red-500 font-semibold shrink-0">
-                ↑{statLabel(nature.increased, lang)}
-              </span>
-            )}
-            {nature.decreased && (
-              <span className="text-xs text-blue-500 font-semibold shrink-0">
-                ↓{statLabel(nature.decreased, lang)}
-              </span>
-            )}
-          </div>
+          <NatureSelector nature={nature} setNature={setNature} lang={lang} />
         </div>
       )}
 
@@ -191,19 +283,4 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       </div>
     </div>
   );
-}
-
-function statLabel(statKey, lang) {
-  if (lang === 'en') {
-    const map = {
-      'attack': 'Atk', 'defense': 'Def',
-      'special-attack': 'Sp.Atk', 'special-defense': 'Sp.Def', 'speed': 'Spe',
-    };
-    return map[statKey] || statKey;
-  }
-  const map = {
-    'attack': '攻擊', 'defense': '防禦',
-    'special-attack': '特攻', 'special-defense': '特防', 'speed': '速度',
-  };
-  return map[statKey] || statKey;
 }

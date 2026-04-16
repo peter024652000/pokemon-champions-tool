@@ -20,9 +20,15 @@ export default function BaseStats({ stats, nature }) {
   const remaining = BP_TOTAL - usedBP;
 
   function setBp(statName, val) {
-    const clamped = Math.max(0, Math.min(BP_MAX_PER_STAT, val));
+    const parsed = Number.isNaN(val) ? 0 : val;
+    const clamped = Math.max(0, Math.min(BP_MAX_PER_STAT, parsed));
     const delta = clamped - bpAlloc[statName];
-    if (delta > 0 && delta > remaining) return; // would exceed total
+    if (delta > 0 && delta > remaining) {
+      // Cap at what remaining allows
+      const maxAllowed = bpAlloc[statName] + remaining;
+      setBpAlloc(prev => ({ ...prev, [statName]: Math.min(BP_MAX_PER_STAT, maxAllowed) }));
+      return;
+    }
     setBpAlloc(prev => ({ ...prev, [statName]: clamped }));
   }
 
@@ -55,44 +61,53 @@ export default function BaseStats({ stats, nature }) {
           const natureDown = !isHP && mod < 1;
 
           return (
-            <div key={statName} className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="w-12 text-xs text-gray-500 text-right shrink-0">
-                  {STAT_NAMES_ZH[statName] || statName}
-                </span>
-                <span className="w-8 text-xs font-mono text-gray-600 text-right shrink-0">
-                  {base}
-                </span>
-                <div className="flex-1 bg-gray-200 rounded-full h-2">
-                  <div
-                    className="h-2 rounded-full"
-                    style={{ width: `${pct}%`, backgroundColor: color }}
-                  />
-                </div>
-                {/* BP controls */}
-                <button
-                  onClick={() => setBp(statName, bp - 1)}
-                  disabled={bp === 0}
-                  className="w-5 h-5 rounded text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-30 flex items-center justify-center shrink-0 leading-none"
-                >−</button>
-                <span className="w-5 text-xs font-mono text-center text-gray-700 shrink-0">{bp}</span>
-                <button
-                  onClick={() => setBp(statName, bp + 1)}
-                  disabled={bp >= BP_MAX_PER_STAT || remaining <= 0}
-                  className="w-5 h-5 rounded text-xs bg-gray-100 hover:bg-gray-200 disabled:opacity-30 flex items-center justify-center shrink-0 leading-none"
-                >+</button>
-                {/* Calculated value */}
-                <span className={`w-9 text-xs font-mono font-bold text-right shrink-0 ${
-                  natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-800'
-                }`}>
-                  {calc}
-                </span>
+            <div key={statName} className="flex items-center gap-1.5">
+              <span className="w-12 text-xs text-gray-500 text-right shrink-0">
+                {STAT_NAMES_ZH[statName] || statName}
+              </span>
+              <span className="w-8 text-xs font-mono text-gray-600 text-right shrink-0">
+                {base}
+              </span>
+              <div className="flex-1 bg-gray-200 rounded-full h-2 min-w-0">
+                <div
+                  className="h-2 rounded-full"
+                  style={{ width: `${pct}%`, backgroundColor: color }}
+                />
               </div>
+              {/* Number input */}
+              <input
+                type="number"
+                min={0}
+                max={BP_MAX_PER_STAT}
+                value={bp}
+                onChange={e => setBp(statName, parseInt(e.target.value, 10))}
+                className="w-10 text-xs font-mono text-center border border-gray-200 rounded py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-300 shrink-0"
+              />
+              {/* Max button */}
+              <button
+                onClick={() => setBp(statName, bp + remaining)}
+                disabled={remaining <= 0 || bp >= BP_MAX_PER_STAT}
+                title="加到上限"
+                className="text-[10px] font-bold w-6 h-5 rounded bg-blue-50 text-blue-500 hover:bg-blue-100 disabled:opacity-30 shrink-0 flex items-center justify-center"
+              >▲</button>
+              {/* Reset button */}
+              <button
+                onClick={() => setBp(statName, 0)}
+                disabled={bp === 0}
+                title="歸零"
+                className="text-[10px] font-bold w-6 h-5 rounded bg-gray-100 text-gray-500 hover:bg-gray-200 disabled:opacity-30 shrink-0 flex items-center justify-center"
+              >✕</button>
+              {/* Calculated value */}
+              <span className={`w-9 text-xs font-mono font-bold text-right shrink-0 ${
+                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-800'
+              }`}>
+                {calc}
+              </span>
             </div>
           );
         })}
 
-        <div className="flex items-center gap-2 border-t border-gray-200 pt-2 mt-1">
+        <div className="flex items-center gap-1.5 border-t border-gray-200 pt-2 mt-1">
           <span className="w-12 text-xs font-bold text-gray-600 text-right">合計</span>
           <span className="w-8 text-xs font-mono font-black text-gray-900 text-right">{total}</span>
         </div>

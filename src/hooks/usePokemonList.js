@@ -109,7 +109,7 @@ export function usePokemonList() {
         );
         if (!active) return;
         const map = {};
-        results.forEach(r => {
+        results.forEach((r, idx) => {
           if (r.status === 'fulfilled') {
             const s = r.value;
             const zhName =
@@ -117,11 +117,14 @@ export function usePokemonList() {
               s.names?.find(n => n.language.name === 'zh-Hans')?.name ||
               null;
             const enName = s.names?.find(n => n.language.name === 'en')?.name || null;
-            if (zhName || enName) map[s.id] = { zhName, enName };
+            if (!zhName) console.warn('[names] no zh for species', s.id, batch[idx]);
+            map[s.id] = { zhName, enName };
+          } else {
+            console.warn('[names] species fetch failed for id', batch[idx], r.reason);
           }
         });
         setList(prev => prev.map(e =>
-          map[e.id] ? { ...e, zhName: map[e.id].zhName, enName: map[e.id].enName } : e
+          map[e.id] !== undefined ? { ...e, zhName: map[e.id].zhName, enName: map[e.id].enName } : e
         ));
       }
     }
