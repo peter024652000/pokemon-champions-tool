@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { fetchMove, getChineseName } from '../utils/pokeapi';
+import { useState, useEffect, useRef } from 'react';
+import { fetchMove } from '../utils/pokeapi';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
+import moveNamesData from '../data/move-names.json';
 
 const CATEGORY_LABEL_ZH = { physical: '物理', special: '特殊', status: '變化' };
 const CATEGORY_LABEL_EN = { physical: 'Physical', special: 'Special', status: 'Status' };
@@ -14,49 +15,82 @@ const CATEGORY_STYLE = {
 export default function MoveList({ moves }) {
   const [search, setSearch] = useState('');
   const [details, setDetails] = useState({});
-  const [loading, setLoading] = useState(null);
-  const [expanded, setExpanded] = useState(null);
+  const [hoveredMove, setHoveredMove] = useState(null);
   const { lang } = useLang();
+  const loadedRef = useRef(new Set());
+  const cancelledRef = useRef(false);
 
-  const filtered = moves
-    .filter(({ move }) => {
-      if (!search) return true;
-      const q = search.toLowerCase();
-      const d = details[move.name];
-      return move.name.includes(q) || (d?.zhName && d.zhName.includes(q));
-    })
-    .slice(0, 60);
+  // Pre-load all moves in batches when component mounts or Pokemon changes
+  useEffect(() => {
+    cancelledRef.current = false;
+    loadedRef.current = new Set();
+    setDetails({});
+    setHoveredMove(null);
 
-  const handleClick = async (moveName) => {
-    if (expanded === moveName) { setExpanded(null); return; }
-    setExpanded(moveName);
-    if (details[moveName]) return;
+    const slice = moves.slice(0, 60);
 
-    setLoading(moveName);
-    try {
-      const data = await fetchMove(moveName);
-      const zhName = getChineseName(data.names);
-      const enName = data.names?.find(n => n.language.name === 'en')?.name || null;
-      setDetails(prev => ({
-        ...prev,
-        [moveName]: {
-          zhName,
-          enName,
-          type:     data.type.name,
-          category: data.damage_class.name,
-          power:    data.power,
-          accuracy: data.accuracy,
-          pp:       data.pp,
-        },
-      }));
-    } catch {
-      setDetails(prev => ({ ...prev, [moveName]: { error: true } }));
-    } finally {
-      setLoading(null);
-    }
-  };
+    const loadDetail = async (moveName) => {
+      if (loadedRef.current.has(moveName)) return;
+      loadedRef.current.add(moveName);
+      try {
+        const data = await fetchMove(moveName);
+        if (cancelledRef.current) return;
 
-  const catLabel = lang === 'zh' ? CATEGORY_LABEL_ZH : CATEGORY_LABEL_EN;
+        // 名稱優先用本地 JSON（完整繁中）
+        const local = moveNamesData[moveName];
+        const zhName = local?.zh || null;
+        const enName = local?.en || data.names?.find(n => n.language.name === 'en')?.name || null;
+
+        // Description: prefer zh-Hant flavor text, fallback to English effect/flavor
+        const zhDesc = data.flavor_text_entries
+          ?.filter(e => e.language.name === 'zh-Hant')
+          ?.pop()?.flavor_text?.replace(/[\n\f]/g, ' ') || null;
+        const enDesc = data.effect_entries?.find(e => e.language.name === 'en')?.short_effect
+          || data.flavor_text_entries?.filter(e => e.language.name === 'en')?.pop()?.flavor_text?.replace(/[\n\f]/g, ' ')
+          || null;
+
+        setDetails(prev => ({
+          ...prev,
+          [moveName]: {
+            zhName, enName,
+            type: data.type.name,
+            category: data.damage_class.name,
+            power: data.power,
+            accuracy: data.accuracy,
+            pp: data.pp,
+            zhDesc,
+            enDesc,
+          },
+        }));
+      } catch {
+        if (!cancelledRef.current) {
+          setDetails(prev => ({ ...prev, [moveName]: { error: true } }));
+        }
+      }
+    };
+
+    const load = async () => {
+      const BATCH = 8;
+      for (let i = 0; i < slice.length; i += BATCH) {
+        if (cancelledRef.current) break;
+        await Promise.allSettled(slice.slice(i, i + BATCH).map(({ move }) => loadDetail(move.name)));
+      }
+    };
+
+    load();
+    return () => { cancelledRef.current = true; };
+  }, [moves]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const visibleMoves = moves.slice(0, 60);
+
+  const filtered = visibleMoves.filter(({ move }) => {
+    if (!search) return true;
+    const q = search.toLowerCase();
+    const d = details[move.name];
+    return move.name.includes(q)
+      || (d?.zhName && d.zhName.includes(q))
+      || (d?.enName && d.enName.toLowerCase().includes(q));
+  });
 
   return (
     <div>
@@ -64,7 +98,7 @@ export default function MoveList({ moves }) {
         {lang === 'zh' ? '可學招式' : 'Learnable Moves'}
       </h3>
       <p className="text-xs text-gray-400 mb-2">
-        {lang === 'zh' ? '點擊招式顯示詳細資料（最多顯示 60 筆）' : 'Click a move for details (max 60 shown)'}
+        {lang === 'zh' ? `共 ${visibleMoves.length} 招（hover 查看說明）` : `${visibleMoves.length} moves — hover for description`}
       </p>
 
       <input
@@ -78,46 +112,46 @@ export default function MoveList({ moves }) {
       <div className="space-y-1 max-h-[420px] overflow-y-auto pr-1">
         {filtered.map(({ move }) => {
           const d = details[move.name];
-          const isOpen = expanded === move.name;
-          const isLoading = loading === move.name;
-
-          // Display name based on language
-          const moveName = d
-            ? (lang === 'zh' ? (d.zhName || d.enName || move.name) : (d.enName || d.zhName || move.name))
+          const isHovered = hoveredMove === move.name;
+          const name = d
+            ? (lang === 'zh' ? (d.zhName || d.enName || move.name) : (d.enName || move.name))
             : move.name;
+          const desc = d ? (lang === 'zh' ? (d.zhDesc || d.enDesc) : d.enDesc) : null;
 
           return (
-            <button
+            <div
               key={move.name}
-              onClick={() => handleClick(move.name)}
-              className={`w-full text-left px-3 py-2 rounded-xl transition-colors border
-                ${isOpen ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-transparent hover:bg-gray-100'}`}
+              onMouseEnter={() => setHoveredMove(move.name)}
+              onMouseLeave={() => setHoveredMove(null)}
+              className={`px-3 py-2 rounded-xl border transition-colors cursor-default
+                ${isHovered ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-transparent hover:bg-gray-100'}`}
             >
-              {isLoading ? (
-                <span className="text-xs text-gray-400">{lang === 'zh' ? '載入中...' : 'Loading...'}</span>
-              ) : d?.error ? (
-                <span className="text-xs text-red-400">{move.name} ({lang === 'zh' ? '載入失敗' : 'failed'})</span>
-              ) : d ? (
-                <div>
+              {!d ? (
+                <span className="text-xs text-gray-300 animate-pulse">{move.name}</span>
+              ) : d.error ? (
+                <span className="text-xs text-red-400">{move.name}</span>
+              ) : (
+                <>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-semibold text-gray-800">{moveName}</span>
+                    <span className="text-sm font-semibold text-gray-800">{name}</span>
                     <TypeBadge type={d.type} size="sm" />
                     <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${CATEGORY_STYLE[d.category] || CATEGORY_STYLE.status}`}>
-                      {catLabel[d.category] || d.category}
+                      {(lang === 'zh' ? CATEGORY_LABEL_ZH : CATEGORY_LABEL_EN)[d.category] || d.category}
+                    </span>
+                    <span className="text-xs text-gray-400 ml-auto flex gap-3 shrink-0">
+                      <span>{lang === 'zh' ? '威力' : 'Pwr'} <b className="text-gray-600">{d.power ?? '—'}</b></span>
+                      <span>{lang === 'zh' ? '命中' : 'Acc'} <b className="text-gray-600">{d.accuracy ?? '—'}</b></span>
+                      <span>PP <b className="text-gray-600">{d.pp ?? '—'}</b></span>
                     </span>
                   </div>
-                  {isOpen && (
-                    <div className="mt-1.5 flex gap-4 text-xs text-gray-500">
-                      <span>{lang === 'zh' ? '威力' : 'Power'}：<b className="text-gray-700">{d.power ?? '—'}</b></span>
-                      <span>{lang === 'zh' ? '命中' : 'Acc'}：<b className="text-gray-700">{d.accuracy ?? '—'}</b></span>
-                      <span>PP：<b className="text-gray-700">{d.pp}</b></span>
-                    </div>
+                  {isHovered && desc && (
+                    <p className="text-xs text-gray-500 mt-1.5 leading-relaxed border-t border-blue-100 pt-1.5">
+                      {desc}
+                    </p>
                   )}
-                </div>
-              ) : (
-                <span className="text-xs text-gray-500">{move.name}</span>
+                </>
               )}
-            </button>
+            </div>
           );
         })}
 

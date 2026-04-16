@@ -207,6 +207,12 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     return formatAbility(apiName);
   }
 
+  function abilityDesc(apiName) {
+    const cached = abilityNames[apiName];
+    if (lang === 'zh') return cached?.zhDesc || cached?.enDesc || null;
+    return cached?.enDesc || null;
+  }
+
   const showNature = tab === 'stats' || tab === 'speed';
 
   return (
@@ -240,17 +246,36 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
               ))}
             </div>
             <div className="flex flex-wrap gap-1.5">
-              {normalAbilities.map(a => (
-                <span key={a.ability.name}
-                  className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90">
-                  {abilityDisplay(a.ability.name)}
-                </span>
-              ))}
-              {hiddenAbility && (
-                <span className="text-xs bg-white/10 border border-white/30 px-2 py-0.5 rounded-full text-white/70 italic">
-                  {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
-                </span>
-              )}
+              {normalAbilities.map(a => {
+                const desc = abilityDesc(a.ability.name);
+                return (
+                  <span key={a.ability.name} className="relative group">
+                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                      {abilityDisplay(a.ability.name)}
+                    </span>
+                    {desc && (
+                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                        {desc}
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
+              {hiddenAbility && (() => {
+                const desc = abilityDesc(hiddenAbility.ability.name);
+                return (
+                  <span className="relative group">
+                    <span className="text-xs bg-white/10 border border-white/30 px-2 py-0.5 rounded-full text-white/70 italic cursor-default">
+                      {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
+                    </span>
+                    {desc && (
+                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                        {desc}
+                      </span>
+                    )}
+                  </span>
+                );
+              })()}
             </div>
           </div>
         </div>

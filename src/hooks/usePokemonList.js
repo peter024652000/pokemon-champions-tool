@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchWithCache } from '../utils/pokeapi';
 import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS, REGIONAL_FORMS } from '../utils/championsIds';
+import pokemonNamesData from '../data/pokemon-names.json';
 
 const BASE = 'https://pokeapi.co/api/v2';
 const BATCH = 20;
@@ -100,36 +101,15 @@ export function usePokemonList() {
       }
     }
 
-    async function loadNames() {
-      for (let i = 0; i < baseIds.length; i += BATCH) {
-        if (!active) return;
-        const batch = baseIds.slice(i, i + BATCH);
-        const results = await Promise.allSettled(
-          batch.map(id => fetchWithCache(`${BASE}/pokemon-species/${id}`))
-        );
-        if (!active) return;
-        const map = {};
-        results.forEach((r, idx) => {
-          if (r.status === 'fulfilled') {
-            const s = r.value;
-            const zhName =
-              s.names?.find(n => n.language.name === 'zh-Hant')?.name ||
-              s.names?.find(n => n.language.name === 'zh-Hans')?.name ||
-              null;
-            const enName = s.names?.find(n => n.language.name === 'en')?.name || null;
-            if (!zhName) console.warn('[names] no zh for species', s.id, batch[idx]);
-            map[s.id] = { zhName, enName };
-          } else {
-            console.warn('[names] species fetch failed for id', batch[idx], r.reason);
-          }
-        });
-        setList(prev => prev.map(e =>
-          map[e.id] !== undefined ? { ...e, zhName: map[e.id].zhName, enName: map[e.id].enName } : e
-        ));
-      }
+    function loadNames() {
+      setList(prev => prev.map(e => {
+        const entry = pokemonNamesData[String(e.id)];
+        return entry ? { ...e, zhName: entry.zh || null, enName: entry.en || null } : e;
+      }));
     }
 
-    Promise.all([loadPokemon(), loadNames()]).catch(console.error);
+    loadNames();
+    loadPokemon().catch(console.error);
     return () => { active = false; };
   }, []);
 
