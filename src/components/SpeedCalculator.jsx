@@ -1,23 +1,25 @@
 import { useState } from 'react';
-import { SPEED_NATURES, SPEED_BENCHMARKS } from '../utils/constants';
+import { SPEED_BENCHMARKS } from '../utils/constants';
 import { calcSpeed, BP_MAX_PER_STAT, BP_TOTAL } from '../utils/calcStats';
 import { fetchWithCache, getChineseName } from '../utils/pokeapi';
 
 const BASE = 'https://pokeapi.co/api/v2';
 
-function NatureBtn({ label, active, onClick }) {
-  return (
-    <button onClick={onClick}
-      className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-colors
-        ${active ? 'bg-blue-500 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
-      {label}
-    </button>
-  );
+const OPP_NATURES = [
+  { label: '+ 速度', value: 1.1 },
+  { label: '中性',   value: 1.0 },
+  { label: '− 速度', value: 0.9 },
+];
+
+function getNatureMod(nature) {
+  if (!nature) return 1.0;
+  if (nature.increased === 'speed') return 1.1;
+  if (nature.decreased === 'speed') return 0.9;
+  return 1.0;
 }
 
-export default function SpeedCalculator({ baseSpeed, pokemonName }) {
+export default function SpeedCalculator({ baseSpeed, pokemonName, nature }) {
   const [bp, setBp] = useState(0);
-  const [natureMod, setNatureMod] = useState(1.0);
 
   const [oppQuery, setOppQuery] = useState('');
   const [oppData, setOppData] = useState(null);
@@ -26,6 +28,7 @@ export default function SpeedCalculator({ baseSpeed, pokemonName }) {
   const [oppLoading, setOppLoading] = useState(false);
   const [oppError, setOppError] = useState('');
 
+  const natureMod = getNatureMod(nature);
   const mySpeed = calcSpeed(baseSpeed, bp, natureMod);
 
   const handleOppSearch = async (e) => {
@@ -52,10 +55,16 @@ export default function SpeedCalculator({ baseSpeed, pokemonName }) {
 
   const oppSpeed = oppData ? calcSpeed(oppData.base, oppBp, oppNature) : null;
 
+  const natureLabel = natureMod === 1.1 ? '▲ 速度+' : natureMod === 0.9 ? '▼ 速度−' : '中性';
+  const natureLabelColor = natureMod === 1.1 ? 'text-red-500' : natureMod === 0.9 ? 'text-blue-500' : 'text-gray-400';
+
   return (
     <div className="space-y-5">
       <div>
-        <h3 className="text-base font-bold mb-1 text-gray-700">速度計算</h3>
+        <div className="flex items-center justify-between mb-1">
+          <h3 className="text-base font-bold text-gray-700">速度計算</h3>
+          <span className={`text-xs font-semibold ${natureLabelColor}`}>{natureLabel}</span>
+        </div>
         <p className="text-xs text-gray-400 mb-3">Lv.50・個體值 31・Champions BP 系統</p>
 
         <div className="flex items-center justify-between mb-1">
@@ -70,13 +79,6 @@ export default function SpeedCalculator({ baseSpeed, pokemonName }) {
           className="w-full accent-blue-500" />
         <div className="flex justify-between text-xs text-gray-300 mt-0.5">
           <span>0</span><span>{BP_MAX_PER_STAT}</span>
-        </div>
-
-        <div className="flex gap-2 mt-3">
-          {SPEED_NATURES.map(n => (
-            <NatureBtn key={n.value} label={n.label} active={natureMod === n.value}
-              onClick={() => setNatureMod(n.value)} />
-          ))}
         </div>
 
         <div className="mt-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-4 text-center text-white shadow">
@@ -108,7 +110,7 @@ export default function SpeedCalculator({ baseSpeed, pokemonName }) {
               onChange={e => setOppBp(Number(e.target.value))}
               className="w-full accent-slate-500" />
             <div className="flex gap-2">
-              {SPEED_NATURES.map(n => (
+              {OPP_NATURES.map(n => (
                 <button key={n.value} onClick={() => setOppNature(n.value)}
                   className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-colors
                     ${oppNature === n.value ? 'bg-slate-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>

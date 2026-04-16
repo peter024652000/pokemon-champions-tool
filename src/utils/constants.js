@@ -82,26 +82,49 @@ export const TYPE_CHART = {
 
 export const ALL_TYPES = Object.keys(TYPE_CHART);
 
-export const SPEED_NATURES = [
-  { label: '+速度', value: 1.1 },
-  { label: '中性',  value: 1.0 },
-  { label: '-速度', value: 0.9 },
+// Speed benchmarks — Champions roster only
+export const SPEED_BENCHMARKS = [
+  { name: '烏龜爐 (20)',    base: 20  },
+  { name: '呆呆獸 (30)',    base: 30  },
+  { name: '嚇嚇糖 (60)',    base: 60  },
+  { name: '火焰雞 (65)',    base: 65  },
+  { name: '九尾 (76)',      base: 76  },
+  { name: '土地雲 (79)',    base: 79  },
+  { name: '風速狗 (95)',    base: 95  },
+  { name: '烈咬陸鯊 (102)', base: 102 },
+  { name: '甲賀忍蛙 (122)', base: 122 },
+  { name: '斬擊鬼蝠 (125)', base: 125 },
+  { name: '火焰鳥 (126)',   base: 126 },
+  { name: '化石翼龍 (130)', base: 130 },
+  { name: '幽靈龍 (142)',   base: 142 },
 ];
 
-// Common speed benchmarks for VGC reference (base speed, zh name)
-export const SPEED_BENCHMARKS = [
-  { name: '土地雲 (79)',          base: 79 },
-  { name: '水君 (80)',            base: 80 },
-  { name: '拳魔/武道熊師 (90)',   base: 90 },
-  { name: '盔甲鳥 (93)',          base: 93 },
-  { name: '熊徒弟 (95)',          base: 95 },
-  { name: '鋼鐵葉冠 (100)',       base: 100 },
-  { name: '噴火龍 (100)',         base: 100 },
-  { name: '甲賀忍蛙 (122)',       base: 122 },
-  { name: '飄浮曼 (125)',         base: 125 },
-  { name: '闘将虎鲸王 (130)',     base: 130 },
-  { name: '鬼斯通 (130)',         base: 130 },
-  { name: '雷鳴鴿 (135)',         base: 135 },
-  { name: '帝牙盧卡 (150)',       base: 150 },
-  { name: '雷電王 (200)',         base: 200 },
+// 25 natures with stat effects
+// increased/decreased use PokeAPI stat key names
+export const NATURES = [
+  { zh: '勤奮', en: 'Hardy',    increased: null,               decreased: null },
+  { zh: '孤獨', en: 'Lonely',   increased: 'attack',           decreased: 'defense' },
+  { zh: '勇敢', en: 'Brave',    increased: 'attack',           decreased: 'speed' },
+  { zh: '固執', en: 'Adamant',  increased: 'attack',           decreased: 'special-attack' },
+  { zh: '頑皮', en: 'Naughty',  increased: 'attack',           decreased: 'special-defense' },
+  { zh: '大膽', en: 'Bold',     increased: 'defense',          decreased: 'attack' },
+  { zh: '溫順', en: 'Docile',   increased: null,               decreased: null },
+  { zh: '悠閒', en: 'Relaxed',  increased: 'defense',          decreased: 'speed' },
+  { zh: '淘氣', en: 'Impish',   increased: 'defense',          decreased: 'special-attack' },
+  { zh: '鬆懈', en: 'Lax',      increased: 'defense',          decreased: 'special-defense' },
+  { zh: '膽小', en: 'Timid',    increased: 'speed',            decreased: 'attack' },
+  { zh: '急躁', en: 'Hasty',    increased: 'speed',            decreased: 'defense' },
+  { zh: '認真', en: 'Serious',  increased: null,               decreased: null },
+  { zh: '爽朗', en: 'Jolly',    increased: 'speed',            decreased: 'special-attack' },
+  { zh: '天真', en: 'Naive',    increased: 'speed',            decreased: 'special-defense' },
+  { zh: '內斂', en: 'Modest',   increased: 'special-attack',   decreased: 'attack' },
+  { zh: '溫和', en: 'Mild',     increased: 'special-attack',   decreased: 'defense' },
+  { zh: '沉著', en: 'Quiet',    increased: 'special-attack',   decreased: 'speed' },
+  { zh: '害羞', en: 'Bashful',  increased: null,               decreased: null },
+  { zh: '馬虎', en: 'Rash',     increased: 'special-attack',   decreased: 'special-defense' },
+  { zh: '穩重', en: 'Calm',     increased: 'special-defense',  decreased: 'attack' },
+  { zh: '溫厚', en: 'Gentle',   increased: 'special-defense',  decreased: 'defense' },
+  { zh: '自大', en: 'Sassy',    increased: 'special-defense',  decreased: 'speed' },
+  { zh: '慎重', en: 'Careful',  increased: 'special-defense',  decreased: 'special-attack' },
+  { zh: '浮躁', en: 'Quirky',   increased: null,               decreased: null },
 ];

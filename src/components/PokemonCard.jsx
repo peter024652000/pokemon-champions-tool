@@ -5,7 +5,7 @@ import TypeEffectiveness from './TypeEffectiveness';
 import SpeedCalculator from './SpeedCalculator';
 import MoveList from './MoveList';
 import { getSpriteUrl } from '../utils/pokeapi';
-import { TYPE_COLORS } from '../utils/constants';
+import { TYPE_COLORS, NATURES } from '../utils/constants';
 
 const TABS = [
   { id: 'stats', label: '種族值' },
@@ -20,6 +20,7 @@ function formatAbility(name) {
 
 export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant }) {
   const [tab, setTab] = useState('stats');
+  const [nature, setNature] = useState(NATURES[0]); // default: Hardy (neutral)
 
   const zhName =
     species?.names?.find(n => n.language.name === 'zh-Hant')?.name ||
@@ -38,6 +39,8 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
 
   const normalAbilities = pokemon.abilities?.filter(a => !a.is_hidden) ?? [];
   const hiddenAbility = pokemon.abilities?.find(a => a.is_hidden);
+
+  const showNature = tab === 'stats' || tab === 'speed';
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -98,10 +101,40 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
         ))}
       </div>
 
+      {/* Nature selector — shown for stats and speed tabs */}
+      {showNature && (
+        <div className="px-5 pt-4 pb-0">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold text-gray-500 shrink-0">個性</span>
+            <select
+              value={nature.en}
+              onChange={e => setNature(NATURES.find(n => n.en === e.target.value))}
+              className="flex-1 text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-300 bg-white text-gray-700"
+            >
+              {NATURES.map(n => (
+                <option key={n.en} value={n.en}>
+                  {n.zh}（{n.en}）
+                </option>
+              ))}
+            </select>
+            {nature.increased && (
+              <span className="text-xs text-red-500 font-semibold shrink-0">
+                ↑{nature.increased.replace('special-attack','特攻').replace('special-defense','特防').replace('attack','攻擊').replace('defense','防禦').replace('speed','速度')}
+              </span>
+            )}
+            {nature.decreased && (
+              <span className="text-xs text-blue-500 font-semibold shrink-0">
+                ↓{nature.decreased.replace('special-attack','特攻').replace('special-defense','特防').replace('attack','攻擊').replace('defense','防禦').replace('speed','速度')}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
       {/* Tab content */}
       <div className="p-5">
-        {tab === 'stats' && <BaseStats stats={pokemon.stats} />}
-        {tab === 'speed' && <SpeedCalculator baseSpeed={baseSpeed} pokemonName={zhName} />}
+        {tab === 'stats' && <BaseStats stats={pokemon.stats} nature={nature} />}
+        {tab === 'speed' && <SpeedCalculator baseSpeed={baseSpeed} pokemonName={zhName} nature={nature} />}
         {tab === 'type'  && <TypeEffectiveness types={pokemon.types} />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
       </div>
