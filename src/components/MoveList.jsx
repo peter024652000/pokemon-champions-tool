@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { fetchMove } from '../utils/pokeapi';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
-import moveNamesData from '../data/move-names.json';
+import moveData from '../data/move-data.json';
+import moveEffects from '../data/move-effects.json';
 
 const CATEGORY_LABEL_ZH = { physical: '物理', special: '特殊', status: '變化' };
 const CATEGORY_LABEL_EN = { physical: 'Physical', special: 'Special', status: 'Status' };
@@ -37,17 +38,12 @@ export default function MoveList({ moves }) {
         if (cancelledRef.current) return;
 
         // 名稱優先用本地 JSON（完整繁中）
-        const local = moveNamesData[moveName];
-        const zhName = local?.zh || null;
-        const enName = local?.en || data.names?.find(n => n.language.name === 'en')?.name || null;
-
-        // Description: prefer zh-Hant flavor text, fallback to English effect/flavor
-        const zhDesc = data.flavor_text_entries
-          ?.filter(e => e.language.name === 'zh-Hant')
-          ?.pop()?.flavor_text?.replace(/[\n\f]/g, ' ') || null;
-        const enDesc = data.effect_entries?.find(e => e.language.name === 'en')?.short_effect
-          || data.flavor_text_entries?.filter(e => e.language.name === 'en')?.pop()?.flavor_text?.replace(/[\n\f]/g, ' ')
-          || null;
+        // 名稱和說明從本地 JSON 取
+        const local = moveData[moveName] || {};
+        const zhName = local.zh || null;
+        const enName = local.en || data.names?.find(n => n.language.name === 'en')?.name || null;
+        const zhDesc = local.zhDesc || null;
+        const enDesc = local.enDesc || data.effect_entries?.find(e => e.language.name === 'en')?.short_effect || null;
 
         setDetails(prev => ({
           ...prev,
@@ -60,6 +56,8 @@ export default function MoveList({ moves }) {
             pp: data.pp,
             zhDesc,
             enDesc,
+            effectId: local.effectId || null,
+            effectChance: local.effectChance || null,
           },
         }));
       } catch {
@@ -116,7 +114,11 @@ export default function MoveList({ moves }) {
           const name = d
             ? (lang === 'zh' ? (d.zhName || d.enName || move.name) : (d.enName || move.name))
             : move.name;
-          const desc = d ? (lang === 'zh' ? (d.zhDesc || d.enDesc) : d.enDesc) : null;
+          const effectEntry = d?.effectId ? moveEffects[String(d.effectId)] : null;
+          const effectText = effectEntry ? (lang === 'zh' ? effectEntry.zh : effectEntry.en) : null;
+          const desc = effectText
+            ? effectText.replace(/\$effect_chance%/g, (d.effectChance || '?') + '%')
+            : null;
 
           return (
             <div

@@ -1,0 +1,1714 @@
+{
+  "1": {
+    "en": "Inflicts regular damage with no additional effect.",
+    "zh": null
+  },
+  "2": {
+    "en": "Puts the target to sleep.",
+    "zh": "使目標陷入睡眠狀態。"
+  },
+  "3": {
+    "en": "Has a $effect_chance% chance to poison the target.",
+    "zh": "有 $effect_chance% 機率使目標中毒。"
+  },
+  "4": {
+    "en": "Drains half the damage inflicted to heal the user.",
+    "zh": "吸收造成傷害的50%HP來回復使用者。"
+  },
+  "5": {
+    "en": "Has a $effect_chance% chance to burn the target.",
+    "zh": "有 $effect_chance% 機率使目標灼傷。"
+  },
+  "6": {
+    "en": "Has a $effect_chance% chance to freeze the target.",
+    "zh": "有 $effect_chance% 機率使目標冰凍。"
+  },
+  "7": {
+    "en": "Has a $effect_chance% chance to paralyze the target.",
+    "zh": "有 $effect_chance% 機率使目標麻痺。"
+  },
+  "8": {
+    "en": "User faints.",
+    "zh": "使用者陷入瀕死狀態。"
+  },
+  "9": {
+    "en": "Only works on sleeping targets. Drains half the damage inflicted to heal the user.",
+    "zh": "只對睡眠中的寶可夢有效。吸收造成傷害的50%HP來回復使用者。"
+  },
+  "10": {
+    "en": "Uses the target's last used move.",
+    "zh": "使用目標最後使用的招式。"
+  },
+  "11": {
+    "en": "Raises the user's Attack by one stage.",
+    "zh": "將使用者的攻擊提升1階。"
+  },
+  "12": {
+    "en": "Raises the user's Defense by one stage.",
+    "zh": "將使用者的防禦提升1階。"
+  },
+  "17": {
+    "en": "Raises the user's evasion by one stage.",
+    "zh": "將使用者的閃避率提升1階。"
+  },
+  "18": {
+    "en": "Never misses.",
+    "zh": "必定命中。"
+  },
+  "19": {
+    "en": "Lowers the target's Attack by one stage.",
+    "zh": "將目標的攻擊降低1階。"
+  },
+  "20": {
+    "en": "Lowers the target's Defense by one stage.",
+    "zh": "將目標的防禦降低1階。"
+  },
+  "21": {
+    "en": "Lowers the target's Speed by one stage.",
+    "zh": "將目標的速度降低1階。"
+  },
+  "24": {
+    "en": "Lowers the target's accuracy by one stage.",
+    "zh": "將目標的命中率降低1階。"
+  },
+  "25": {
+    "en": "Lowers the target's evasion by one stage.",
+    "zh": "將目標的閃避率降低1階。"
+  },
+  "26": {
+    "en": "Resets all Pokémon's stats, accuracy, and evasion.",
+    "zh": "重置所有寶可夢的能力值、命中率及閃避率變化。"
+  },
+  "27": {
+    "en": "User waits for two turns, then hits back for twice the damage it took.",
+    "zh": "使用者等待2回合，之後反彈所受傷害的兩倍。"
+  },
+  "28": {
+    "en": "Hits every turn for 2-3 turns, then confuses the user.",
+    "zh": "連續2-3回合攻擊，之後使使用者陷入混亂。"
+  },
+  "29": {
+    "en": "Immediately ends wild battles. Forces trainers to switch Pokémon.",
+    "zh": "立即結束野生寶可夢對戰。強制讓後備寶可夢上場。"
+  },
+  "30": {
+    "en": "Hits 2-5 times in one turn.",
+    "zh": "1回合內連續命中2-5次。"
+  },
+  "31": {
+    "en": "User's type changes to the type of one of its moves at random.",
+    "zh": "使用者的屬性隨機變為其招式之一的屬性。"
+  },
+  "32": {
+    "en": "Has a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標畏縮。"
+  },
+  "33": {
+    "en": "Heals the user by half its max HP.",
+    "zh": "回復使用者最大HP的50%。"
+  },
+  "34": {
+    "en": "Badly poisons the target, inflicting more damage every turn.",
+    "zh": "使目標陷入劇毒狀態，每回合造成的傷害遞增。"
+  },
+  "35": {
+    "en": "Scatters money on the ground worth five times the user's level.",
+    "zh": "散布相當於使用者等級五倍金額的錢幣。"
+  },
+  "36": {
+    "en": "Reduces damage from special attacks by 50% for five turns.",
+    "zh": "5回合內將受到的特殊攻擊傷害降低50%。"
+  },
+  "37": {
+    "en": "Has a $effect_chance% chance to burn, freeze, or paralyze the target.",
+    "zh": "有 $effect_chance% 機率使目標灼傷、冰凍或麻痺。"
+  },
+  "38": {
+    "en": "User sleeps for two turns, completely healing itself.",
+    "zh": "使用者睡眠2回合，完全回復HP，並治癒所有異常狀態。"
+  },
+  "39": {
+    "en": "Causes a one-hit KO.",
+    "zh": "一擊使目標瀕死。"
+  },
+  "40": {
+    "en": "Requires a turn to charge before attacking.",
+    "zh": "需要蓄力1回合後再攻擊。"
+  },
+  "41": {
+    "en": "Inflicts damage equal to half the target's HP.",
+    "zh": "造成相當於目標50%HP的傷害。"
+  },
+  "42": {
+    "en": "Inflicts 40 points of damage.",
+    "zh": "造成40點固定傷害。"
+  },
+  "43": {
+    "en": "Prevents the target from fleeing and inflicts damage for 2-5 turns.",
+    "zh": "阻止目標逃跑，並連續2-5回合造成傷害。"
+  },
+  "44": {
+    "en": "Has an increased chance for a critical hit.",
+    "zh": "會心一擊率提升。"
+  },
+  "45": {
+    "en": "Hits twice in one turn.",
+    "zh": "1回合內連續命中兩次。"
+  },
+  "46": {
+    "en": "If the user misses, it takes half the damage it would have inflicted in recoil.",
+    "zh": "若使用者未命中，承受原本可造成傷害50%的傷害。"
+  },
+  "47": {
+    "en": "Protects the user's stats from being changed by enemy moves.",
+    "zh": "保護使用者的能力值不被對手的招式改變。"
+  },
+  "48": {
+    "en": "Increases the user's chance to score a critical hit.",
+    "zh": "提升使用者的會心一擊率。"
+  },
+  "49": {
+    "en": "User receives 1/4 the damage it inflicts in recoil.",
+    "zh": "以驚人的氣勢撞向對手進行攻擊。使用者也會受到所造成傷害1/4的傷害。"
+  },
+  "50": {
+    "en": "Confuses the target.",
+    "zh": "使目標陷入混亂。"
+  },
+  "51": {
+    "en": "Raises the user's Attack by two stages.",
+    "zh": "將使用者的攻擊提升2階。"
+  },
+  "52": {
+    "en": "Raises the user's Defense by two stages.",
+    "zh": "將使用者的防禦提升2階。"
+  },
+  "53": {
+    "en": "Raises the user's Speed by two stages.",
+    "zh": "將使用者的速度提升2階。"
+  },
+  "54": {
+    "en": "Raises the user's Special Attack by two stages.",
+    "zh": "將使用者的特攻提升2階。"
+  },
+  "55": {
+    "en": "Raises the user's Special Defense by two stages.",
+    "zh": "將使用者的特防提升2階。"
+  },
+  "58": {
+    "en": "User becomes a copy of the target until it leaves battle.",
+    "zh": "使用者在離場前複製目標的外形。"
+  },
+  "59": {
+    "en": "Lowers the target's Attack by two stages.",
+    "zh": "將目標的攻擊降低2階。"
+  },
+  "60": {
+    "en": "Lowers the target's Defense by two stages.",
+    "zh": "將目標的防禦降低2階。"
+  },
+  "61": {
+    "en": "Lowers the target's Speed by two stages.",
+    "zh": "將目標的速度降低2階。"
+  },
+  "62": {
+    "en": "Lowers the target's Special Attack by two stages.",
+    "zh": "將目標的特攻降低2階。"
+  },
+  "63": {
+    "en": "Lowers the target's Special Defense by two stages.",
+    "zh": "將目標的特防降低2階。"
+  },
+  "66": {
+    "en": "Reduces damage from physical attacks by half.",
+    "zh": "將受到的物理攻擊傷害減半。"
+  },
+  "67": {
+    "en": "Poisons the target.",
+    "zh": "使目標中毒。"
+  },
+  "68": {
+    "en": "Paralyzes the target.",
+    "zh": "使目標麻痺。"
+  },
+  "69": {
+    "en": "Has a $effect_chance% chance to lower the target's Attack by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的攻擊降低1階。"
+  },
+  "70": {
+    "en": "Has a $effect_chance% chance to lower the target's Defense by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的防禦降低1階。"
+  },
+  "71": {
+    "en": "Has a $effect_chance% chance to lower the target's Speed by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的速度降低1階。"
+  },
+  "72": {
+    "en": "Has a $effect_chance% chance to lower the target's Special Attack by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的特攻降低1階。"
+  },
+  "73": {
+    "en": "Has a $effect_chance% chance to lower the target's Special Defense by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的特防降低1階。"
+  },
+  "74": {
+    "en": "Has a $effect_chance% chance to lower the target's accuracy by one stage.",
+    "zh": "有 $effect_chance% 機率將目標的命中率降低1階。"
+  },
+  "76": {
+    "en": "User charges for one turn before attacking. Has a $effect_chance% chance to make the target flinch.",
+    "zh": "使用者蓄力1回合後攻擊。有 $effect_chance% 機率使目標畏縮。"
+  },
+  "77": {
+    "en": "Has a $effect_chance% chance to confuse the target.",
+    "zh": "有 $effect_chance% 機率使目標陷入混亂。"
+  },
+  "78": {
+    "en": "Hits twice in the same turn. Has a $effect_chance% chance to poison the target.",
+    "zh": "同回合內命中兩次。有 $effect_chance% 機率使目標中毒。"
+  },
+  "79": {
+    "en": "Never misses.",
+    "zh": "必定命中。"
+  },
+  "80": {
+    "en": "Transfers 1/4 of the user's max HP into a substitute, protecting the user from further damage or status changes until it breaks.",
+    "zh": "消耗使用者1/4最大HP製造替身，保護使用者免受傷害及異常狀態直到替身消失。"
+  },
+  "81": {
+    "en": "User foregoes its next turn to recharge.",
+    "zh": "使用者在下一回合需要回復，無法行動。"
+  },
+  "82": {
+    "en": "If the user is hit after using this move, its Attack rises by one stage.",
+    "zh": "使用後若被攻擊，使用者的攻擊提升1階。"
+  },
+  "83": {
+    "en": "Copies the target's last used move.",
+    "zh": "複製目標最後使用的招式。"
+  },
+  "84": {
+    "en": "Randomly selects and uses any move in the game.",
+    "zh": "隨機選擇並使用遊戲中任意一個招式。"
+  },
+  "85": {
+    "en": "Seeds the target, stealing HP from it every turn.",
+    "zh": "在目標身上種下種子，每回合吸取HP。"
+  },
+  "86": {
+    "en": "Does nothing.",
+    "zh": null
+  },
+  "87": {
+    "en": "Disables the target's last used move for 1-8 turns.",
+    "zh": "封鎖目標最後使用的招式1-8回合。"
+  },
+  "88": {
+    "en": "Inflicts damage equal to the user's level.",
+    "zh": "造成與使用者等級相等的固定傷害。"
+  },
+  "89": {
+    "en": "Inflicts damage between 50% and 150% of the user's level.",
+    "zh": "造成使用者等級50%到150%之間的固定傷害。"
+  },
+  "90": {
+    "en": "Inflicts twice the damage the user received from the last physical hit it took.",
+    "zh": "造成使用者上次受到物理攻擊傷害兩倍的傷害。"
+  },
+  "91": {
+    "en": "Forces the target to repeat its last used move every turn for 2 to 6 turns.",
+    "zh": "強制目標在2-6回合內每回合重複使用其最後使用的招式。"
+  },
+  "92": {
+    "en": "Sets the user's and target's HP to the average of their current HP.",
+    "zh": "將使用者與目標的HP設為兩者當前HP的平均值。"
+  },
+  "93": {
+    "en": "Has a $effect_chance% chance to make the target flinch. Only works if the user is sleeping.",
+    "zh": "有 $effect_chance% 機率使目標畏縮。僅在使用者睡眠時有效。"
+  },
+  "94": {
+    "en": "Changes the user's type to a random type resistant or immune to the last move used against it.",
+    "zh": "將使用者的屬性隨機變為對上次受到的攻擊具有抵抗或免疫的屬性。"
+  },
+  "95": {
+    "en": "Ensures that the user's next move will hit the target.",
+    "zh": "確保使用者的下一個招式必定命中目標。"
+  },
+  "96": {
+    "en": "Permanently becomes the target's last used move.",
+    "zh": "永久變為目標最後使用的招式。"
+  },
+  "98": {
+    "en": "Randomly uses one of the user's other three moves. Only works if the user is sleeping.",
+    "zh": "隨機使用使用者其他三個招式之一。僅在使用者睡眠時有效。"
+  },
+  "99": {
+    "en": "If the user faints this turn, the target automatically will, too.",
+    "zh": "若使用者本回合陷入瀕死，目標也會自動瀕死。"
+  },
+  "100": {
+    "en": "Inflicts more damage when the user has less HP remaining, with a maximum of 200 power.",
+    "zh": "使用者剩餘HP越少，威力越高，最大威力200。"
+  },
+  "101": {
+    "en": "Lowers the PP of the target's last used move by 4.",
+    "zh": "將目標最後使用的招式PP降低4點。"
+  },
+  "102": {
+    "en": "Cannot lower the target's HP below 1.",
+    "zh": "無法將目標HP降至1以下。"
+  },
+  "103": {
+    "en": "Cures the entire party of major status effects.",
+    "zh": "治癒我方全體的異常狀態。"
+  },
+  "104": {
+    "en": "Inflicts regular damage with no additional effect.",
+    "zh": null
+  },
+  "105": {
+    "en": "Hits three times, increasing power by 100% with each successful hit.",
+    "zh": "連續命中三次，每次成功命中後威力提升100%。"
+  },
+  "106": {
+    "en": "Takes the target's item.",
+    "zh": "奪取目標持有的道具。"
+  },
+  "107": {
+    "en": "Prevents the target from leaving battle.",
+    "zh": "阻止目標離場。"
+  },
+  "108": {
+    "en": "Target loses 1/4 its max HP every turn as long as it's asleep.",
+    "zh": "目標在睡眠期間每回合失去1/4最大HP。"
+  },
+  "109": {
+    "en": "Raises the user's evasion by two stages.",
+    "zh": "將使用者的閃避率提升2階。"
+  },
+  "110": {
+    "en": "Ghosts pay half their max HP to hurt the target every turn. Others decrease Speed but raise Attack and Defense.",
+    "zh": "幽靈系消耗50%最大HP每回合傷害目標。其他類型降低速度但提升攻擊和防禦。"
+  },
+  "112": {
+    "en": "Prevents any moves from hitting the user this turn.",
+    "zh": "本回合內防禦所有攻擊。"
+  },
+  "113": {
+    "en": "Scatters Spikes, hurting opposing Pokémon that switch in.",
+    "zh": "散布尖刺，對換場進入的對手寶可夢造成傷害。"
+  },
+  "114": {
+    "en": "Forces the target to have no evasion, and allows it to be hit by Normal and Fighting moves even if it's a Ghost.",
+    "zh": "消除目標的閃避效果，使目標即使是幽靈系也可被一般系和格鬥系招式命中。"
+  },
+  "115": {
+    "en": "User and target both faint after three turns.",
+    "zh": "3回合後使用者與目標同時瀕死。"
+  },
+  "116": {
+    "en": "Changes the weather to a sandstorm for five turns.",
+    "zh": "將天氣變為沙暴，持續5回合。"
+  },
+  "117": {
+    "en": "Prevents the user's HP from lowering below 1 this turn.",
+    "zh": "本回合內防止使用者HP降至1以下。"
+  },
+  "118": {
+    "en": "Power doubles every turn this move is used in succession after the first, resetting after five turns.",
+    "zh": "連續使用時，每回合威力翻倍，5回合後重置。"
+  },
+  "119": {
+    "en": "Raises the target's Attack by two stages and confuses the target.",
+    "zh": "將目標的攻擊提升2階，並使目標陷入混亂。"
+  },
+  "120": {
+    "en": "Power doubles every turn this move is used in succession after the first, maxing out after five turns.",
+    "zh": "連續使用時，每回合威力翻倍，5回合後達到最大值。"
+  },
+  "121": {
+    "en": "Target falls in love if it has the opposite gender, and has a 50% chance to refuse attacking the user.",
+    "zh": "若目標性別相反則陷入著迷，有50%機率無法攻擊使用者。"
+  },
+  "122": {
+    "en": "Power increases with happiness, up to a maximum of 102.",
+    "zh": "友好度越高威力越強，最大威力102。"
+  },
+  "123": {
+    "en": "Randomly inflicts damage with power from 40 to 120 or heals the target for 1/4 its max HP.",
+    "zh": "隨機造成威力40至120的傷害，或回復目標1/4最大HP。"
+  },
+  "124": {
+    "en": "Power increases as happiness decreases, up to a maximum of 102.",
+    "zh": "友好度越低威力越強，最大威力102。"
+  },
+  "125": {
+    "en": "Protects the user's field from major status ailments and confusion for five turns.",
+    "zh": "5回合內保護我方不受異常狀態和混亂影響。"
+  },
+  "126": {
+    "en": "Has a $effect_chance% chance to burn the target. Lets frozen Pokémon thaw themselves.",
+    "zh": "有 $effect_chance% 機率使目標灼傷。使凍結狀態的寶可夢解凍。"
+  },
+  "127": {
+    "en": "Power varies randomly from 10 to 150.",
+    "zh": "威力在10至150之間隨機變化。"
+  },
+  "128": {
+    "en": "Allows the trainer to switch out the user and pass effects along to its replacement.",
+    "zh": "允許訓練師將使用者換場，並將效果傳遞給替換的寶可夢。"
+  },
+  "129": {
+    "en": "Has double power against, and can hit, Pokémon attempting to switch out.",
+    "zh": "對正在換場的寶可夢威力加倍，且可命中換場中的寶可夢。"
+  },
+  "130": {
+    "en": "Frees the user from binding moves, removes Leech Seed, and blows away Spikes.",
+    "zh": "解除使用者的束縛效果，移除寄生種子，並清除尖刺。"
+  },
+  "131": {
+    "en": "Inflicts 20 points of damage.",
+    "zh": "造成20點固定傷害。"
+  },
+  "133": {
+    "en": "Heals the user by half its max HP. Affected by weather.",
+    "zh": "回復使用者50%最大HP，回復量受天氣影響。"
+  },
+  "136": {
+    "en": "Power and type depend upon user's IVs. Power can range from 30 to 70.",
+    "zh": "威力和屬性由使用者的個體值決定，威力在30至70之間。"
+  },
+  "137": {
+    "en": "Changes the weather to rain for five turns.",
+    "zh": "將天氣變為下雨，持續5回合。"
+  },
+  "138": {
+    "en": "Changes the weather to sunny for five turns.",
+    "zh": "將天氣變為晴天，持續5回合。"
+  },
+  "139": {
+    "en": "Has a $effect_chance% chance to raise the user's Defense by one stage.",
+    "zh": "有 $effect_chance% 機率將使用者的防禦提升1階。"
+  },
+  "140": {
+    "en": "Has a $effect_chance% chance to raise the user's Attack by one stage.",
+    "zh": "有 $effect_chance% 機率將使用者的攻擊提升1階。"
+  },
+  "141": {
+    "en": "Has a $effect_chance% chance to raise all of the user's stats by one stage.",
+    "zh": "有 $effect_chance% 機率將使用者所有能力值各提升1階。"
+  },
+  "143": {
+    "en": "User pays half its max HP to max out its Attack.",
+    "zh": "消耗使用者50%最大HP，使攻擊最大化。"
+  },
+  "144": {
+    "en": "Discards the user's stat changes and copies the target's.",
+    "zh": "拋棄使用者的能力值變化，複製目標的能力值變化。"
+  },
+  "145": {
+    "en": "Inflicts twice the damage the user received from the last special hit it took.",
+    "zh": "造成使用者上次受到特殊攻擊傷害兩倍的傷害。"
+  },
+  "146": {
+    "en": "Raises the user's Defense by one stage. User charges for one turn before attacking.",
+    "zh": "將使用者的防禦提升1階。使用者蓄力1回合後攻擊。"
+  },
+  "147": {
+    "en": "Has a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標畏縮。"
+  },
+  "148": {
+    "en": "Inflicts regular damage and can hit Dig users.",
+    "zh": "造成普通傷害，且可命中正在使用挖洞的寶可夢。"
+  },
+  "149": {
+    "en": "Hits the target two turns later.",
+    "zh": "在2回合後才命中目標。"
+  },
+  "150": {
+    "en": "Inflicts regular damage and can hit Pokémon in the air.",
+    "zh": "造成普通傷害，且可命中正在飛行的寶可夢。"
+  },
+  "151": {
+    "en": "Has a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標畏縮。"
+  },
+  "152": {
+    "en": "Requires a turn to charge before attacking.",
+    "zh": "需要蓄力1回合後再攻擊。"
+  },
+  "153": {
+    "en": "Has a $effect_chance% chance to paralyze the target.",
+    "zh": "有 $effect_chance% 機率使目標麻痺。"
+  },
+  "154": {
+    "en": "Immediately ends wild battles. No effect otherwise.",
+    "zh": "立即結束野生寶可夢對戰，在訓練師對戰中無效。"
+  },
+  "155": {
+    "en": "Hits once for every conscious Pokémon the trainer has.",
+    "zh": "對訓練師每隻存活的寶可夢各命中一次。"
+  },
+  "156": {
+    "en": "User flies high into the air, dodging all attacks, and hits next turn.",
+    "zh": "使用者飛至高空閃避所有攻擊，下一回合命中目標。"
+  },
+  "157": {
+    "en": "Raises user's Defense by one stage.",
+    "zh": "將使用者的防禦提升1階。"
+  },
+  "159": {
+    "en": "Can only be used as the first move after the user enters battle. Causes the target to flinch.",
+    "zh": "只能作為進場後的第一個招式使用。使目標畏縮。"
+  },
+  "160": {
+    "en": "Forced to use this move for several turns. Pokémon cannot fall asleep in that time.",
+    "zh": "強制連續使用此招式數回合。期間使用者不會陷入睡眠。"
+  },
+  "161": {
+    "en": "Stores energy up to three times for use with Spit Up and Swallow.",
+    "zh": "最多蓄積三次能量，供吐出和吞噬使用。"
+  },
+  "162": {
+    "en": "Power is 100 times the amount of energy Stockpiled.",
+    "zh": "威力為蓄力次數的100倍。"
+  },
+  "163": {
+    "en": "Recovers 1/4 HP after one Stockpile, 1/2 HP after two, or full HP after three.",
+    "zh": "根據蓄力次數回復HP：一次回復1/4、兩次回復1/2、三次完全回復。"
+  },
+  "165": {
+    "en": "Changes the weather to a hailstorm for five turns.",
+    "zh": "將天氣變為冰雹，持續5回合。"
+  },
+  "166": {
+    "en": "Prevents the target from using the same move twice in a row.",
+    "zh": "阻止目標連續2回合使用同一個招式。"
+  },
+  "167": {
+    "en": "Raises the target's Special Attack by one stage and confuses the target.",
+    "zh": "將目標的特攻提升1階，並使目標陷入混亂。"
+  },
+  "168": {
+    "en": "Burns the target.",
+    "zh": "使目標灼傷。"
+  },
+  "169": {
+    "en": "Lowers the target's Attack and Special Attack by two stages. User faints.",
+    "zh": "將目標的攻擊和特攻各降低2階。使用者陷入瀕死。"
+  },
+  "170": {
+    "en": "Power doubles if user is burned, paralyzed, or poisoned.",
+    "zh": "若使用者灼傷、麻痺或中毒，威力加倍。"
+  },
+  "171": {
+    "en": "If the user takes damage before attacking, the attack is canceled.",
+    "zh": "若使用者在攻擊前受到傷害，招式取消。"
+  },
+  "172": {
+    "en": "If the target is paralyzed, inflicts double damage and cures the paralysis.",
+    "zh": "若目標麻痺，造成兩倍傷害並解除麻痺。"
+  },
+  "173": {
+    "en": "Redirects the target's single-target effects to the user for this turn.",
+    "zh": "本回合將目標的單體效果重定向至使用者。"
+  },
+  "174": {
+    "en": "Uses a move which depends upon the terrain.",
+    "zh": "使用根據場地效果決定的招式。"
+  },
+  "175": {
+    "en": "Raises the user's Special Defense by one stage. User's Electric moves have doubled power next turn.",
+    "zh": "將使用者的特防提升1階。使用者下一回合的電系招式威力加倍。"
+  },
+  "176": {
+    "en": "For the next few turns, the target can only use damaging moves.",
+    "zh": "在接下來數回合內，目標只能使用造成傷害的招式。"
+  },
+  "177": {
+    "en": "Ally's next move inflicts half more damage.",
+    "zh": "友方下一個招式的傷害提升50%。"
+  },
+  "178": {
+    "en": "User and target swap items.",
+    "zh": "使用者與目標交換持有道具。"
+  },
+  "179": {
+    "en": "Copies the target's ability.",
+    "zh": "複製目標的特性。"
+  },
+  "180": {
+    "en": "User will recover half its max HP at the end of the next turn.",
+    "zh": "使用者在下一回合結束時回復50%最大HP。"
+  },
+  "181": {
+    "en": "Randomly selects and uses one of the trainer's other Pokémon's moves.",
+    "zh": "隨機選擇並使用訓練師其他寶可夢的招式之一。"
+  },
+  "182": {
+    "en": "Prevents the user from leaving battle. User regains 1/16 of its max HP every turn.",
+    "zh": "阻止使用者離場。使用者每回合回復1/16最大HP。"
+  },
+  "183": {
+    "en": "Lowers the user's Attack and Defense by one stage after inflicting damage.",
+    "zh": "造成傷害後，將使用者的攻擊和防禦各降低1階。"
+  },
+  "184": {
+    "en": "Reflects back the first effect move used on the user this turn.",
+    "zh": "將本回合對使用者使用的第一個變化招式反彈回去。"
+  },
+  "185": {
+    "en": "User recovers the item it last used up.",
+    "zh": "使用者取回最後消耗的道具。"
+  },
+  "186": {
+    "en": "Inflicts double damage if the user takes damage before attacking this turn.",
+    "zh": "若使用者本回合攻擊前受到傷害，造成兩倍傷害。"
+  },
+  "187": {
+    "en": "Destroys Reflect and Light Screen.",
+    "zh": "破壞反射壁和光牆。"
+  },
+  "188": {
+    "en": "Target sleeps at the end of the next turn.",
+    "zh": "目標在下一回合結束時陷入睡眠。"
+  },
+  "189": {
+    "en": "Target drops its held item.",
+    "zh": "使目標丟棄持有道具。"
+  },
+  "190": {
+    "en": "Lowers the target's HP to equal the user's.",
+    "zh": "將目標的HP降低至與使用者相同。"
+  },
+  "191": {
+    "en": "Inflicts more damage when the user has more HP remaining, with a maximum of 150 power.",
+    "zh": "使用者剩餘HP越多，威力越高，最大威力150。"
+  },
+  "192": {
+    "en": "User and target swap abilities.",
+    "zh": "使用者與目標交換特性。"
+  },
+  "193": {
+    "en": "Prevents the target from using any moves that the user also knows.",
+    "zh": "阻止目標使用與使用者相同的招式。"
+  },
+  "194": {
+    "en": "Cleanses the user of a burn, paralysis, or poison.",
+    "zh": "治癒使用者的灼傷、麻痺或中毒狀態。"
+  },
+  "195": {
+    "en": "If the user faints this turn, the PP of the move that fainted it drops to 0.",
+    "zh": "若使用者本回合瀕死，造成其瀕死的招式PP歸零。"
+  },
+  "196": {
+    "en": "Steals the target's move, if it's self-targeted.",
+    "zh": "若目標正在使用對自身的招式，則竊取該招式。"
+  },
+  "197": {
+    "en": "Inflicts more damage to heavier targets, with a maximum of 120 power.",
+    "zh": "目標體重越重，威力越高，最大威力120。"
+  },
+  "198": {
+    "en": "Has a $effect_chance% chance to inflict a status effect which depends upon the terrain.",
+    "zh": "有 $effect_chance% 機率依場地效果造成相應的異常狀態。"
+  },
+  "199": {
+    "en": "User receives 1/3 the damage inflicted in recoil.",
+    "zh": "捨身衝撞對手進行攻擊。使用者也會受到所造成傷害1/3的傷害。"
+  },
+  "200": {
+    "en": "Confuses the target.",
+    "zh": "使目標陷入混亂。"
+  },
+  "201": {
+    "en": "Has an increased chance for a critical hit and a $effect_chance% chance to burn the target.",
+    "zh": "會心一擊率提升，且有 $effect_chance% 機率使目標灼傷。"
+  },
+  "202": {
+    "en": "Halves all Electric-type damage.",
+    "zh": "將所有電系傷害減半。"
+  },
+  "203": {
+    "en": "Has a $effect_chance% chance to badly poison the target.",
+    "zh": "有 $effect_chance% 機率使目標陷入劇毒狀態。"
+  },
+  "204": {
+    "en": "If there is weather, this move has doubled power and the weather's type.",
+    "zh": "若有天氣效果，此招式威力加倍並變為對應的屬性。"
+  },
+  "205": {
+    "en": "Lowers the user's Special Attack by two stages after inflicting damage.",
+    "zh": "造成傷害後，將使用者的特攻降低2階。"
+  },
+  "206": {
+    "en": "Lowers the target's Attack and Defense by one stage.",
+    "zh": "將目標的攻擊和防禦各降低1階。"
+  },
+  "207": {
+    "en": "Raises the user's Defense and Special Defense by one stage.",
+    "zh": "將使用者的防禦和特防各提升1階。"
+  },
+  "208": {
+    "en": "Inflicts regular damage and can hit Bounce and Fly users.",
+    "zh": "造成普通傷害，且可命中正在使用跳躍或飛翔的寶可夢。"
+  },
+  "209": {
+    "en": "Raises the user's Attack and Defense by one stage.",
+    "zh": "將使用者的攻擊和防禦各提升1階。"
+  },
+  "210": {
+    "en": "Has an increased chance for a critical hit and a $effect_chance% chance to poison the target.",
+    "zh": "會心一擊率提升，且有 $effect_chance% 機率使目標中毒。"
+  },
+  "211": {
+    "en": "Halves all Fire-type damage.",
+    "zh": "將所有火系傷害減半。"
+  },
+  "212": {
+    "en": "Raises the user's Special Attack and Special Defense by one stage.",
+    "zh": "將使用者的特攻和特防各提升1階。"
+  },
+  "213": {
+    "en": "Raises the user's Attack and Speed by one stage.",
+    "zh": "將使用者的攻擊和速度各提升1階。"
+  },
+  "214": {
+    "en": "User's type changes to match the terrain.",
+    "zh": "使用者的屬性變為對應當前場地效果的屬性。"
+  },
+  "215": {
+    "en": "Heals the user by half its max HP.",
+    "zh": "回復使用者50%最大HP。"
+  },
+  "216": {
+    "en": "Disables moves and immunities that involve flying or levitating for five turns.",
+    "zh": "5回合內禁用與飛行或浮空相關的招式及免疫效果。"
+  },
+  "217": {
+    "en": "Forces the target to have no evasion, and allows it to be hit by Psychic moves even if it's Dark.",
+    "zh": "消除目標的閃避效果，使目標即使是惡系也可被超能力系招式命中。"
+  },
+  "218": {
+    "en": "If the target is asleep, has double power and wakes it up.",
+    "zh": "若目標睡眠，威力加倍並將其喚醒。"
+  },
+  "219": {
+    "en": "Lowers user's Speed by one stage.",
+    "zh": "將使用者的速度降低1階。"
+  },
+  "220": {
+    "en": "Power raises when the user has lower Speed, up to a maximum of 150.",
+    "zh": "使用者速度越低，威力越高，最大威力150。"
+  },
+  "221": {
+    "en": "User faints. Its replacement has its HP fully restored and any major status effect removed.",
+    "zh": "使用者瀕死，其替換的寶可夢HP完全回復並解除異常狀態。"
+  },
+  "222": {
+    "en": "Has double power against Pokémon that have less than half their max HP remaining.",
+    "zh": "對剩餘HP不足50%的寶可夢威力加倍。"
+  },
+  "223": {
+    "en": "Power and type depend on the held berry.",
+    "zh": "威力和屬性由持有的樹果決定。"
+  },
+  "224": {
+    "en": "Hits through Protect and Detect.",
+    "zh": "可穿透保護效果命中目標。"
+  },
+  "225": {
+    "en": "If target has a berry, inflicts double damage and uses the berry.",
+    "zh": "若目標持有樹果，造成兩倍傷害並使用該樹果。"
+  },
+  "226": {
+    "en": "For three turns, friendly Pokémon have doubled Speed.",
+    "zh": "3回合內，我方所有寶可夢速度加倍。"
+  },
+  "227": {
+    "en": "Raises one of a friendly Pokémon's stats at random by two stages.",
+    "zh": "隨機將我方一隻寶可夢的某項能力值提升2階。"
+  },
+  "228": {
+    "en": "Strikes back at the last Pokémon to hit the user this turn with 1.5× the damage.",
+    "zh": "以1.5倍傷害反擊本回合最後攻擊使用者的寶可夢。"
+  },
+  "229": {
+    "en": "User must switch out after attacking.",
+    "zh": "攻擊後使用者必須換場。"
+  },
+  "230": {
+    "en": "Lowers the user's Defense and Special Defense by one stage after inflicting damage.",
+    "zh": "造成傷害後，將使用者的防禦和特防各降低1階。"
+  },
+  "231": {
+    "en": "Power is doubled if the target has already moved this turn.",
+    "zh": "若目標本回合已行動，威力加倍。"
+  },
+  "232": {
+    "en": "Power is doubled if the target has already received damage this turn.",
+    "zh": "若目標本回合已受到傷害，威力加倍。"
+  },
+  "233": {
+    "en": "Target cannot use held items.",
+    "zh": "目標無法使用持有道具。"
+  },
+  "234": {
+    "en": "Throws held item at the target; power depends on the item.",
+    "zh": "將持有道具投擲至目標，威力取決於道具種類。"
+  },
+  "235": {
+    "en": "Transfers the user's major status effect to the target.",
+    "zh": "將使用者的異常狀態轉移給目標。"
+  },
+  "236": {
+    "en": "Power increases when this move has less PP, up to a maximum of 200.",
+    "zh": "此招式剩餘PP越少，威力越高，最大威力200。"
+  },
+  "237": {
+    "en": "Prevents target from restoring its HP for five turns.",
+    "zh": "5回合內阻止目標回復HP。"
+  },
+  "238": {
+    "en": "Power increases against targets with more HP remaining, up to a maximum of 121 power.",
+    "zh": "目標剩餘HP越多，威力越高，最大威力121。"
+  },
+  "239": {
+    "en": "User swaps Attack and Defense.",
+    "zh": "使用者交換攻擊和防禦的數值。"
+  },
+  "240": {
+    "en": "Nullifies target's ability until it leaves battle.",
+    "zh": "封鎖目標的特性直到其離場。"
+  },
+  "241": {
+    "en": "Prevents the target from scoring critical hits for five turns.",
+    "zh": "5回合內阻止目標出現會心一擊。"
+  },
+  "242": {
+    "en": "Uses the target's move against it before it attacks, with power increased by half.",
+    "zh": "在目標攻擊前，以1.5倍威力搶先使用目標的招式攻擊對方。"
+  },
+  "243": {
+    "en": "Uses the target's last used move.",
+    "zh": "使用目標最後使用的招式。"
+  },
+  "244": {
+    "en": "User swaps Attack and Special Attack changes with the target.",
+    "zh": "使用者與目標交換攻擊和特攻的變化階段。"
+  },
+  "245": {
+    "en": "User swaps Defense and Special Defense changes with the target.",
+    "zh": "使用者與目標交換防禦和特防的變化階段。"
+  },
+  "246": {
+    "en": "Power increases against targets with more raised stats, up to a maximum of 200.",
+    "zh": "目標能力值提升越多，威力越高，最大威力200。"
+  },
+  "247": {
+    "en": "Can only be used after all of the user's other moves have been used.",
+    "zh": "只能在使用者其他招式都已使用過後才能使用。"
+  },
+  "248": {
+    "en": "Changes the target's ability to Insomnia.",
+    "zh": "將目標的特性變為失眠。"
+  },
+  "249": {
+    "en": "Only works if the target is about to use a damaging move.",
+    "zh": "只對目標即將使用攻擊招式時有效。"
+  },
+  "250": {
+    "en": "Scatters poisoned spikes, poisoning opposing Pokémon that switch in.",
+    "zh": "散布毒菱，對換場進入的對手寶可夢造成中毒。"
+  },
+  "251": {
+    "en": "User and target swap stat changes.",
+    "zh": "使用者與目標交換能力值的變化階段。"
+  },
+  "252": {
+    "en": "Restores 1/16 of the user's max HP each turn.",
+    "zh": "每回合回復使用者1/16最大HP。"
+  },
+  "253": {
+    "en": "User is immune to Ground moves and effects for five turns.",
+    "zh": "5回合內使用者免疫地面系招式及效果。"
+  },
+  "254": {
+    "en": "User takes 1/3 the damage inflicted in recoil. Has a $effect_chance% chance to burn the target.",
+    "zh": "使用者也會受到所造成傷害1/3的傷害。有 $effect_chance% 機率使目標灼傷。"
+  },
+  "255": {
+    "en": "User takes 1/4 its max HP in recoil.",
+    "zh": "使用者也會受到其最大HP 1/4的傷害。"
+  },
+  "256": {
+    "en": "User dives underwater, dodging all attacks, and hits next turn.",
+    "zh": "使用者潛入水中閃避所有攻擊，下一回合命中目標。"
+  },
+  "257": {
+    "en": "User digs underground, dodging all attacks, and hits next turn.",
+    "zh": "使用者挖掘入地閃避所有攻擊，下一回合命中目標。"
+  },
+  "258": {
+    "en": "Inflicts regular damage and can hit Dive users.",
+    "zh": "造成普通傷害，且可命中正在使用潛水的寶可夢。"
+  },
+  "259": {
+    "en": "Lowers the target's evasion by one stage. Removes field effects from the enemy field.",
+    "zh": "將目標的閃避率降低1階，並移除對手場地的場地效果。"
+  },
+  "260": {
+    "en": "For five turns, slower Pokémon will act before faster Pokémon.",
+    "zh": "5回合內，速度較慢的寶可夢優先行動。"
+  },
+  "261": {
+    "en": "Has a $effect_chance% chance to freeze the target.",
+    "zh": "有 $effect_chance% 機率使目標冰凍。"
+  },
+  "262": {
+    "en": "Prevents the target from leaving battle and inflicts 1/16 its max HP in damage for 2-5 turns.",
+    "zh": "阻止目標離場，並在2-5回合內每回合造成目標1/16最大HP的傷害。"
+  },
+  "263": {
+    "en": "User takes 1/3 the damage inflicted in recoil. Has a $effect_chance% chance to paralyze the target.",
+    "zh": "使用者也會受到所造成傷害1/3的傷害。有 $effect_chance% 機率使目標麻痺。"
+  },
+  "264": {
+    "en": "User bounces high into the air, dodging all attacks, and hits next turn.",
+    "zh": "使用者跳至高空閃避所有攻擊，下一回合命中目標。"
+  },
+  "266": {
+    "en": "Lowers the target's Special Attack by two stages if it's the opposite gender.",
+    "zh": "若目標性別相反，將其特攻降低2階。"
+  },
+  "267": {
+    "en": "Causes damage when opposing Pokémon switch in.",
+    "zh": "對換場進入的對手寶可夢造成傷害。"
+  },
+  "268": {
+    "en": "Has a higher chance to confuse the target when the recorded sound is louder.",
+    "zh": "錄製的聲音越大，使目標混亂的機率越高。"
+  },
+  "269": {
+    "en": "If the user is holding an appropriate plate or drive, the damage inflicted will match it.",
+    "zh": "若使用者持有相應的石板或驅動器，傷害屬性改變為對應屬性。"
+  },
+  "270": {
+    "en": "User receives 1/2 the damage inflicted in recoil.",
+    "zh": "使出渾身力量，捨身向對手進行頭錘攻擊。使用者也會受到所造成傷害1/2的傷害。"
+  },
+  "271": {
+    "en": "User faints, and its replacement is fully healed.",
+    "zh": "使用者瀕死，其替換的寶可夢HP完全回復。"
+  },
+  "272": {
+    "en": "Has a $effect_chance% chance to lower the target's Special Defense by two stages.",
+    "zh": "有 $effect_chance% 機率將目標的特防降低2階。"
+  },
+  "273": {
+    "en": "User vanishes, dodging all attacks, and hits next turn. Hits through Protect and Detect.",
+    "zh": "使用者消失閃避所有攻擊，下一回合命中目標，可穿透守護。"
+  },
+  "274": {
+    "en": "Has a $effect_chance% chance to burn the target and a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標灼傷，以及 $effect_chance% 機率使目標畏縮。"
+  },
+  "275": {
+    "en": "Has a $effect_chance% chance to freeze the target and a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標冰凍，以及 $effect_chance% 機率使目標畏縮。"
+  },
+  "276": {
+    "en": "Has a $effect_chance% chance to paralyze the target and a $effect_chance% chance to make the target flinch.",
+    "zh": "有 $effect_chance% 機率使目標麻痺，以及 $effect_chance% 機率使目標畏縮。"
+  },
+  "277": {
+    "en": "Has a $effect_chance% chance to raise the user's Special Attack by one stage.",
+    "zh": "有 $effect_chance% 機率將使用者的特攻提升1階。"
+  },
+  "278": {
+    "en": "Raises the user's Attack and accuracy by one stage.",
+    "zh": "將使用者的攻擊和命中率各提升1階。"
+  },
+  "279": {
+    "en": "Prevents any multi-target moves from hitting friendly Pokémon this turn.",
+    "zh": "本回合內防止任何範圍招式命中我方寶可夢。"
+  },
+  "280": {
+    "en": "Averages Defense and Special Defense with the target.",
+    "zh": "將使用者與目標的防禦和特防取平均值。"
+  },
+  "281": {
+    "en": "Averages Attack and Special Attack with the target.",
+    "zh": "將使用者與目標的攻擊和特攻取平均值。"
+  },
+  "282": {
+    "en": "All Pokémon's Defense and Special Defense are swapped for 5 turns.",
+    "zh": "5回合內所有寶可夢的防禦和特防互換。"
+  },
+  "283": {
+    "en": "Inflicts damage based on the target's Defense, not Special Defense.",
+    "zh": "以目標的防禦而非特防計算傷害。"
+  },
+  "284": {
+    "en": "Inflicts double damage if the target is Poisoned.",
+    "zh": "若目標中毒，威力加倍。"
+  },
+  "285": {
+    "en": "Raises the user's Speed by two stages and halves the user's weight.",
+    "zh": "將使用者的速度提升2階，並將使用者的體重減半。"
+  },
+  "286": {
+    "en": "Moves have 100% accuracy against the target for three turns.",
+    "zh": "3回合內對目標的招式必定命中。"
+  },
+  "287": {
+    "en": "Negates held items for five turns.",
+    "zh": "5回合內使場上所有道具失效。"
+  },
+  "288": {
+    "en": "Removes any immunity to Ground damage.",
+    "zh": "消除對地面系傷害的免疫效果。"
+  },
+  "289": {
+    "en": "Always scores a critical hit.",
+    "zh": "必定會心一擊。"
+  },
+  "290": {
+    "en": "Deals splash damage to Pokémon next to the target.",
+    "zh": "對目標周圍的寶可夢造成濺射傷害。"
+  },
+  "291": {
+    "en": "Raises the user's Special Attack, Special Defense, and Speed by one stage each.",
+    "zh": "將使用者的特攻、特防和速度各提升1階。"
+  },
+  "292": {
+    "en": "Power is higher when the user weighs more than the target, up to a maximum of 120.",
+    "zh": "使用者體重相對目標越重，威力越高，最大威力120。"
+  },
+  "293": {
+    "en": "Hits any Pokémon that shares a type with the user.",
+    "zh": "命中所有與使用者同屬性的寶可夢。"
+  },
+  "294": {
+    "en": "Power is higher when the user has greater Speed than the target, up to a maximum of 150.",
+    "zh": "使用者速度相對目標越快，威力越高，最大威力150。"
+  },
+  "295": {
+    "en": "Changes the target's type to Water.",
+    "zh": "將目標的屬性變為水系。"
+  },
+  "296": {
+    "en": "Inflicts regular damage. Raises the user's Speed by one stage.",
+    "zh": "造成普通傷害，並將使用者的速度提升1階。"
+  },
+  "297": {
+    "en": "Lowers the target's Special Defense by two stages.",
+    "zh": "將目標的特防降低2階。"
+  },
+  "298": {
+    "en": "Calculates damage with the target's attacking stat.",
+    "zh": "以目標的攻擊能力值計算傷害。"
+  },
+  "299": {
+    "en": "Changes the target's ability to Simple.",
+    "zh": "將目標的特性變為單純。"
+  },
+  "300": {
+    "en": "Copies the user's ability onto the target.",
+    "zh": "將使用者的特性複製給目標。"
+  },
+  "301": {
+    "en": "Makes the target act next this turn.",
+    "zh": "使目標在本回合立即行動。"
+  },
+  "302": {
+    "en": "Has double power if it's used more than once per turn.",
+    "zh": "若同回合使用超過一次，威力加倍。"
+  },
+  "303": {
+    "en": "Power increases by 100% for each consecutive use by any friendly Pokémon, to a maximum of 200.",
+    "zh": "我方寶可夢每連續使用一次，威力提升100%，最大威力200。"
+  },
+  "304": {
+    "en": "Ignores the target's stat modifiers.",
+    "zh": "無視目標的能力值變化。"
+  },
+  "305": {
+    "en": "Removes all of the target's stat modifiers.",
+    "zh": "清除目標所有的能力值變化。"
+  },
+  "306": {
+    "en": "Power is higher the more the user's stats have been raised, to a maximum of 31×.",
+    "zh": "使用者能力值提升越多，威力越高，最大為31倍。"
+  },
+  "307": {
+    "en": "Prevents any priority moves from hitting friendly Pokémon this turn.",
+    "zh": "本回合內防止任何優先度招式命中我方寶可夢。"
+  },
+  "308": {
+    "en": "User switches places with the friendly Pokémon opposite it.",
+    "zh": "使用者與對面的友方寶可夢交換位置。"
+  },
+  "309": {
+    "en": "Raises user's Attack, Special Attack, and Speed by two stages. Lowers user's Defense and Special Defense by one stage.",
+    "zh": "將使用者的攻擊、特攻和速度各提升2階，同時將防禦和特防各降低1階。"
+  },
+  "310": {
+    "en": "Heals the target for half its max HP.",
+    "zh": "回復目標50%最大HP。"
+  },
+  "311": {
+    "en": "Has double power if the target has a major status ailment.",
+    "zh": "若目標有異常狀態，威力加倍。"
+  },
+  "312": {
+    "en": "Carries the target high into the air, dodging all attacks against either, and drops it next turn.",
+    "zh": "帶著目標飛至高空，雙方閃避所有攻擊，下一回合落下造成傷害。"
+  },
+  "313": {
+    "en": "Raises the user's Attack by one stage and its Speed by two stages.",
+    "zh": "將使用者的攻擊提升1階，速度提升2階。"
+  },
+  "314": {
+    "en": "Ends wild battles. Forces trainers to switch Pokémon.",
+    "zh": "結束野生對戰。強制讓後備寶可夢上場。"
+  },
+  "315": {
+    "en": "Destroys the target's held berry.",
+    "zh": "破壞目標持有的樹果。"
+  },
+  "316": {
+    "en": "Makes the target act last this turn.",
+    "zh": "使目標在本回合最後行動。"
+  },
+  "317": {
+    "en": "Raises the user's Attack and Special Attack by one stage.",
+    "zh": "將使用者的攻擊和特攻各提升1階。"
+  },
+  "318": {
+    "en": "Has double power if the user has no held item.",
+    "zh": "若使用者沒有持有道具，威力加倍。"
+  },
+  "319": {
+    "en": "User becomes the target's type.",
+    "zh": "使用者的屬性變為目標的屬性。"
+  },
+  "320": {
+    "en": "Has double power if a friendly Pokémon fainted last turn.",
+    "zh": "若上1回合有友方寶可夢瀕死，威力加倍。"
+  },
+  "321": {
+    "en": "Inflicts damage equal to the user's remaining HP. User faints.",
+    "zh": "造成與使用者剩餘HP相等的傷害，使用者瀕死。"
+  },
+  "322": {
+    "en": "Raises the user's Special Attack by three stages.",
+    "zh": "將使用者的特攻提升3階。"
+  },
+  "323": {
+    "en": "Raises the user's Attack, Defense, and accuracy by one stage each.",
+    "zh": "將使用者的攻擊、防禦和命中率各提升1階。"
+  },
+  "324": {
+    "en": "Gives the user's held item to the target.",
+    "zh": "將使用者的持有道具給予目標。"
+  },
+  "325": {
+    "en": "With Grass Pledge, halves opposing Pokémon's Speed for four turns.",
+    "zh": "與草之誓約配合使用，4回合內將對手速度減半。"
+  },
+  "326": {
+    "en": "With Water Pledge, doubles the effect chance of friendly Pokémon's moves for four turns.",
+    "zh": "與水之誓約配合使用，4回合內使我方招式的附加效果機率加倍。"
+  },
+  "327": {
+    "en": "With Fire Pledge, damages opposing Pokémon for 1/8 their max HP every turn for four turns.",
+    "zh": "與火之誓約配合使用，4回合內每回合對對手造成1/8最大HP的傷害。"
+  },
+  "328": {
+    "en": "Raises the user's Attack and Special Attack by one stage each.",
+    "zh": "將使用者的攻擊和特攻各提升1階。"
+  },
+  "329": {
+    "en": "Raises the user's Defense by three stages.",
+    "zh": "將使用者的防禦提升3階。"
+  },
+  "330": {
+    "en": "Has a $effect_chance% chance to put the target to sleep.",
+    "zh": "有 $effect_chance% 機率使目標睡眠。"
+  },
+  "331": {
+    "en": "Lowers the target's Speed by one stage.",
+    "zh": "將目標的速度降低1階。"
+  },
+  "332": {
+    "en": "Requires a turn to charge before attacking. Has a $effect_chance% chance to paralyze the target.",
+    "zh": "需要蓄力1回合後攻擊。有 $effect_chance% 機率使目標麻痺。"
+  },
+  "333": {
+    "en": "Requires a turn to charge before attacking. Has a $effect_chance% chance to burn the target.",
+    "zh": "需要蓄力1回合後攻擊。有 $effect_chance% 機率使目標灼傷。"
+  },
+  "334": {
+    "en": "Has a $effect_chance% chance to confuse the target.",
+    "zh": "有 $effect_chance% 機率使目標陷入混亂。"
+  },
+  "335": {
+    "en": "Lowers the user's Defense, Special Defense, and Speed by one stage each.",
+    "zh": "將使用者的防禦、特防和速度各降低1階。"
+  },
+  "336": {
+    "en": "With Fusion Bolt, inflicts double damage.",
+    "zh": "與聚雷閃擊配合使用，造成兩倍傷害。"
+  },
+  "337": {
+    "en": "With Fusion Flare, inflicts double damage.",
+    "zh": "與聚焰衝擊配合使用，造成兩倍傷害。"
+  },
+  "338": {
+    "en": "Deals both Fighting and Flying-type damage.",
+    "zh": "同時造成格鬥系和飛行系的傷害。"
+  },
+  "339": {
+    "en": "Can only be used after the user has eaten a berry.",
+    "zh": "只能在使用者已食用樹果後使用。"
+  },
+  "340": {
+    "en": "Raises the Attack and Special Attack of all Grass Pokémon in battle by one stage.",
+    "zh": "提升場上所有草系寶可夢的攻擊和特攻1階。"
+  },
+  "341": {
+    "en": "Covers the opposing field, lowering opponents' Speed by one stage upon switching in.",
+    "zh": "覆蓋對手場地，對換場進入的對手速度降低1階。"
+  },
+  "342": {
+    "en": "Raises the user's Attack by two stages if it KOs the target.",
+    "zh": "若擊倒目標，使用者的攻擊提升2階。"
+  },
+  "343": {
+    "en": "Adds Ghost to the target's types.",
+    "zh": "為目標增加幽靈系屬性。"
+  },
+  "344": {
+    "en": "Lowers the target's Attack and Special Attack by one stage.",
+    "zh": "將目標的攻擊和特攻各降低1階。"
+  },
+  "345": {
+    "en": "Changes all Normal moves to Electric moves for the rest of the turn.",
+    "zh": "本回合內將所有一般系招式變為電系招式。"
+  },
+  "346": {
+    "en": "Heals the user for half the total damage dealt to all targets.",
+    "zh": "回復對所有目標造成的總傷害50%的HP。"
+  },
+  "347": {
+    "en": "Lowers all targets' Attack and Special Attack by one stage. Makes the user switch out.",
+    "zh": "將所有目標的攻擊和特攻各降低1階，使用者換場。"
+  },
+  "348": {
+    "en": "Inverts the target's stat modifiers.",
+    "zh": "反轉目標的能力值變化（提升變降低，降低變提升）。"
+  },
+  "349": {
+    "en": "Drains 75% of the damage inflicted to heal the user.",
+    "zh": "吸收造成傷害的75%來回復使用者。"
+  },
+  "350": {
+    "en": "Protects all friendly Pokémon from non-damaging moves.",
+    "zh": "保護我方所有寶可夢免受變化招式影響。"
+  },
+  "351": {
+    "en": "Raises the Defense of all Grass Pokémon in battle by one stage.",
+    "zh": "提升場上所有草系寶可夢的防禦1階。"
+  },
+  "352": {
+    "en": "For five turns, heals all Pokémon on the ground for 1/16 max HP each turn and strengthens their Grass moves to 1.5× their power.",
+    "zh": "5回合內，每回合回復場上所有寶可夢1/16最大HP，並使草系招式威力提升至1.5倍。"
+  },
+  "353": {
+    "en": "For five turns, protects all Pokémon on the ground from major status ailments and confusion, and halves the power of incoming Dragon moves.",
+    "zh": "5回合內保護場上所有寶可夢免受異常狀態和混亂影響，並將受到的龍系招式威力減半。"
+  },
+  "354": {
+    "en": "Changes the target's move's type to Electric if it hasn't moved yet this turn.",
+    "zh": "若目標本回合尚未行動，將其即將使用的招式屬性變為電系。"
+  },
+  "355": {
+    "en": "Prevents all Pokémon from fleeing or switching out during the next turn.",
+    "zh": "下一回合內阻止所有寶可夢逃跑或換場。"
+  },
+  "356": {
+    "en": "Blocks damaging attacks and lowers attacking Pokémon's Attack by two stages on contact. Switches Aegislash to Shield Forme.",
+    "zh": "防禦攻擊招式，接觸時將攻擊方的攻擊降低2階。使劍盾神獸切換至盾之形態。"
+  },
+  "357": {
+    "en": "Lowers the target's Attack by one stage.",
+    "zh": "將目標的攻擊降低1階。"
+  },
+  "358": {
+    "en": "Lowers the target's Special Attack by one stage.",
+    "zh": "將目標的特攻降低1階。"
+  },
+  "359": {
+    "en": "Has a $effect_chance% chance to raise the user's Defense by two stages for each target hit.",
+    "zh": "每命中一個目標有 $effect_chance% 機率將使用者的防禦提升2階。"
+  },
+  "360": {
+    "en": "Ignores and destroys protection effects.",
+    "zh": "無視並破壞保護效果。"
+  },
+  "361": {
+    "en": "Hits 2-5 times.",
+    "zh": "命中2-5次。"
+  },
+  "362": {
+    "en": "Blocks damaging attacks and damages attacking Pokémon for 1/8 their max HP.",
+    "zh": "防禦攻擊招式，並對攻擊方造成其最大HP 1/8的傷害。"
+  },
+  "363": {
+    "en": "Raises a selected ally's Special Defense by one stage.",
+    "zh": "將選定的友方寶可夢特防提升1階。"
+  },
+  "364": {
+    "en": "Lowers the target's Attack, Special Attack, and Speed by one stage if it is poisoned.",
+    "zh": "若目標中毒，將其攻擊、特攻和速度各降低1階。"
+  },
+  "365": {
+    "en": "Lowers the target's Attack by one stage.",
+    "zh": "將目標的攻擊降低1階。"
+  },
+  "366": {
+    "en": "Takes one turn to charge, then raises the user's Special Attack, Special Defense, and Speed by two stages.",
+    "zh": "蓄力1回合後，將使用者的特攻、特防和速度各提升2階。"
+  },
+  "367": {
+    "en": "Raises the Defense and Special Defense of all friendly Pokémon with Plus or Minus by one stage.",
+    "zh": "將所有持有正電或負電特性的友方寶可夢防禦和特防各提升1階。"
+  },
+  "368": {
+    "en": "Doubles prize money.",
+    "zh": "使獲得的獎金加倍。"
+  },
+  "369": {
+    "en": "For five turns, prevents all Pokémon on the ground from sleeping and strengthens their Electric moves to 1.5× their power.",
+    "zh": "5回合內阻止場上所有寶可夢陷入睡眠，並使電系招式威力提升至1.5倍。"
+  },
+  "370": {
+    "en": "Does nothing.",
+    "zh": null
+  },
+  "371": {
+    "en": "Does nothing.",
+    "zh": null
+  },
+  "372": {
+    "en": "Has a $effect_chance% chance to paralyze the target.",
+    "zh": "有 $effect_chance% 機率使目標麻痺。"
+  },
+  "373": {
+    "en": "Grounds the target, and hits even Flying-type or levitating Pokémon.",
+    "zh": "使目標著地，且可命中飛行系或浮空的寶可夢。"
+  },
+  "374": {
+    "en": "Prevents the target from leaving battle.",
+    "zh": "阻止目標離場。"
+  },
+  "375": {
+    "en": "Raises the user's Attack by one stage after inflicting damage.",
+    "zh": "造成傷害後，將使用者的攻擊提升1階。"
+  },
+  "376": {
+    "en": "Adds Grass to the target's types.",
+    "zh": "為目標增加草系屬性。"
+  },
+  "377": {
+    "en": "Protects all friendly Pokémon from damaging moves. Only works on the first turn after the user is sent out.",
+    "zh": "保護我方所有寶可夢免受攻擊招式影響。只能在使用者出場後的第一回合使用。"
+  },
+  "378": {
+    "en": "Explodes if the target uses a Fire move this turn, damaging it for 1/4 its max HP and preventing the move.",
+    "zh": "若目標本回合使用火系招式則爆炸，對其造成1/4最大HP的傷害並阻止招式發動。"
+  },
+  "379": {
+    "en": "Inflicts regular damage.",
+    "zh": null
+  },
+  "380": {
+    "en": "Super-effective against Water.",
+    "zh": "對水系有超級效果。"
+  },
+  "381": {
+    "en": "Never misses.",
+    "zh": "必定命中。"
+  },
+  "382": {
+    "en": "Heals the user for ½ its max HP, or ⅔ during a sandstorm.",
+    "zh": "回復使用者1/2最大HP，沙暴中回復2/3。"
+  },
+  "383": {
+    "en": "Can only be used as the first move after the user enters battle.",
+    "zh": "只能作為進場後的第一個招式使用。"
+  },
+  "384": {
+    "en": "Grants the user protection for the rest of the turn and poisons any Pokémon that tries to use a contact move on it.",
+    "zh": "本回合內保護使用者，並使嘗試接觸使用者的寶可夢中毒。"
+  },
+  "385": {
+    "en": "Traps the target.",
+    "zh": "束縛目標，阻止其離場。"
+  },
+  "386": {
+    "en": "Cures the target of burns.",
+    "zh": "治癒目標的灼傷狀態。"
+  },
+  "387": {
+    "en": "Heals the target for ½ its max HP, or ⅔ on Grassy Terrain.",
+    "zh": "回復目標1/2最大HP，草木場地中回復2/3。"
+  },
+  "388": {
+    "en": "Heals the user by the target's current Attack stat and lowers the target's Attack by one stage.",
+    "zh": "使用者回復與目標攻擊數值相等的HP，同時將目標攻擊降低1階。"
+  },
+  "389": {
+    "en": "Forces the target's opponents to aim at the target for the rest of the turn.",
+    "zh": "本回合內迫使目標的對手將招式對準目標。"
+  },
+  "390": {
+    "en": "Poisons the target and lowers its Speed by one stage.",
+    "zh": "使目標中毒，並將其速度降低1階。"
+  },
+  "391": {
+    "en": "Guarantees a critical hit with the user's next move.",
+    "zh": "確保使用者的下一個招式必定會心一擊。"
+  },
+  "392": {
+    "en": "Raises the Attack and Special Attack of all friendly Pokémon with Plus or Minus by one stage.",
+    "zh": "將所有持有正電或負電特性的友方寶可夢攻擊和特攻各提升1階。"
+  },
+  "393": {
+    "en": "Prevents the target from using sound-based moves for two turns.",
+    "zh": "2回合內阻止目標使用音波系招式。"
+  },
+  "394": {
+    "en": "Damages opponents, but heals allies for 50% of their max HP.",
+    "zh": "傷害對手，同時回復我方盟友50%最大HP。"
+  },
+  "395": {
+    "en": "Protects Pokémon on the ground from priority moves and increases the power of their Psychic moves by 50%.",
+    "zh": "保護場上寶可夢免受優先度招式影響，並使超能力系招式威力提升50%。"
+  },
+  "396": {
+    "en": "Lowers the target's Attack by one stage after inflicting damage.",
+    "zh": "造成傷害後，將目標的攻擊降低1階。"
+  },
+  "397": {
+    "en": "Lowers the target's Defense by one stage after inflicting damage.",
+    "zh": "造成傷害後，將目標的防禦降低1階。"
+  },
+  "398": {
+    "en": "Removes the user's Fire type after inflicting damage.",
+    "zh": "造成傷害後，解除使用者的火系屬性。"
+  },
+  "399": {
+    "en": "Exchanges the user's Speed with the target's.",
+    "zh": "使用者與目標交換速度數值。"
+  },
+  "400": {
+    "en": "Cures the target of a major status ailment and heals the user for 50% of its max HP.",
+    "zh": "治癒目標的異常狀態，並使使用者回復50%最大HP。"
+  },
+  "401": {
+    "en": "Has the same type as the user.",
+    "zh": "屬性與使用者相同。"
+  },
+  "402": {
+    "en": "Nullifies the target's ability if it moves earlier.",
+    "zh": "若目標先行動，封鎖其特性。"
+  },
+  "403": {
+    "en": "Forces the target to repeat its last used move.",
+    "zh": "強制目標重複使用其最後使用的招式。"
+  },
+  "404": {
+    "en": "Inflicts a burn on any Pokémon that makes contact before the attack.",
+    "zh": "在攻擊前接觸使用者的寶可夢會被灼傷。"
+  },
+  "405": {
+    "en": "Lowers the user's Defense by one stage after inflicting damage.",
+    "zh": "造成傷害後，將使用者的防禦降低1階。"
+  },
+  "406": {
+    "en": "Inflicts regular damage with no additional effect.",
+    "zh": null
+  },
+  "407": {
+    "en": "Reduces damage for five turns, but must be used during hail.",
+    "zh": "減少5回合內受到的傷害，但必須在冰雹天氣中使用。"
+  },
+  "408": {
+    "en": "Only inflicts damage if the user was hit by a physical move this turn.",
+    "zh": "只有在使用者本回合受到物理攻擊時才造成傷害。"
+  },
+  "409": {
+    "en": "Has double power if the user's last move failed.",
+    "zh": "若使用者上一個招式失敗，威力加倍。"
+  },
+  "410": {
+    "en": "Steals the target's stat increases, then inflicts damage.",
+    "zh": "竊取目標的能力值提升效果，再造成傷害。"
+  },
+  "411": {
+    "en": "Cannot be disrupted by abilities.",
+    "zh": "不受特性干擾。"
+  },
+  "412": {
+    "en": "Lowers the target's Attack and Special Attack by one stage.",
+    "zh": "將目標的攻擊和特攻各降低1階。"
+  },
+  "413": {
+    "en": "Damages the target for 75% of its remaining HP.",
+    "zh": "對目標造成相當於其剩餘HP 75%的傷害。"
+  },
+  "414": {
+    "en": "Raises all of the user's stats by two stages.",
+    "zh": "將使用者所有能力值各提升2階。"
+  },
+  "415": {
+    "en": "Changes the terrain to Psychic Terrain after inflicting damage.",
+    "zh": "造成傷害後，將場地變為超能力場地。"
+  },
+  "416": {
+    "en": "Inflicts damage using either Attack or Special Attack stat, whichever is higher.",
+    "zh": "以使用者攻擊或特攻中較高的數值計算傷害。"
+  },
+  "417": {
+    "en": "After inflicting damage, causes all Normal-type moves to become Electric-type for the remainder of the turn.",
+    "zh": "造成傷害後，本回合剩餘時間內所有一般系招式變為電系招式。"
+  },
+  "418": {
+    "en": "Inflicts damage and removes any terrain present on the battlefield.",
+    "zh": "造成傷害並移除當前的場地效果。"
+  },
+  "419": {
+    "en": "Inflicts damage to all opposing Pokémon and increases the user's Attack, Defense, Special Attack, Special Defense, and Speed by one stage each.",
+    "zh": "對所有對手造成傷害，並將使用者的攻擊、防禦、特攻、特防和速度各提升1階。"
+  },
+  "420": {
+    "en": "Inflicts damage, and the user takes damage equal to half of its max HP.",
+    "zh": "造成傷害，同時使用者承受相當於其最大HP50%的傷害。"
+  },
+  "421": {
+    "en": "Sets Light Screen on the user's side of the field after inflicting damage.",
+    "zh": "造成傷害後，在使用者側設置光牆。"
+  },
+  "422": {
+    "en": "Sets Reflect on the user's side of the field after inflicting damage.",
+    "zh": "造成傷害後，在使用者側設置反射壁。"
+  },
+  "423": {
+    "en": "Seeds the target after inflicting damage.",
+    "zh": "造成傷害後，在目標身上種下寄生種子。"
+  },
+  "424": {
+    "en": "Cures the entire party of major status effects after inflicting damage.",
+    "zh": "造成傷害後，治癒我方全體的異常狀態。"
+  },
+  "425": {
+    "en": "Hits twice in one turn, with a $effect_chance% chance to make the target flinch.",
+    "zh": "1回合內命中兩次，每次有 $effect_chance% 機率使目標畏縮。"
+  },
+  "426": {
+    "en": null,
+    "zh": null
+  },
+  "427": {
+    "en": null,
+    "zh": null
+  },
+  "428": {
+    "en": null,
+    "zh": null
+  },
+  "429": {
+    "en": null,
+    "zh": null
+  },
+  "430": {
+    "en": null,
+    "zh": null
+  },
+  "431": {
+    "en": null,
+    "zh": null
+  },
+  "432": {
+    "en": null,
+    "zh": null
+  },
+  "433": {
+    "en": null,
+    "zh": null
+  },
+  "434": {
+    "en": null,
+    "zh": null
+  },
+  "435": {
+    "en": null,
+    "zh": null
+  },
+  "436": {
+    "en": null,
+    "zh": null
+  },
+  "437": {
+    "en": null,
+    "zh": null
+  },
+  "439": {
+    "en": null,
+    "zh": null
+  },
+  "440": {
+    "en": null,
+    "zh": null
+  },
+  "441": {
+    "en": null,
+    "zh": null
+  },
+  "442": {
+    "en": null,
+    "zh": null
+  },
+  "443": {
+    "en": "After hitting 2-5 times in a row, boosts the user's Speed by one stage and lowers Defense by one stage.",
+    "zh": "連續命中2-5次後，提升使用者速度1階並降低防禦1階。"
+  },
+  "10001": {
+    "en": "Has an increased chance for a critical hit in Hyper Mode.",
+    "zh": "在超激化模式下，會心一擊率提升。"
+  },
+  "10002": {
+    "en": "User receives 1/2 its max HP in recoil.",
+    "zh": "使用者也會受到其最大HP 1/2的傷害。"
+  },
+  "10003": {
+    "en": "Halves HP of all Pokémon on the field. Must recharge.",
+    "zh": "使場上所有寶可夢HP減半，下一回合需要回復。"
+  },
+  "10004": {
+    "en": "Lowers the target's evasion by two stages.",
+    "zh": "將目標的閃避率降低2階。"
+  },
+  "10005": {
+    "en": "Removes Light Screen, Reflect, and Safeguard.",
+    "zh": "移除光牆、反射壁和神秘守護。"
+  },
+  "10006": {
+    "en": "Changes the weather to Shadow Sky for five turns.",
+    "zh": "將天氣變為暗影天空，持續5回合。"
+  }
+}

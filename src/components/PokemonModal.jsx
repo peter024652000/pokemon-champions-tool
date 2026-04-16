@@ -67,7 +67,7 @@ export default function PokemonModal({ entry, onClose }) {
               <p className="text-sm">載入中...</p>
             </div>
           ) : pokemon ? (
-            <PokemonCard pokemon={pokemon} species={species} variantLabel={entry.variantLabel} isMegaVariant={entry.isMega} />
+            <PokemonCard pokemon={pokemon} species={species} variantLabel={entry.variantLabel} isMegaVariant={entry.isMega} speciesId={entry.id} />
           ) : (
             <div className="bg-white rounded-2xl p-8 text-center text-gray-400">載入失敗</div>
           )}

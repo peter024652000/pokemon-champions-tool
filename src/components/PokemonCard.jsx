@@ -8,6 +8,7 @@ import { getSpriteUrl } from '../utils/pokeapi';
 import { TYPE_COLORS, NATURES } from '../utils/constants';
 import { getAbilityNames } from '../utils/abilityCache';
 import { useLang } from '../context/LangContext';
+import pokemonNamesData from '../data/pokemon-names.json';
 
 const TABS = [
   { id: 'stats', label: '種族值' },
@@ -141,7 +142,7 @@ function formatAbility(name) {
   return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
-export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant }) {
+export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant, speciesId }) {
   const [tab, setTab] = useState('stats');
   const [nature, setNature] = useState(NATURES[0]);
   const [abilityNames, setAbilityNames] = useState({});
@@ -159,11 +160,14 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     });
   }, [pokemon?.id]);
 
+  const localNames = pokemonNamesData[String(speciesId || species?.id || pokemon.id)];
   const zhName =
+    localNames?.zh ||
     species?.names?.find(n => n.language.name === 'zh-Hant')?.name ||
     species?.names?.find(n => n.language.name === 'zh-Hans')?.name ||
     pokemon.name;
   const enName =
+    localNames?.en ||
     species?.names?.find(n => n.language.name === 'en')?.name ||
     pokemon.name;
 
