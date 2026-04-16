@@ -18,13 +18,18 @@ function formatAbility(name) {
   return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
 
-export default function PokemonCard({ pokemon, species, variantLabel }) {
+export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant }) {
   const [tab, setTab] = useState('stats');
 
   const zhName =
     species?.names?.find(n => n.language.name === 'zh-Hant')?.name ||
     species?.names?.find(n => n.language.name === 'zh-Hans')?.name ||
     pokemon.name;
+
+  // For non-mega variants, append label to name
+  const displayName = variantLabel && !isMegaVariant
+    ? `${zhName} ${variantLabel}`
+    : zhName;
 
   const primaryType = pokemon.types[0]?.type.name;
   const headerColor = TYPE_COLORS[primaryType] || '#6390F0';
@@ -47,15 +52,17 @@ export default function PokemonCard({ pokemon, species, variantLabel }) {
               className="w-24 h-24 object-contain drop-shadow-lg shrink-0" />
           )}
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2">
-              <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
-              {variantLabel && (
-                <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
+            <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-3xl font-black leading-tight">
+                {isMegaVariant && variantLabel ? zhName : displayName}
+              </h2>
+              {isMegaVariant && variantLabel && (
+                <span className="text-sm font-bold bg-white/20 px-2 py-0.5 rounded-full">
                   {variantLabel}
                 </span>
               )}
             </div>
-            <h2 className="text-3xl font-black leading-tight">{zhName}</h2>
             <p className="text-white/70 text-xs capitalize mb-2">{pokemon.name}</p>
             <div className="flex gap-1.5 flex-wrap mb-2">
               {pokemon.types.map(({ type }) => (

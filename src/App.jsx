@@ -12,7 +12,7 @@ export default function App() {
 
   const filtered = useMemo(() => {
     return list.filter(p => {
-      if (!p.loaded) return false;
+      if (!p.loaded || p.unavailable) return false;
       if (typeFilter.length > 0 && !typeFilter.every(t => p.types.includes(t))) return false;
       if (search) {
         const q = search.toLowerCase();

@@ -21,9 +21,11 @@ export const CHAMPIONS_IDS = [
   1013, 1018, 1019,
 ];
 
-// Mega Evolutions: only those in CHAMPIONS_IDS that exist in PokeAPI
-// Source: Bulbapedia Mega Evolution page cross-referenced with Champions roster
+// Mega Evolutions in Champions
+// Standard (XY/ORAS): confirmed in PokeAPI
+// Z-A new megas: attempted via PokeAPI, gracefully skipped if 404
 export const MEGA_ENTRIES = [
+  // Standard XY/ORAS megas
   { baseId: 3,   apiName: 'venusaur-mega',     label: 'Mega' },
   { baseId: 6,   apiName: 'charizard-mega-x',  label: 'Mega X' },
   { baseId: 6,   apiName: 'charizard-mega-y',  label: 'Mega Y' },
@@ -60,6 +62,23 @@ export const MEGA_ENTRIES = [
   { baseId: 460, apiName: 'abomasnow-mega',    label: 'Mega' },
   { baseId: 475, apiName: 'gallade-mega',      label: 'Mega' },
   { baseId: 531, apiName: 'audino-mega',       label: 'Mega' },
+  // Legends Z-A new megas (Champions roster only)
+  { baseId: 36,  apiName: 'clefable-mega',     label: 'Mega' },
+  { baseId: 71,  apiName: 'victreebel-mega',   label: 'Mega' },
+  { baseId: 121, apiName: 'starmie-mega',      label: 'Mega' },
+  { baseId: 149, apiName: 'dragonite-mega',    label: 'Mega' },
+  { baseId: 154, apiName: 'meganium-mega',     label: 'Mega' },
+  { baseId: 160, apiName: 'feraligatr-mega',   label: 'Mega' },
+  { baseId: 227, apiName: 'skarmory-mega',     label: 'Mega' },
+  { baseId: 500, apiName: 'emboar-mega',       label: 'Mega' },
+  { baseId: 609, apiName: 'chandelure-mega',   label: 'Mega' },
+  { baseId: 623, apiName: 'golurk-mega',       label: 'Mega' },
+  { baseId: 670, apiName: 'floette-mega',      label: 'Mega' },
+  { baseId: 678, apiName: 'meowstic-mega',     label: 'Mega' },
+  { baseId: 740, apiName: 'crabominable-mega', label: 'Mega' },
+  { baseId: 780, apiName: 'drampa-mega',       label: 'Mega' },
+  { baseId: 952, apiName: 'scovillain-mega',   label: 'Mega' },
+  { baseId: 970, apiName: 'glimmora-mega',     label: 'Mega' },
 ];
 
 // Rotom alternate forms
@@ -69,4 +88,22 @@ export const ROTOM_FORMS = [
   { baseId: 479, apiName: 'rotom-fan',   label: '電扇型' },
   { baseId: 479, apiName: 'rotom-frost', label: '冰箱型' },
   { baseId: 479, apiName: 'rotom-mow',   label: '割草機型' },
+];
+
+// Regional alternate forms (PokeAPI confirmed)
+export const REGIONAL_FORMS = [
+  { baseId: 26,  apiName: 'raichu-alola',          label: '阿羅拉型' },
+  { baseId: 38,  apiName: 'ninetales-alola',        label: '阿羅拉型' },
+  { baseId: 80,  apiName: 'slowbro-galar',          label: '伽勒爾型' },
+  { baseId: 128, apiName: 'tauros-paldea-combat',   label: '帕底亞型(格鬥)' },
+  { baseId: 128, apiName: 'tauros-paldea-blaze',    label: '帕底亞型(火)' },
+  { baseId: 128, apiName: 'tauros-paldea-aqua',     label: '帕底亞型(水)' },
+  { baseId: 157, apiName: 'typhlosion-hisui',       label: '洗翠型' },
+  { baseId: 199, apiName: 'slowking-galar',         label: '伽勒爾型' },
+  { baseId: 503, apiName: 'samurott-hisui',         label: '洗翠型' },
+  { baseId: 571, apiName: 'zoroark-hisui',          label: '洗翠型' },
+  { baseId: 618, apiName: 'stunfisk-galar',         label: '伽勒爾型' },
+  { baseId: 724, apiName: 'decidueye-hisui',        label: '洗翠型' },
+  { baseId: 745, apiName: 'lycanroc-midnight',      label: '午夜型' },
+  { baseId: 745, apiName: 'lycanroc-dusk',          label: '黃昏型' },
 ];

@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
 import { fetchWithCache } from '../utils/pokeapi';
-import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS } from '../utils/championsIds';
+import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS, REGIONAL_FORMS } from '../utils/championsIds';
 
 const BASE = 'https://pokeapi.co/api/v2';
 const BATCH = 20;
 
-// Build the full ordered list: base → megas/forms grouped by id
+// Build the full ordered list: for each base id, add base → megas → rotom/regional forms
 function buildEntries() {
-  const variants = [...MEGA_ENTRIES, ...ROTOM_FORMS];
+  const variants = [
+    ...MEGA_ENTRIES.map(e => ({ ...e, isMega: true })),
+    ...ROTOM_FORMS.map(e => ({ ...e, isMega: false })),
+    ...REGIONAL_FORMS.map(e => ({ ...e, isMega: false })),
+  ];
+
   const byBase = {};
   for (const v of variants) {
     if (!byBase[v.baseId]) byBase[v.baseId] = [];
@@ -19,12 +24,7 @@ function buildEntries() {
     entries.push({ id, apiName: String(id), variantLabel: null, isMega: false });
     if (byBase[id]) {
       for (const v of byBase[id]) {
-        entries.push({
-          id,
-          apiName: v.apiName,
-          variantLabel: v.label,
-          isMega: MEGA_ENTRIES.includes(v),
-        });
+        entries.push({ id, apiName: v.apiName, variantLabel: v.label, isMega: v.isMega });
       }
     }
   }
@@ -55,9 +55,9 @@ export function usePokemonList() {
         if (!active) return;
         const map = {};
         results.forEach((r, idx) => {
+          const key = batch[idx];
           if (r.status === 'fulfilled') {
             const p = r.value;
-            const key = batch[idx];
             map[key] = {
               name: p.name,
               types: p.types.map(t => t.type.name),
@@ -66,6 +66,9 @@ export function usePokemonList() {
               stats: p.stats || [],
               loaded: true,
             };
+          } else {
+            // 404 or other error — mark as unavailable so it won't show as eternal skeleton
+            map[key] = { loaded: true, unavailable: true };
           }
         });
         setList(prev => prev.map(e => map[e.apiName] ? { ...e, ...map[e.apiName] } : e));
@@ -92,7 +95,6 @@ export function usePokemonList() {
             if (zhName) map[s.id] = zhName;
           }
         });
-        // Apply zhName to all entries with matching base id
         setList(prev => prev.map(e => map[e.id] ? { ...e, zhName: map[e.id] } : e));
       }
     }

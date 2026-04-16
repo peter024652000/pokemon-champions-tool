@@ -1,6 +1,9 @@
 import TypeBadge from './TypeBadge';
 
 export default function PokemonGridItem({ pokemon, onClick }) {
+  // Don't render unavailable entries (e.g. Z-A megas not yet in PokeAPI)
+  if (pokemon.unavailable) return null;
+
   if (!pokemon.loaded) {
     return (
       <div className="bg-white rounded-xl border border-gray-100 p-2 flex flex-col items-center gap-1.5 animate-pulse">
@@ -12,8 +15,11 @@ export default function PokemonGridItem({ pokemon, onClick }) {
     );
   }
 
-  const isMega = pokemon.isMega;
-  const isForm = !isMega && pokemon.variantLabel;
+  // Mega: show badge. Other variants (Rotom, regional): append label to name.
+  const baseName = pokemon.zhName || pokemon.name;
+  const displayName = pokemon.variantLabel && !pokemon.isMega
+    ? `${baseName} ${pokemon.variantLabel}`
+    : baseName;
 
   return (
     <button
@@ -21,10 +27,8 @@ export default function PokemonGridItem({ pokemon, onClick }) {
       className="bg-white rounded-xl border border-gray-100 p-2 flex flex-col items-center gap-1
         hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all duration-150 w-full text-left relative"
     >
-      {/* Mega / Form badge */}
-      {pokemon.variantLabel && (
-        <span className={`absolute top-1.5 right-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full leading-none
-          ${isMega ? 'bg-purple-100 text-purple-600' : 'bg-sky-100 text-sky-600'}`}>
+      {pokemon.isMega && pokemon.variantLabel && (
+        <span className="absolute top-1.5 right-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded-full leading-none bg-purple-100 text-purple-600">
           {pokemon.variantLabel}
         </span>
       )}
@@ -35,7 +39,7 @@ export default function PokemonGridItem({ pokemon, onClick }) {
       }
       <p className="text-gray-400 text-[10px] leading-none">#{String(pokemon.id).padStart(4, '0')}</p>
       <p className="text-gray-800 text-xs font-semibold leading-tight text-center w-full truncate px-1">
-        {pokemon.zhName || pokemon.name}
+        {displayName}
       </p>
       <div className="flex gap-1 flex-wrap justify-center">
         {pokemon.types?.map(t => <TypeBadge key={t} type={t} size="sm" />)}
