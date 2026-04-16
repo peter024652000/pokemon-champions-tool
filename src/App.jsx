@@ -88,7 +88,7 @@ function AppContent() {
               {isFiltering && loadingDone && (lang === 'zh' ? ` （篩選自 ${total} 筆）` : ` (of ${total})`)}
             </p>
             <div className="grid grid-cols-5 gap-2">
-              {(isFiltering ? filtered : list).map((p, i) => (
+              {filtered.map((p, i) => (
                 <PokemonGridItem
                   key={p.apiName || i}
                   pokemon={p}
