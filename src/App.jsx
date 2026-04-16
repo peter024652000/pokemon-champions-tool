@@ -3,12 +3,14 @@ import { usePokemonList } from './hooks/usePokemonList';
 import PokemonGridItem from './components/PokemonGridItem';
 import PokemonModal from './components/PokemonModal';
 import TypeFilter from './components/TypeFilter';
+import { LangProvider, useLang } from './context/LangContext';
 
-export default function App() {
+function AppContent() {
   const { list, loadedCount, total } = usePokemonList();
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState([]);
   const [selectedEntry, setSelectedEntry] = useState(null);
+  const { lang, setLang } = useLang();
 
   const filtered = useMemo(() => {
     return list.filter(p => {
@@ -16,7 +18,10 @@ export default function App() {
       if (typeFilter.length > 0 && !typeFilter.every(t => p.types.includes(t))) return false;
       if (search) {
         const q = search.toLowerCase();
-        if (!p.name.includes(q) && !(p.zhName || '').includes(q)) return false;
+        const nameMatch = p.name?.toLowerCase().includes(q);
+        const zhMatch = (p.zhName || '').includes(q);
+        const enMatch = (p.enName || '').toLowerCase().includes(q);
+        if (!nameMatch && !zhMatch && !enMatch) return false;
       }
       return true;
     });
@@ -34,11 +39,26 @@ export default function App() {
           <div className="flex items-center gap-3">
             <h1 className="text-xl font-black text-gray-800 shrink-0">寶可夢工具</h1>
             <span className="text-xs text-gray-400 shrink-0">Pokemon Champions</span>
+            {/* Language toggle */}
+            <div className="flex rounded-lg overflow-hidden border border-gray-200 shrink-0">
+              <button
+                onClick={() => setLang('zh')}
+                className={`px-2.5 py-1 text-xs font-semibold transition-colors ${
+                  lang === 'zh' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:bg-gray-100'
+                }`}
+              >中文</button>
+              <button
+                onClick={() => setLang('en')}
+                className={`px-2.5 py-1 text-xs font-semibold transition-colors border-l border-gray-200 ${
+                  lang === 'en' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:bg-gray-100'
+                }`}
+              >EN</button>
+            </div>
             <input
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="搜尋名稱..."
+              placeholder={lang === 'zh' ? '搜尋名稱...' : 'Search name...'}
               className="ml-auto w-44 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
@@ -57,15 +77,15 @@ export default function App() {
         {filtered.length === 0 && loadingDone ? (
           <div className="text-center py-20 text-gray-400">
             <p className="text-4xl mb-3">🔍</p>
-            <p className="text-sm">沒有符合條件的寶可夢</p>
+            <p className="text-sm">{lang === 'zh' ? '沒有符合條件的寶可夢' : 'No Pokémon found'}</p>
           </div>
         ) : (
           <>
             <p className="text-xs text-gray-400 mb-3">
               {loadingDone
-                ? `共 ${filtered.length} 筆`
-                : `載入中 ${loadedCount} / ${total}...`}
-              {isFiltering && loadingDone && ` （篩選自 ${total} 筆）`}
+                ? `${lang === 'zh' ? '共' : 'Total'} ${filtered.length} ${lang === 'zh' ? '筆' : ''}`
+                : `${lang === 'zh' ? '載入中' : 'Loading'} ${loadedCount} / ${total}...`}
+              {isFiltering && loadingDone && (lang === 'zh' ? ` （篩選自 ${total} 筆）` : ` (of ${total})`)}
             </p>
             <div className="grid grid-cols-5 gap-2">
               {(isFiltering ? filtered : list).map((p, i) => (
@@ -88,5 +108,13 @@ export default function App() {
         />
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LangProvider>
+      <AppContent />
+    </LangProvider>
   );
 }

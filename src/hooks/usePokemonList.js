@@ -5,6 +5,24 @@ import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS, REGIONAL_FORMS } from '../uti
 const BASE = 'https://pokeapi.co/api/v2';
 const BATCH = 20;
 
+// Derive an English form label from the PokeAPI name
+function enLabelFromApiName(apiName) {
+  if (apiName.includes('-alola'))          return 'Alolan Form';
+  if (apiName.includes('-galar'))          return 'Galarian Form';
+  if (apiName.includes('-hisui'))          return 'Hisuian Form';
+  if (apiName.includes('-paldea-combat'))  return 'Paldean Form (Combat)';
+  if (apiName.includes('-paldea-blaze'))   return 'Paldean Form (Blaze)';
+  if (apiName.includes('-paldea-aqua'))    return 'Paldean Form (Aqua)';
+  if (apiName.includes('-midnight'))       return 'Midnight Form';
+  if (apiName.includes('-dusk'))           return 'Dusk Form';
+  if (apiName === 'rotom-heat')  return 'Heat';
+  if (apiName === 'rotom-wash')  return 'Wash';
+  if (apiName === 'rotom-fan')   return 'Fan';
+  if (apiName === 'rotom-frost') return 'Frost';
+  if (apiName === 'rotom-mow')   return 'Mow';
+  return null;
+}
+
 // Build the full ordered list: for each base id, add base → megas → rotom/regional forms
 function buildEntries() {
   const variants = [
@@ -21,10 +39,16 @@ function buildEntries() {
 
   const entries = [];
   for (const id of CHAMPIONS_IDS) {
-    entries.push({ id, apiName: String(id), variantLabel: null, isMega: false });
+    entries.push({ id, apiName: String(id), variantLabel: null, enLabel: null, isMega: false });
     if (byBase[id]) {
       for (const v of byBase[id]) {
-        entries.push({ id, apiName: v.apiName, variantLabel: v.label, isMega: v.isMega });
+        entries.push({
+          id,
+          apiName: v.apiName,
+          variantLabel: v.label,
+          enLabel: enLabelFromApiName(v.apiName),
+          isMega: v.isMega,
+        });
       }
     }
   }
@@ -92,10 +116,13 @@ export function usePokemonList() {
               s.names?.find(n => n.language.name === 'zh-Hant')?.name ||
               s.names?.find(n => n.language.name === 'zh-Hans')?.name ||
               null;
-            if (zhName) map[s.id] = zhName;
+            const enName = s.names?.find(n => n.language.name === 'en')?.name || null;
+            if (zhName || enName) map[s.id] = { zhName, enName };
           }
         });
-        setList(prev => prev.map(e => map[e.id] ? { ...e, zhName: map[e.id] } : e));
+        setList(prev => prev.map(e =>
+          map[e.id] ? { ...e, zhName: map[e.id].zhName, enName: map[e.id].enName } : e
+        ));
       }
     }
 

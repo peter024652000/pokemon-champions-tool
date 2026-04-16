@@ -1,6 +1,9 @@
 import TypeBadge from './TypeBadge';
+import { useLang } from '../context/LangContext';
 
 export default function PokemonGridItem({ pokemon, onClick }) {
+  const { lang } = useLang();
+
   // Don't render unavailable entries (e.g. Z-A megas not yet in PokeAPI)
   if (pokemon.unavailable) return null;
 
@@ -15,10 +18,15 @@ export default function PokemonGridItem({ pokemon, onClick }) {
     );
   }
 
+  // Choose name based on language
+  const baseName = lang === 'zh'
+    ? (pokemon.zhName || pokemon.enName || pokemon.name)
+    : (pokemon.enName || pokemon.zhName || pokemon.name);
+
   // Mega: show badge. Other variants (Rotom, regional): append label to name.
-  const baseName = pokemon.zhName || pokemon.name;
-  const displayName = pokemon.variantLabel && !pokemon.isMega
-    ? `${baseName} ${pokemon.variantLabel}`
+  const variantLabel = lang === 'zh' ? pokemon.variantLabel : (pokemon.enLabel || pokemon.variantLabel);
+  const displayName = variantLabel && !pokemon.isMega
+    ? `${baseName} ${variantLabel}`
     : baseName;
 
   return (
