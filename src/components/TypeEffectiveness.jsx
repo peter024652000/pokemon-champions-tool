@@ -30,13 +30,40 @@ const COMPACT_GROUPS = [
   { label: '×0', value: 0    },
 ];
 
-export default function TypeEffectiveness({ types, compact = false }) {
+export default function TypeEffectiveness({ types, compact = false, horizontal = false }) {
   const defTypes = types.map(t => t.type.name);
 
   const map = {};
   ALL_TYPES.forEach(atk => {
     map[atk] = calcEffectiveness(atk, defTypes);
   });
+
+  // Horizontal strip — between header and tabs, white background
+  if (horizontal) {
+    const hasAny = COMPACT_GROUPS.some(({ value }) => ALL_TYPES.some(t => map[t] === value));
+    if (!hasAny) return null;
+    return (
+      <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
+        {COMPACT_GROUPS.map(({ label, value }) => {
+          const matched = ALL_TYPES.filter(t => map[t] === value);
+          if (!matched.length) return null;
+          const labelColor = value >= 2
+            ? 'text-red-600'
+            : value === 0
+            ? 'text-gray-400'
+            : 'text-blue-600';
+          return (
+            <div key={value} className="flex items-center gap-1.5">
+              <span className={`text-sm font-black shrink-0 w-6 text-right ${labelColor}`}>{label}</span>
+              <div className="flex flex-wrap gap-1">
+                {matched.map(t => <TypeBadge key={t} type={t} size="sm" />)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 
   // Compact dark-bg version used in the card header
   if (compact) {

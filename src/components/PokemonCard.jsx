@@ -227,81 +227,78 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Header: left = sprite + info, right = type effectiveness */}
       <div
-        className="p-5 text-white"
+        className="p-6 text-white"
         style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}
       >
-        <div className="flex gap-3">
-          {/* Left column: sprite + name/types/abilities */}
-          <div className="flex items-start gap-3 flex-1 min-w-0">
-            {spriteUrl && (
-              <img src={spriteUrl} alt={pokemon.name}
-                className="w-20 h-20 object-contain drop-shadow-lg shrink-0" />
-            )}
-            <div className="min-w-0 flex-1">
-              <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
-              <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="text-2xl font-black leading-tight">
-                  {displayName}
-                </h2>
-                {isMegaVariant && (
-                  <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
-                    Mega
+        <div className="flex items-center gap-4">
+          {spriteUrl && (
+            <img src={spriteUrl} alt={pokemon.name}
+              className="w-28 h-28 object-contain drop-shadow-lg shrink-0" />
+          )}
+          <div className="min-w-0 flex-1">
+            <p className="text-white/70 text-sm">#{String(pokemon.id).padStart(4, '0')}</p>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h2 className="text-3xl font-black leading-tight">
+                {displayName}
+              </h2>
+              {isMegaVariant && (
+                <span className="text-sm font-bold bg-white/20 px-2 py-0.5 rounded-full">
+                  Mega
+                </span>
+              )}
+            </div>
+            <p className="text-white/60 text-xs capitalize mb-2">{pokemon.name}</p>
+            <div className="flex gap-1.5 flex-wrap mb-2">
+              {pokemon.types.map(({ type }) => (
+                <TypeBadge key={type.name} type={type.name} />
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {normalAbilities.map(a => {
+                const desc = abilityDesc(a.ability.name);
+                return (
+                  <span key={a.ability.name} className="relative group">
+                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                      {abilityDisplay(a.ability.name)}
+                    </span>
+                    {desc && (
+                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                        {desc}
+                      </span>
+                    )}
                   </span>
-                )}
-              </div>
-              <p className="text-white/70 text-[10px] capitalize mb-1.5">{pokemon.name}</p>
-              <div className="flex gap-1.5 flex-wrap mb-1.5">
-                {pokemon.types.map(({ type }) => (
-                  <TypeBadge key={type.name} type={type.name} size="sm" />
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {normalAbilities.map(a => {
-                  const desc = abilityDesc(a.ability.name);
-                  return (
-                    <span key={a.ability.name} className="relative group">
-                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
-                        {abilityDisplay(a.ability.name)}
-                      </span>
-                      {desc && (
-                        <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
-                          {desc}
-                        </span>
-                      )}
+                );
+              })}
+              {hiddenAbility && (() => {
+                const desc = abilityDesc(hiddenAbility.ability.name);
+                return (
+                  <span className="relative group">
+                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                      {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
                     </span>
-                  );
-                })}
-                {hiddenAbility && (() => {
-                  const desc = abilityDesc(hiddenAbility.ability.name);
-                  return (
-                    <span className="relative group">
-                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
-                        {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
+                    {desc && (
+                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                        {desc}
                       </span>
-                      {desc && (
-                        <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
-                          {desc}
-                        </span>
-                      )}
-                    </span>
-                  );
-                })()}
-              </div>
+                    )}
+                  </span>
+                );
+              })()}
             </div>
           </div>
-
-          {/* Right column: type effectiveness compact */}
-          <div className="shrink-0 w-36 border-l border-white/20 pl-3">
-            <TypeEffectiveness types={pokemon.types} compact />
-          </div>
         </div>
+      </div>
+
+      {/* Type effectiveness — horizontal strip */}
+      <div className="px-6 py-3 bg-slate-50 border-b border-gray-200">
+        <TypeEffectiveness types={pokemon.types} horizontal />
       </div>
 
       {/* Tabs */}
       <div className="flex border-b border-gray-200">
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`flex-1 py-3 text-xs font-semibold transition-colors
+            className={`flex-1 py-3.5 text-sm font-semibold transition-colors
               ${tab === t.id ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}>
             {t.label}
           </button>
@@ -310,13 +307,13 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
 
       {/* Nature selector — collapsible, shown for stats and speed tabs */}
       {showNature && (
-        <div className="px-5 pt-4 pb-0">
+        <div className="px-6 pt-4 pb-0">
           <NatureSelector nature={nature} setNature={setNature} lang={lang} />
         </div>
       )}
 
       {/* Tab content */}
-      <div className="p-5">
+      <div className="p-6">
         {tab === 'stats' && <BaseStats stats={pokemon.stats} nature={nature} />}
         {tab === 'speed' && <SpeedCalculator baseSpeed={baseSpeed} pokemonName={baseName} nature={nature} />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}

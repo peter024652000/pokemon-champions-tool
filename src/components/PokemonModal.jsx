@@ -55,9 +55,9 @@ export default function PokemonModal() {
       />
 
       {/* Centred overlay panel with padding */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div
-          className={`pointer-events-auto w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-200 ${
+          className={`pointer-events-auto w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-200 ${
             visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
         >
