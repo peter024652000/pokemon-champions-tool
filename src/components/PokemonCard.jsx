@@ -200,7 +200,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     : (activeLabel ? `${baseName} ${activeLabel}` : baseName);
 
   const primaryType = pokemon.types[0]?.type.name;
-  const headerColor = TYPE_COLORS[primaryType] || '#6390F0';
   const spriteUrl = getSpriteUrl(pokemon);
   const baseSpeed = pokemon.stats.find(s => s.stat.name === 'speed')?.base_stat ?? 0;
 
@@ -227,7 +226,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       {/* Header */}
       <div
         className="p-5 text-white"
-        style={{ background: `linear-gradient(135deg, ${headerColor}cc, ${headerColor})` }}
+        style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}
       >
         <div className="flex items-center gap-4">
           {spriteUrl && (
@@ -272,7 +271,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
                 const desc = abilityDesc(hiddenAbility.ability.name);
                 return (
                   <span className="relative group">
-                    <span className="text-xs bg-white/10 border border-white/30 px-2 py-0.5 rounded-full text-white/70 italic cursor-default">
+                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
                       {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
                     </span>
                     {desc && (
