@@ -4,6 +4,9 @@ import { calcStat, BP_MAX_PER_STAT, BP_TOTAL } from '../utils/calcStats';
 
 const STAT_ORDER = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
 
+// Bar max: generous upper bound for a Lv50 calc value
+const STAT_BAR_MAX = 400;
+
 function getNatureMod(statName, nature) {
   if (!nature) return 1.0;
   if (nature.increased === statName) return 1.1;
@@ -24,7 +27,6 @@ export default function BaseStats({ stats, nature }) {
     const clamped = Math.max(0, Math.min(BP_MAX_PER_STAT, parsed));
     const delta = clamped - bpAlloc[statName];
     if (delta > 0 && delta > remaining) {
-      // Cap at what remaining allows
       const maxAllowed = bpAlloc[statName] + remaining;
       setBpAlloc(prev => ({ ...prev, [statName]: Math.min(BP_MAX_PER_STAT, maxAllowed) }));
       return;
@@ -55,26 +57,39 @@ export default function BaseStats({ stats, nature }) {
           const isHP = statName === 'hp';
           const calc = calcStat(base, bp, mod, isHP);
           const color = STAT_COLORS[statName] || '#888';
-          const pct = Math.min((base / 255) * 100, 100);
+          const calcPct = Math.min((calc / STAT_BAR_MAX) * 100, 100);
 
           const natureUp = !isHP && mod > 1;
           const natureDown = !isHP && mod < 1;
+          const calcColor = natureUp ? '#ef4444' : natureDown ? '#3b82f6' : color;
 
           return (
             <div key={statName} className="flex items-center gap-1.5">
+              {/* Stat name */}
               <span className="w-12 text-xs text-gray-500 text-right shrink-0">
                 {STAT_NAMES_ZH[statName] || statName}
               </span>
-              <span className="w-8 text-xs font-mono text-gray-600 text-right shrink-0">
-                {base}
+
+              {/* Lv50 calc value — colored, changes with BP/nature */}
+              <span className="w-9 text-xs font-mono font-bold text-right shrink-0"
+                style={{ color: calcColor }}>
+                {calc}
               </span>
+
+              {/* Progress bar — width reflects calc value */}
               <div className="flex-1 bg-gray-200 rounded-full h-2 min-w-0">
                 <div
-                  className="h-2 rounded-full"
-                  style={{ width: `${pct}%`, backgroundColor: color }}
+                  className="h-2 rounded-full transition-all duration-150"
+                  style={{ width: `${calcPct}%`, backgroundColor: color }}
                 />
               </div>
-              {/* Number input */}
+
+              {/* Base stat — right side reference */}
+              <span className="w-7 text-xs font-mono text-gray-400 text-right shrink-0">
+                {base}
+              </span>
+
+              {/* BP input */}
               <input
                 type="number"
                 min={0}
@@ -83,38 +98,34 @@ export default function BaseStats({ stats, nature }) {
                 onChange={e => setBp(statName, parseInt(e.target.value, 10))}
                 className="w-10 text-xs font-mono text-center border border-gray-200 rounded py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-300 shrink-0"
               />
-              {/* Max button */}
+
+              {/* Add BP button */}
               <button
                 onClick={() => setBp(statName, bp + remaining)}
                 disabled={remaining <= 0 || bp >= BP_MAX_PER_STAT}
                 title="加到上限"
                 className="text-[10px] font-bold w-6 h-5 rounded bg-blue-50 text-blue-500 hover:bg-blue-100 disabled:opacity-30 shrink-0 flex items-center justify-center"
               >▲</button>
-              {/* Reset button */}
+
+              {/* Reset BP button */}
               <button
                 onClick={() => setBp(statName, 0)}
                 disabled={bp === 0}
                 title="歸零"
                 className="text-[10px] font-bold w-6 h-5 rounded bg-gray-100 text-gray-500 hover:bg-gray-200 disabled:opacity-30 shrink-0 flex items-center justify-center"
               >✕</button>
-              {/* Calculated value */}
-              <span className={`w-9 text-xs font-mono font-bold text-right shrink-0 ${
-                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-800'
-              }`}>
-                {calc}
-              </span>
             </div>
           );
         })}
 
         <div className="flex items-center gap-1.5 border-t border-gray-200 pt-2 mt-1">
           <span className="w-12 text-xs font-bold text-gray-600 text-right">合計</span>
-          <span className="w-8 text-xs font-mono font-black text-gray-900 text-right">{total}</span>
+          <span className="w-9 text-xs font-mono font-black text-gray-900 text-right">{total}</span>
         </div>
       </div>
 
       <p className="text-[10px] text-gray-400 mt-2 text-right">
-        計算值 = Lv.50・個體值31・{BP_MAX_PER_STAT} BP上限
+        計算值 = Lv.50・個體值31・{BP_MAX_PER_STAT} BP上限　右側數字為基礎種族值
       </p>
     </div>
   );

@@ -13,7 +13,6 @@ import pokemonNamesData from '../data/pokemon-names.json';
 const TABS = [
   { id: 'stats', label: '種族值' },
   { id: 'speed', label: '速度計算' },
-  { id: 'type',  label: '屬性相剋' },
   { id: 'moves', label: '招式列表' },
 ];
 
@@ -40,8 +39,9 @@ function getNatureForCell(colIdx, rowIdx) {
   if (colIdx === rowIdx) {
     return NATURES.find(n => n.en === NEUTRAL_NATURE_ENS[rowIdx]);
   }
-  const inc = STAT_AXES[colIdx];
-  const dec = STAT_AXES[rowIdx];
+  // Rows = increased (直項=加), Columns = decreased (橫向=減)
+  const inc = STAT_AXES[rowIdx];
+  const dec = STAT_AXES[colIdx];
   return NATURES.find(n => n.increased === inc && n.decreased === dec);
 }
 
@@ -52,25 +52,27 @@ function NatureMatrix({ nature, onChange, lang }) {
         <thead>
           <tr>
             <th className="w-8"></th>
+            {/* Columns = decreased (橫向=減) */}
             {STAT_AXES.map(s => (
-              <th key={s} className="text-center font-bold text-red-500 pb-1 px-0.5 whitespace-nowrap">
-                ↑{statShort(s, lang)}
+              <th key={s} className="text-center font-bold text-blue-500 pb-1 px-0.5 whitespace-nowrap">
+                ↓{statShort(s, lang)}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {STAT_AXES.map((decStat, rowIdx) => (
-            <tr key={decStat}>
-              <td className="text-right font-bold text-blue-500 pr-1 whitespace-nowrap">
-                ↓{statShort(decStat, lang)}
+          {/* Rows = increased (直項=加) */}
+          {STAT_AXES.map((incStat, rowIdx) => (
+            <tr key={incStat}>
+              <td className="text-right font-bold text-red-500 pr-1 whitespace-nowrap">
+                ↑{statShort(incStat, lang)}
               </td>
-              {STAT_AXES.map((incStat, colIdx) => {
+              {STAT_AXES.map((decStat, colIdx) => {
                 const n = getNatureForCell(colIdx, rowIdx);
                 const isNeutral = colIdx === rowIdx;
                 const isSelected = n && nature.en === n.en;
                 return (
-                  <td key={incStat}
+                  <td key={decStat}
                     onClick={() => { if (n) onChange(n); }}
                     className={`
                       text-center cursor-pointer px-0.5 py-1 rounded transition-colors
@@ -219,70 +221,78 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     return cached?.enDesc || null;
   }
 
-  const showNature = tab === 'stats' || tab === 'speed';
+  const showNature = tab === 'stats' || tab === 'speed'; // moves tab doesn't need nature
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-      {/* Header */}
+      {/* Header: left = sprite + info, right = type effectiveness */}
       <div
         className="p-5 text-white"
         style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}
       >
-        <div className="flex items-center gap-4">
-          {spriteUrl && (
-            <img src={spriteUrl} alt={pokemon.name}
-              className="w-24 h-24 object-contain drop-shadow-lg shrink-0" />
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-3xl font-black leading-tight">
-                {displayName}
-              </h2>
-              {isMegaVariant && (
-                <span className="text-sm font-bold bg-white/20 px-2 py-0.5 rounded-full">
-                  Mega
-                </span>
-              )}
-            </div>
-            <p className="text-white/70 text-xs capitalize mb-2">{pokemon.name}</p>
-            <div className="flex gap-1.5 flex-wrap mb-2">
-              {pokemon.types.map(({ type }) => (
-                <TypeBadge key={type.name} type={type.name} />
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              {normalAbilities.map(a => {
-                const desc = abilityDesc(a.ability.name);
-                return (
-                  <span key={a.ability.name} className="relative group">
-                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
-                      {abilityDisplay(a.ability.name)}
-                    </span>
-                    {desc && (
-                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
-                        {desc}
-                      </span>
-                    )}
+        <div className="flex gap-3">
+          {/* Left column: sprite + name/types/abilities */}
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            {spriteUrl && (
+              <img src={spriteUrl} alt={pokemon.name}
+                className="w-20 h-20 object-contain drop-shadow-lg shrink-0" />
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-2xl font-black leading-tight">
+                  {displayName}
+                </h2>
+                {isMegaVariant && (
+                  <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">
+                    Mega
                   </span>
-                );
-              })}
-              {hiddenAbility && (() => {
-                const desc = abilityDesc(hiddenAbility.ability.name);
-                return (
-                  <span className="relative group">
-                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
-                      {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
-                    </span>
-                    {desc && (
-                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
-                        {desc}
+                )}
+              </div>
+              <p className="text-white/70 text-[10px] capitalize mb-1.5">{pokemon.name}</p>
+              <div className="flex gap-1.5 flex-wrap mb-1.5">
+                {pokemon.types.map(({ type }) => (
+                  <TypeBadge key={type.name} type={type.name} size="sm" />
+                ))}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {normalAbilities.map(a => {
+                  const desc = abilityDesc(a.ability.name);
+                  return (
+                    <span key={a.ability.name} className="relative group">
+                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                        {abilityDisplay(a.ability.name)}
                       </span>
-                    )}
-                  </span>
-                );
-              })()}
+                      {desc && (
+                        <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                          {desc}
+                        </span>
+                      )}
+                    </span>
+                  );
+                })}
+                {hiddenAbility && (() => {
+                  const desc = abilityDesc(hiddenAbility.ability.name);
+                  return (
+                    <span className="relative group">
+                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                        {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
+                      </span>
+                      {desc && (
+                        <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                          {desc}
+                        </span>
+                      )}
+                    </span>
+                  );
+                })()}
+              </div>
             </div>
+          </div>
+
+          {/* Right column: type effectiveness compact */}
+          <div className="shrink-0 w-36 border-l border-white/20 pl-3">
+            <TypeEffectiveness types={pokemon.types} compact />
           </div>
         </div>
       </div>
@@ -309,7 +319,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       <div className="p-5">
         {tab === 'stats' && <BaseStats stats={pokemon.stats} nature={nature} />}
         {tab === 'speed' && <SpeedCalculator baseSpeed={baseSpeed} pokemonName={baseName} nature={nature} />}
-        {tab === 'type'  && <TypeEffectiveness types={pokemon.types} />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
       </div>
     </div>

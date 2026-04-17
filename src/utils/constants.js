@@ -50,12 +50,12 @@ export const STAT_NAMES_ZH = {
 };
 
 export const STAT_COLORS = {
-  hp: '#FF5959',
-  attack: '#F5AC78',
-  defense: '#FAE078',
-  'special-attack': '#9DB7F5',
-  'special-defense': '#A7DB8D',
-  speed: '#FA92B2',
+  hp:               '#22c55e',  // green
+  attack:           '#b45309',  // amber-brown (darker)
+  defense:          '#f59e0b',  // amber-yellow (lighter)
+  'special-attack': '#3b82f6',  // blue (darker)
+  'special-defense':'#93c5fd',  // blue-light (lighter)
+  speed:            '#a855f7',  // purple
 };
 
 // Defensive type chart: what attacking types are super-effective / resisted / immune
