@@ -1,3 +1,8 @@
+---
+name: progress
+description: 整理並更新專案工作進度到 .claude/progress.md
+---
+
 請幫我把目前的工作進度整理並更新到 `.claude/progress.md`，包含以下資訊：
 
 1. **目前正在做什麼任務**：說明當前對話中最近在處理的功能或修正
