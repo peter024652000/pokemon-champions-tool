@@ -38,28 +38,64 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
     map[atk] = calcEffectiveness(atk, defTypes);
   });
 
-  // Horizontal strip — 3 groups: 弱點 / 普通 / 抵抗
+  // 3-row strip: 弱點 / 普通 / 抵抗，每區內再細分倍率
   if (horizontal) {
-    const weakTypes   = ALL_TYPES.filter(t => map[t] >= 2);          // ×4, ×2
-    const normalTypes = ALL_TYPES.filter(t => map[t] === 1);         // ×1
-    const resistTypes = ALL_TYPES.filter(t => map[t] > 0 && map[t] < 1); // ½, ¼
-    const immuneTypes = ALL_TYPES.filter(t => map[t] === 0);         // ×0
+    // 弱點：×4 和 ×2 各自列出
+    const weak4 = ALL_TYPES.filter(t => map[t] === 4);
+    const weak2 = ALL_TYPES.filter(t => map[t] === 2);
+    // 普通：×1
+    const normal = ALL_TYPES.filter(t => map[t] === 1);
+    // 抵抗：½、¼、×0 各自列出
+    const half    = ALL_TYPES.filter(t => map[t] === 0.5);
+    const quarter = ALL_TYPES.filter(t => map[t] === 0.25);
+    const immune  = ALL_TYPES.filter(t => map[t] === 0);
 
-    const sections = [
-      { label: '弱點',  types: weakTypes,   labelClass: 'text-red-500',  badgeSize: 'sm' },
-      { label: '普通',  types: normalTypes, labelClass: 'text-gray-400', badgeSize: 'xs' },
-      { label: '抵抗',  types: [...resistTypes, ...immuneTypes], labelClass: 'text-blue-500', badgeSize: 'sm' },
+    const rows = [
+      {
+        label: '弱點', labelClass: 'text-red-500',
+        sub: [
+          { mult: '×4', types: weak4, multClass: 'text-red-600 font-black' },
+          { mult: '×2', types: weak2, multClass: 'text-red-400 font-bold' },
+        ],
+      },
+      {
+        label: '普通', labelClass: 'text-gray-400',
+        sub: [
+          { mult: '×1', types: normal, multClass: 'text-gray-400 font-bold' },
+        ],
+      },
+      {
+        label: '抵抗', labelClass: 'text-blue-500',
+        sub: [
+          { mult: '½',  types: half,    multClass: 'text-blue-400 font-bold' },
+          { mult: '¼',  types: quarter, multClass: 'text-blue-600 font-bold' },
+          { mult: '×0', types: immune,  multClass: 'text-gray-400 font-bold' },
+        ],
+      },
     ];
 
     return (
-      <div className="flex flex-wrap gap-x-8 gap-y-2 items-start">
-        {sections.map(({ label, types, labelClass, badgeSize }) => {
-          if (!types.length) return null;
+      <div className="space-y-2 w-full">
+        {rows.map(({ label, labelClass, sub }) => {
+          const hasAny = sub.some(s => s.types.length > 0);
+          if (!hasAny) return null;
           return (
-            <div key={label} className="flex items-start gap-2">
-              <span className={`text-base font-bold shrink-0 pt-0.5 ${labelClass}`}>{label}</span>
-              <div className="flex flex-wrap gap-1">
-                {types.map(t => <TypeBadge key={t} type={t} size={badgeSize} />)}
+            <div key={label} className="flex items-start gap-3">
+              {/* Group label */}
+              <span className={`text-base font-bold shrink-0 w-10 pt-0.5 ${labelClass}`}>{label}</span>
+              {/* Sub-groups with multiplier labels */}
+              <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
+                {sub.map(({ mult, types, multClass }) => {
+                  if (!types.length) return null;
+                  return (
+                    <div key={mult} className="flex items-center gap-1.5">
+                      <span className={`text-sm shrink-0 ${multClass}`}>{mult}</span>
+                      <div className="flex flex-wrap gap-1">
+                        {types.map(t => <TypeBadge key={t} type={t} size="sm" />)}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );
