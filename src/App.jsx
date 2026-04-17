@@ -88,7 +88,7 @@ function ListPage() {
                 : `${lang === 'zh' ? '載入中' : 'Loading'} ${loadedCount} / ${total}...`}
               {isFiltering && loadingDone && (lang === 'zh' ? ` （篩選自 ${total} 筆）` : ` (of ${total})`)}
             </p>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-6 gap-2">
               {filtered.map((p, i) => (
                 <PokemonGridItem key={p.apiName || i} pokemon={p} />
               ))}

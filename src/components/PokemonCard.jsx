@@ -290,7 +290,8 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       </div>
 
       {/* Type effectiveness — horizontal strip */}
-      <div className="px-6 py-3 bg-slate-50 border-b border-gray-200">
+      <div className="px-6 py-3 bg-slate-50 border-b border-gray-200 flex items-start gap-4">
+        <span className="text-sm font-bold text-gray-500 shrink-0 pt-0.5">屬性抗性</span>
         <TypeEffectiveness types={pokemon.types} horizontal />
       </div>
 
