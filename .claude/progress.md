@@ -39,6 +39,7 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - 個性選擇：可收合 5×5 矩陣（欄=↑屬性，列=↓屬性），選後自動收合
 - 特性欄位 hover tooltip（繁中 / 英文說明，來自本地 ability-data.json）
 - 屬性相剋表
+- **UI 調整**：header 改中性深色（`#334155 → #1e293b`），隱藏特性標籤樣式統一（不再半透明）
 
 ### 招式列表（MoveList）
 - 批次預載招式資料（批次大小 8，最多 60 招）
@@ -46,6 +47,19 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - 每行常駐：名稱、屬性、分類（物理/特殊/變化）、威力、命中、PP
 - Hover 顯示效果說明（move-effects.json，帶入實際機率數值）
 - 無附加效果的招式（純傷害）不顯示說明
+
+### 寶可夢名單（championsIds.js）
+- 新增 7 隻 Z-A Mega：鈴鐘（#358）、雪妖女（#478）、龍頭地鼠（#530）、布里卡隆（#652）、妖火紅狐（#655）、甲賀忍蛙（#658）、摔角鷹人（#701）
+- 新增地區形態：洗翠風速狗（#59）、永恆之花花葉蒂（#670）、雌超能妙喵（#678）、南瓜怪人三尺寸（#711）、洗翠冰岩怪（#713）、洗翠決決大蔥（#724）、洗翠端帝納（#503）、洗翠幽尾玄魚（#571）…等
+- 修正肯泰羅帕底亞 API 名稱（補 `-breed` 後綴）
+- Mega 名稱統一顯示：標籤統一為「Mega」，全名顯示為「超級[名稱][ X/Y]」
+- 鬃岩狼人基底形態標記為白晝型（`BASE_FORM_LABELS`）
+- **修正：移除誤加的南瓜精 #710**（非 Champions 可用寶可夢）
+
+### 開發工具
+- `.claude/progress.md`：工作進度紀錄（本檔案），已 commit 至 Git
+- `.claude/commands/progress.md`：`/progress` 指令定義
+- `C:\Users\yun.chuang\.claude\skills\progress\SKILL.md`：使用者層級技能，輸入「更新進度」觸發
 
 ---
 
@@ -63,16 +77,19 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - [ ] **`effectChance` 數值與 Champions 不符**：move-data.json 機率來自主線 PokeAPI，Champions 有調整（例：Moonblast 主線 30% → Champions 10%；Iron Head 主線 30% → Champions 20%）。需逐一對照官方資料校正
 - [ ] **`move-effects.json` 繁中翻譯持續校訂中**
 - [ ] **部分地區形態可能遺漏**（`championsIds.js` 手動維護）
+- [ ] **Z-A 新 Mega 形態無圖片**：PokeAPI 尚未收錄這批新 Mega 的圖檔，顯示為問號
 
 ### 功能
 - [ ] 招式列表上限 60 招（效能考量），超過的招式無法顯示
 - [ ] 介面固定文字中英切換（Tab 標籤等目前仍為中文）
 - [ ] 速度計算 tab 的 BP 與種族值分配 BP 目前獨立，未互通
 - [ ] 手機版自適應（目前無 sm:/md: 響應式前綴）
+- [ ] 部署（Vercel / GitHub Pages）尚未設定，功能穩定後再處理
 
 ### 已解決的舊問題
 - ~~中文名稱未顯示~~（改用本地 pokemon-names.json，不再依賴 PokeAPI 中文）
 - ~~點擊無反應 / Modal 出現在頁面底部~~（Vite 降版 + filtered 渲染）
+- ~~動態像素圖（Showdown sprites）~~（試用後回退，視覺干擾）
 
 ---
 
@@ -81,6 +98,7 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - Pokemon Champions 是任天堂官方獨立遊戲（非主線競技格式），有獨立的招式平衡調整
 - 繁中招式效果說明無公開 API，官方文本僅存在於遊戲檔案中，目前使用 Claude 手動翻譯版
 - PokeAPI 只涵蓋主線遊戲資料，不包含 Champions 的平衡改動
+- Vite 8 (rolldown-vite) 在 dev mode 下 PostCSS/Tailwind 失效，需鎖定 Vite 5
 
 ---
 
