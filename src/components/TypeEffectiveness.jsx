@@ -38,25 +38,28 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
     map[atk] = calcEffectiveness(atk, defTypes);
   });
 
-  // Horizontal strip — between header and tabs, white background
+  // Horizontal strip — 3 groups: 弱點 / 普通 / 抵抗
   if (horizontal) {
-    const hasAny = COMPACT_GROUPS.some(({ value }) => ALL_TYPES.some(t => map[t] === value));
-    if (!hasAny) return null;
+    const weakTypes   = ALL_TYPES.filter(t => map[t] >= 2);          // ×4, ×2
+    const normalTypes = ALL_TYPES.filter(t => map[t] === 1);         // ×1
+    const resistTypes = ALL_TYPES.filter(t => map[t] > 0 && map[t] < 1); // ½, ¼
+    const immuneTypes = ALL_TYPES.filter(t => map[t] === 0);         // ×0
+
+    const sections = [
+      { label: '弱點',  types: weakTypes,   labelClass: 'text-red-500',  badgeSize: 'sm' },
+      { label: '普通',  types: normalTypes, labelClass: 'text-gray-400', badgeSize: 'xs' },
+      { label: '抵抗',  types: [...resistTypes, ...immuneTypes], labelClass: 'text-blue-500', badgeSize: 'sm' },
+    ];
+
     return (
-      <div className="flex flex-wrap gap-x-6 gap-y-2 items-center">
-        {COMPACT_GROUPS.map(({ label, value }) => {
-          const matched = ALL_TYPES.filter(t => map[t] === value);
-          if (!matched.length) return null;
-          const labelColor = value >= 2
-            ? 'text-red-600'
-            : value === 0
-            ? 'text-gray-400'
-            : 'text-blue-600';
+      <div className="flex flex-wrap gap-x-8 gap-y-2 items-start">
+        {sections.map(({ label, types, labelClass, badgeSize }) => {
+          if (!types.length) return null;
           return (
-            <div key={value} className="flex items-center gap-1.5">
-              <span className={`text-base font-black shrink-0 w-7 text-right ${labelColor}`}>{label}</span>
+            <div key={label} className="flex items-start gap-2">
+              <span className={`text-base font-bold shrink-0 pt-0.5 ${labelClass}`}>{label}</span>
               <div className="flex flex-wrap gap-1">
-                {matched.map(t => <TypeBadge key={t} type={t} size="sm" />)}
+                {types.map(t => <TypeBadge key={t} type={t} size={badgeSize} />)}
               </div>
             </div>
           );
