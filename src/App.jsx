@@ -1,15 +1,16 @@
 import { useState, useMemo } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { usePokemonList } from './hooks/usePokemonList';
 import PokemonGridItem from './components/PokemonGridItem';
 import PokemonModal from './components/PokemonModal';
 import TypeFilter from './components/TypeFilter';
 import { LangProvider, useLang } from './context/LangContext';
+import PokemonDetailPage from './pages/PokemonDetailPage';
 
-function AppContent() {
+function ListPage() {
   const { list, loadedCount, total } = usePokemonList();
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState([]);
-  const [selectedEntry, setSelectedEntry] = useState(null);
   const { lang, setLang } = useLang();
 
   const filtered = useMemo(() => {
@@ -89,32 +90,43 @@ function AppContent() {
             </p>
             <div className="grid grid-cols-5 gap-2">
               {filtered.map((p, i) => (
-                <PokemonGridItem
-                  key={p.apiName || i}
-                  pokemon={p}
-                  onClick={setSelectedEntry}
-                />
+                <PokemonGridItem key={p.apiName || i} pokemon={p} />
               ))}
             </div>
           </>
         )}
       </div>
-
-      {/* Modal */}
-      {selectedEntry && (
-        <PokemonModal
-          entry={selectedEntry}
-          onClose={() => setSelectedEntry(null)}
-        />
-      )}
     </div>
+  );
+}
+
+function AppRouter() {
+  const location = useLocation();
+  // background is set when navigating from the list → show list behind + modal on top
+  const background = location.state?.background;
+
+  return (
+    <>
+      {/* Main routes — render list at background location when overlay is open */}
+      <Routes location={background || location}>
+        <Route path="/" element={<ListPage />} />
+        <Route path="/pokemon/:apiName" element={<PokemonDetailPage />} />
+      </Routes>
+
+      {/* Overlay modal — only rendered when there's a background (i.e. navigated from list) */}
+      {background && (
+        <Routes>
+          <Route path="/pokemon/:apiName" element={<PokemonModal />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
 export default function App() {
   return (
     <LangProvider>
-      <AppContent />
+      <AppRouter />
     </LangProvider>
   );
 }

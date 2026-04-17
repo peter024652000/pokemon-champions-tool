@@ -1,8 +1,11 @@
+import { useNavigate, useLocation } from 'react-router-dom';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
 
-export default function PokemonGridItem({ pokemon, onClick }) {
+export default function PokemonGridItem({ pokemon }) {
   const { lang } = useLang();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Don't render unavailable entries (e.g. Z-A megas not yet in PokeAPI)
   if (pokemon.unavailable) return null;
@@ -35,9 +38,15 @@ export default function PokemonGridItem({ pokemon, onClick }) {
       ? `${baseName} ${variantLabel}`
       : baseName;
 
+  function handleClick() {
+    navigate(`/pokemon/${pokemon.apiName}`, {
+      state: { background: location, entry: pokemon },
+    });
+  }
+
   return (
     <button
-      onClick={() => onClick(pokemon)}
+      onClick={handleClick}
       className="bg-white rounded-xl border border-gray-100 p-2 flex flex-col items-center gap-1
         hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all duration-150 w-full text-left relative"
     >

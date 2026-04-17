@@ -1,21 +1,27 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PokemonCard from './PokemonCard';
 import { fetchWithCache } from '../utils/pokeapi';
 
 const BASE = 'https://pokeapi.co/api/v2';
 
-export default function PokemonModal({ entry, onClose }) {
+export default function PokemonModal() {
+  const { state } = useLocation();
+  const entry = state?.entry;
+  const navigate = useNavigate();
+
   const [pokemon, setPokemon] = useState(null);
   const [species, setSpecies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
+
+  function onClose() { navigate(-1); }
 
   useEffect(() => {
     if (!entry) return;
     setLoading(true);
     setPokemon(null);
     setSpecies(null);
-
     Promise.all([
       fetchWithCache(`${BASE}/pokemon/${entry.apiName}`),
       fetchWithCache(`${BASE}/pokemon-species/${entry.id}`),
@@ -26,7 +32,7 @@ export default function PokemonModal({ entry, onClose }) {
     }).catch(() => setLoading(false));
   }, [entry?.apiName]);
 
-  // Trigger slide-in animation after first paint
+  // Trigger fade-in after first paint
   useEffect(() => {
     const id = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(id);
@@ -36,38 +42,48 @@ export default function PokemonModal({ entry, onClose }) {
     const handler = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onClose]);
+  }, []);
+
+  if (!entry) return null;
 
   return (
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
+        className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-200 ${visible ? 'opacity-100' : 'opacity-0'}`}
         onClick={onClose}
       />
 
-      {/* Slide-in panel from right */}
-      <div
-        className={`fixed top-0 right-0 h-full w-full max-w-xl bg-slate-100 z-50 shadow-2xl overflow-y-auto transition-transform duration-300 ease-out ${visible ? 'translate-x-0' : 'translate-x-full'}`}
-      >
-        {/* Sticky close button */}
-        <div className="sticky top-0 z-10 flex justify-end p-3 bg-slate-100/80 backdrop-blur-sm">
-          <button
-            onClick={onClose}
-            className="w-8 h-8 bg-white rounded-full shadow flex items-center justify-center text-gray-500 hover:text-gray-800 text-xl leading-none"
-          >
-            ×
-          </button>
-        </div>
+      {/* Centred overlay panel with padding */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none">
+        <div
+          className={`pointer-events-auto w-full max-w-3xl max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-200 ${
+            visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          }`}
+        >
+          {/* Close button — floats above card */}
+          <div className="sticky top-0 z-10 flex justify-end pr-2 pt-2 -mb-10">
+            <button
+              onClick={onClose}
+              className="w-9 h-9 bg-white/90 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:text-gray-800 text-xl leading-none"
+            >
+              ×
+            </button>
+          </div>
 
-        <div className="px-4 pb-8 -mt-2">
           {loading ? (
-            <div className="bg-white rounded-2xl p-12 text-center text-gray-400">
+            <div className="bg-white rounded-2xl p-16 text-center text-gray-400">
               <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
               <p className="text-sm">載入中...</p>
             </div>
           ) : pokemon ? (
-            <PokemonCard pokemon={pokemon} species={species} variantLabel={entry.variantLabel} isMegaVariant={entry.isMega} speciesId={entry.id} />
+            <PokemonCard
+              pokemon={pokemon}
+              species={species}
+              variantLabel={entry.variantLabel}
+              isMegaVariant={entry.isMega}
+              speciesId={entry.id}
+            />
           ) : (
             <div className="bg-white rounded-2xl p-8 text-center text-gray-400">載入失敗</div>
           )}

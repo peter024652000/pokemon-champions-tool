@@ -69,7 +69,7 @@ function buildEntries() {
   return entries;
 }
 
-const INITIAL_ENTRIES = buildEntries();
+export const INITIAL_ENTRIES = buildEntries();
 
 export function usePokemonList() {
   const [list, setList] = useState(() =>
