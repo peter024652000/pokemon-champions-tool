@@ -9,11 +9,11 @@ export default function TypeBadge({ type, size = 'md' }) {
     : type.charAt(0).toUpperCase() + type.slice(1);
 
   const sizeClass = {
-    xs: 'px-1.5 py-0 text-[10px]',
-    sm: 'px-2 py-0.5 text-xs',
-    md: 'px-3 py-1 text-sm',
-    lg: 'px-4 py-1.5 text-base',
-  }[size] || 'px-3 py-1 text-sm';
+    xs: 'px-1.5 py-0 text-xs',
+    sm: 'px-2 py-0.5 text-sm',
+    md: 'px-3 py-1 text-base',
+    lg: 'px-4 py-1.5 text-lg',
+  }[size] || 'px-3 py-1 text-base';
 
   return (
     <span

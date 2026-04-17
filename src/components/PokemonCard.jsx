@@ -48,13 +48,13 @@ function getNatureForCell(colIdx, rowIdx) {
 function NatureMatrix({ nature, onChange, lang }) {
   return (
     <div className="overflow-x-auto">
-      <table className="text-[10px] border-collapse w-full">
+      <table className="text-sm border-collapse w-full">
         <thead>
           <tr>
-            <th className="w-8"></th>
+            <th className="w-10"></th>
             {/* Columns = decreased (橫向=減) */}
             {STAT_AXES.map(s => (
-              <th key={s} className="text-center font-bold text-blue-500 pb-1 px-0.5 whitespace-nowrap">
+              <th key={s} className="text-center font-bold text-blue-500 pb-1 px-1 whitespace-nowrap">
                 ↓{statShort(s, lang)}
               </th>
             ))}
@@ -64,7 +64,7 @@ function NatureMatrix({ nature, onChange, lang }) {
           {/* Rows = increased (直項=加) */}
           {STAT_AXES.map((incStat, rowIdx) => (
             <tr key={incStat}>
-              <td className="text-right font-bold text-red-500 pr-1 whitespace-nowrap">
+              <td className="text-right font-bold text-red-500 pr-1.5 whitespace-nowrap">
                 ↑{statShort(incStat, lang)}
               </td>
               {STAT_AXES.map((decStat, colIdx) => {
@@ -75,7 +75,7 @@ function NatureMatrix({ nature, onChange, lang }) {
                   <td key={decStat}
                     onClick={() => { if (n) onChange(n); }}
                     className={`
-                      text-center cursor-pointer px-0.5 py-1 rounded transition-colors
+                      text-center cursor-pointer px-1 py-1.5 rounded transition-colors
                       ${isSelected
                         ? 'bg-blue-500 text-white font-bold'
                         : isNeutral
@@ -108,7 +108,7 @@ function NatureSelector({ nature, setNature, lang }) {
       {/* Summary row — always visible */}
       <button
         onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center gap-2 px-3 py-2 text-xs hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center gap-3 px-4 py-3 text-base hover:bg-gray-50 transition-colors"
       >
         <span className="font-semibold text-gray-500 shrink-0">{lang === 'zh' ? '個性' : 'Nature'}</span>
         <span className="font-bold text-gray-800">
@@ -132,7 +132,7 @@ function NatureSelector({ nature, setNature, lang }) {
 
       {/* Matrix — shown when open */}
       {open && (
-        <div className="border-t border-gray-100 px-3 pb-3 pt-2">
+        <div className="border-t border-gray-100 px-4 pb-4 pt-3">
           <NatureMatrix nature={nature} onChange={select} lang={lang} />
         </div>
       )}
@@ -201,7 +201,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     ? (lang === 'zh' ? `超級${baseName}${megaSuffix}` : `Mega ${baseName}${megaSuffix}`)
     : (activeLabel ? `${baseName} ${activeLabel}` : baseName);
 
-  const primaryType = pokemon.types[0]?.type.name;
   const spriteUrl = getSpriteUrl(pokemon);
   const baseSpeed = pokemon.stats.find(s => s.stat.name === 'speed')?.base_stat ?? 0;
 
@@ -221,48 +220,53 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     return cached?.enDesc || null;
   }
 
-  const showNature = tab === 'stats' || tab === 'speed'; // moves tab doesn't need nature
+  const showNature = tab === 'stats' || tab === 'speed';
 
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-      {/* Header: left = sprite + info, right = type effectiveness */}
+      {/* Header */}
       <div
         className="p-6 text-white"
         style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}
       >
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           {spriteUrl && (
             <img src={spriteUrl} alt={pokemon.name}
-              className="w-28 h-28 object-contain drop-shadow-lg shrink-0" />
+              className="w-32 h-32 object-contain drop-shadow-lg shrink-0" />
           )}
           <div className="min-w-0 flex-1">
-            <p className="text-white/70 text-sm">#{String(pokemon.id).padStart(4, '0')}</p>
-            <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-3xl font-black leading-tight">
-                {displayName}
-              </h2>
+            {/* ID — xs */}
+            <p className="text-white/60 text-xs mb-0.5">#{String(pokemon.id).padStart(4, '0')}</p>
+
+            {/* Name — lg (36px) */}
+            <div className="flex items-center gap-3 flex-wrap mb-1">
+              <h2 className="text-4xl font-black leading-tight">{displayName}</h2>
               {isMegaVariant && (
-                <span className="text-sm font-bold bg-white/20 px-2 py-0.5 rounded-full">
-                  Mega
-                </span>
+                <span className="text-base font-bold bg-white/20 px-3 py-1 rounded-full">Mega</span>
               )}
             </div>
-            <p className="text-white/60 text-xs capitalize mb-2">{pokemon.name}</p>
-            <div className="flex gap-1.5 flex-wrap mb-2">
+
+            {/* API slug — xs fine print */}
+            <p className="text-white/40 text-xs capitalize mb-3">{pokemon.name}</p>
+
+            {/* Type badges — md (16px) */}
+            <div className="flex gap-2 flex-wrap mb-3">
               {pokemon.types.map(({ type }) => (
                 <TypeBadge key={type.name} type={type.name} />
               ))}
             </div>
-            <div className="flex flex-wrap gap-1.5">
+
+            {/* Abilities — sm (16px) */}
+            <div className="flex flex-wrap gap-2">
               {normalAbilities.map(a => {
                 const desc = abilityDesc(a.ability.name);
                 return (
                   <span key={a.ability.name} className="relative group">
-                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                    <span className="text-base bg-white/20 px-3 py-1 rounded-full text-white/90 cursor-default">
                       {abilityDisplay(a.ability.name)}
                     </span>
                     {desc && (
-                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                      <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-sm rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
                         {desc}
                       </span>
                     )}
@@ -273,11 +277,11 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
                 const desc = abilityDesc(hiddenAbility.ability.name);
                 return (
                   <span className="relative group">
-                    <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full text-white/90 cursor-default">
+                    <span className="text-base bg-white/20 px-3 py-1 rounded-full text-white/90 cursor-default">
                       {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
                     </span>
                     {desc && (
-                      <span className="absolute bottom-full left-0 mb-1.5 w-52 bg-gray-900/90 text-white text-xs rounded-lg px-2.5 py-1.5 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-lg">
+                      <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-sm rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
                         {desc}
                       </span>
                     )}
@@ -289,26 +293,26 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
         </div>
       </div>
 
-      {/* Type effectiveness — horizontal strip */}
-      <div className="px-6 py-3 bg-slate-50 border-b border-gray-200 flex items-start gap-4">
-        <span className="text-sm font-bold text-gray-500 shrink-0 pt-0.5">屬性抗性</span>
+      {/* Type effectiveness — horizontal strip, sm (16px) */}
+      <div className="px-6 py-4 bg-slate-50 border-b border-gray-200 flex items-start gap-4">
+        <span className="text-base font-bold text-gray-500 shrink-0 pt-0.5">屬性抗性</span>
         <TypeEffectiveness types={pokemon.types} horizontal />
       </div>
 
-      {/* Tabs */}
+      {/* Tabs — sm (16px) */}
       <div className="flex border-b border-gray-200">
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
-            className={`flex-1 py-3.5 text-sm font-semibold transition-colors
+            className={`flex-1 py-4 text-base font-semibold transition-colors
               ${tab === t.id ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}>
             {t.label}
           </button>
         ))}
       </div>
 
-      {/* Nature selector — collapsible, shown for stats and speed tabs */}
+      {/* Nature selector */}
       {showNature && (
-        <div className="px-6 pt-4 pb-0">
+        <div className="px-6 pt-5 pb-0">
           <NatureSelector nature={nature} setNature={setNature} lang={lang} />
         </div>
       )}

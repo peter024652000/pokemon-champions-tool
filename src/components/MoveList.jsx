@@ -21,7 +21,6 @@ export default function MoveList({ moves }) {
   const loadedRef = useRef(new Set());
   const cancelledRef = useRef(false);
 
-  // Pre-load all moves in batches when component mounts or Pokemon changes
   useEffect(() => {
     cancelledRef.current = false;
     loadedRef.current = new Set();
@@ -37,8 +36,6 @@ export default function MoveList({ moves }) {
         const data = await fetchMove(moveName);
         if (cancelledRef.current) return;
 
-        // 名稱優先用本地 JSON（完整繁中）
-        // 名稱和說明從本地 JSON 取
         const local = moveData[moveName] || {};
         const zhName = local.zh || null;
         const enName = local.en || data.names?.find(n => n.language.name === 'en')?.name || null;
@@ -92,22 +89,24 @@ export default function MoveList({ moves }) {
 
   return (
     <div>
-      <h3 className="text-base font-bold mb-1 text-gray-700">
+      {/* Title — md (24px) */}
+      <h3 className="text-2xl font-bold mb-1 text-gray-700">
         {lang === 'zh' ? '可學招式' : 'Learnable Moves'}
       </h3>
-      <p className="text-xs text-gray-400 mb-2">
+      <p className="text-sm text-gray-400 mb-3">
         {lang === 'zh' ? `共 ${visibleMoves.length} 招（hover 查看說明）` : `${visibleMoves.length} moves — hover for description`}
       </p>
 
+      {/* Search — sm (16px) */}
       <input
         type="text"
         value={search}
         onChange={e => setSearch(e.target.value)}
         placeholder={lang === 'zh' ? '搜尋招式名稱...' : 'Search moves...'}
-        className="w-full border border-gray-200 rounded-xl px-3 py-2 text-xs mb-3 focus:outline-none focus:ring-2 focus:ring-blue-300"
+        className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-base mb-4 focus:outline-none focus:ring-2 focus:ring-blue-300"
       />
 
-      <div className="space-y-1 max-h-[420px] overflow-y-auto pr-1">
+      <div className="space-y-1.5 max-h-[480px] overflow-y-auto pr-1">
         {filtered.map(({ move }) => {
           const d = details[move.name];
           const isHovered = hoveredMove === move.name;
@@ -125,29 +124,32 @@ export default function MoveList({ moves }) {
               key={move.name}
               onMouseEnter={() => setHoveredMove(move.name)}
               onMouseLeave={() => setHoveredMove(null)}
-              className={`px-3 py-2 rounded-xl border transition-colors cursor-default
+              className={`px-4 py-2.5 rounded-xl border transition-colors cursor-default
                 ${isHovered ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-transparent hover:bg-gray-100'}`}
             >
               {!d ? (
-                <span className="text-xs text-gray-300 animate-pulse">{move.name}</span>
+                <span className="text-base text-gray-300 animate-pulse">{move.name}</span>
               ) : d.error ? (
-                <span className="text-xs text-red-400">{move.name}</span>
+                <span className="text-base text-red-400">{move.name}</span>
               ) : (
                 <>
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-semibold text-gray-800">{name}</span>
+                    {/* Move name — sm (16px) */}
+                    <span className="text-base font-semibold text-gray-800">{name}</span>
                     <TypeBadge type={d.type} size="sm" />
-                    <span className={`text-xs px-1.5 py-0.5 rounded font-medium ${CATEGORY_STYLE[d.category] || CATEGORY_STYLE.status}`}>
+                    {/* Category badge — sm */}
+                    <span className={`text-base px-2 py-0.5 rounded font-medium ${CATEGORY_STYLE[d.category] || CATEGORY_STYLE.status}`}>
                       {(lang === 'zh' ? CATEGORY_LABEL_ZH : CATEGORY_LABEL_EN)[d.category] || d.category}
                     </span>
-                    <span className="text-xs text-gray-400 ml-auto flex gap-3 shrink-0">
+                    {/* Stats — sm */}
+                    <span className="text-base text-gray-400 ml-auto flex gap-4 shrink-0">
                       <span>{lang === 'zh' ? '威力' : 'Pwr'} <b className="text-gray-600">{d.power ?? '—'}</b></span>
                       <span>{lang === 'zh' ? '命中' : 'Acc'} <b className="text-gray-600">{d.accuracy ?? '—'}</b></span>
                       <span>PP <b className="text-gray-600">{d.pp ?? '—'}</b></span>
                     </span>
                   </div>
                   {isHovered && desc && (
-                    <p className="text-xs text-gray-500 mt-1.5 leading-relaxed border-t border-blue-100 pt-1.5">
+                    <p className="text-sm text-gray-500 mt-2 leading-relaxed border-t border-blue-100 pt-2">
                       {desc}
                     </p>
                   )}
@@ -158,7 +160,7 @@ export default function MoveList({ moves }) {
         })}
 
         {filtered.length === 0 && (
-          <p className="text-xs text-gray-400 text-center py-6">
+          <p className="text-base text-gray-400 text-center py-8">
             {lang === 'zh' ? '沒有符合的招式' : 'No moves found'}
           </p>
         )}

@@ -54,7 +54,7 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
             : 'text-blue-600';
           return (
             <div key={value} className="flex items-center gap-1.5">
-              <span className={`text-sm font-black shrink-0 w-6 text-right ${labelColor}`}>{label}</span>
+              <span className={`text-base font-black shrink-0 w-7 text-right ${labelColor}`}>{label}</span>
               <div className="flex flex-wrap gap-1">
                 {matched.map(t => <TypeBadge key={t} type={t} size="sm" />)}
               </div>

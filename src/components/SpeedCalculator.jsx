@@ -20,7 +20,6 @@ function getNatureMod(nature) {
 
 export default function SpeedCalculator({ baseSpeed, pokemonName, nature }) {
   const [bp, setBp] = useState(0);
-
   const [oppQuery, setOppQuery] = useState('');
   const [oppData, setOppData] = useState(null);
   const [oppBp, setOppBp] = useState(0);
@@ -59,51 +58,54 @@ export default function SpeedCalculator({ baseSpeed, pokemonName, nature }) {
   const natureLabelColor = natureMod === 1.1 ? 'text-red-500' : natureMod === 0.9 ? 'text-blue-500' : 'text-gray-400';
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-1">
-          <h3 className="text-base font-bold text-gray-700">速度計算</h3>
-          <span className={`text-xs font-semibold ${natureLabelColor}`}>{natureLabel}</span>
+        {/* Title — md (24px) */}
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-2xl font-bold text-gray-700">速度計算</h3>
+          <span className={`text-base font-semibold ${natureLabelColor}`}>{natureLabel}</span>
         </div>
-        <p className="text-xs text-gray-400 mb-3">Lv.50・個體值 31・Champions BP 系統</p>
+        <p className="text-sm text-gray-400 mb-4">Lv.50・個體值 31・Champions BP 系統</p>
 
+        {/* BP slider — sm (16px) */}
         <div className="flex items-center justify-between mb-1">
-          <label className="text-xs font-semibold text-gray-600">
+          <label className="text-base font-semibold text-gray-600">
             速度 BP：<span className="text-blue-600 font-bold">{bp}</span>
             <span className="text-gray-400"> / {BP_MAX_PER_STAT}</span>
           </label>
-          <span className="text-xs text-gray-400">總上限 {BP_TOTAL} BP</span>
+          <span className="text-sm text-gray-400">總上限 {BP_TOTAL} BP</span>
         </div>
         <input type="range" min={0} max={BP_MAX_PER_STAT} step={1} value={bp}
           onChange={e => setBp(Number(e.target.value))}
           className="w-full accent-blue-500" />
-        <div className="flex justify-between text-xs text-gray-300 mt-0.5">
+        <div className="flex justify-between text-sm text-gray-300 mt-1">
           <span>0</span><span>{BP_MAX_PER_STAT}</span>
         </div>
 
-        <div className="mt-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-xl p-4 text-center text-white shadow">
-          <p className="text-xs opacity-80 mb-1">{pokemonName} 實際速度</p>
+        {/* Main speed display — xl (48px) */}
+        <div className="mt-5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl p-5 text-center text-white shadow">
+          <p className="text-base opacity-80 mb-1">{pokemonName} 實際速度</p>
           <p className="text-5xl font-black tracking-tight">{mySpeed}</p>
         </div>
       </div>
 
       {/* Opponent comparison */}
-      <div className="border-t border-gray-100 pt-5">
-        <h4 className="text-sm font-bold text-gray-700 mb-2">對手速度比較</h4>
-        <form onSubmit={handleOppSearch} className="flex gap-2 mb-2">
+      <div className="border-t border-gray-100 pt-6">
+        <h4 className="text-base font-bold text-gray-700 mb-3">對手速度比較</h4>
+        <form onSubmit={handleOppSearch} className="flex gap-2 mb-3">
           <input type="text" value={oppQuery} onChange={e => setOppQuery(e.target.value)}
             placeholder="輸入對手寶可夢（英文名/編號）"
-            className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-300" />
+            className="flex-1 border border-gray-200 rounded-xl px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-300" />
           <button type="submit" disabled={oppLoading}
-            className="bg-slate-600 hover:bg-slate-700 disabled:bg-slate-300 text-white text-xs font-bold px-4 py-2 rounded-lg transition-colors">
+            className="bg-slate-600 hover:bg-slate-700 disabled:bg-slate-300 text-white text-base font-bold px-5 py-2 rounded-xl transition-colors">
             {oppLoading ? '...' : '比較'}
           </button>
         </form>
-        {oppError && <p className="text-xs text-red-500 mb-2">{oppError}</p>}
+        {oppError && <p className="text-base text-red-500 mb-2">{oppError}</p>}
 
         {oppData && (
-          <div className="space-y-2">
-            <label className="block text-xs font-semibold text-gray-600">
+          <div className="space-y-3">
+            <label className="block text-base font-semibold text-gray-600">
               {oppData.name} BP：<span className="text-slate-600 font-bold">{oppBp}</span>
             </label>
             <input type="range" min={0} max={BP_MAX_PER_STAT} step={1} value={oppBp}
@@ -112,27 +114,27 @@ export default function SpeedCalculator({ baseSpeed, pokemonName, nature }) {
             <div className="flex gap-2">
               {OPP_NATURES.map(n => (
                 <button key={n.value} onClick={() => setOppNature(n.value)}
-                  className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition-colors
+                  className={`flex-1 py-2 text-base font-semibold rounded-xl transition-colors
                     ${oppNature === n.value ? 'bg-slate-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                   {n.label}
                 </button>
               ))}
             </div>
-            <div className="bg-slate-50 rounded-xl p-3 flex items-center justify-between border border-slate-200">
+            <div className="bg-slate-50 rounded-2xl p-4 flex items-center justify-between border border-slate-200">
               <div className="text-center">
-                <p className="text-xs text-gray-500">{pokemonName}</p>
-                <p className="text-2xl font-black text-blue-600">{mySpeed}</p>
+                <p className="text-base text-gray-500">{pokemonName}</p>
+                <p className="text-4xl font-black text-blue-600">{mySpeed}</p>
               </div>
               <div className="text-center px-4">
                 {mySpeed > oppSpeed
-                  ? <span className="text-emerald-600 font-bold text-sm">先制 ▲{mySpeed - oppSpeed}</span>
+                  ? <span className="text-emerald-600 font-bold text-base">先制 ▲{mySpeed - oppSpeed}</span>
                   : mySpeed === oppSpeed
-                  ? <span className="text-gray-500 font-bold text-sm">同速</span>
-                  : <span className="text-red-500 font-bold text-sm">後手 ▼{oppSpeed - mySpeed}</span>}
+                  ? <span className="text-gray-500 font-bold text-base">同速</span>
+                  : <span className="text-red-500 font-bold text-base">後手 ▼{oppSpeed - mySpeed}</span>}
               </div>
               <div className="text-center">
-                <p className="text-xs text-gray-500">{oppData.name}</p>
-                <p className="text-2xl font-black text-slate-600">{oppSpeed}</p>
+                <p className="text-base text-gray-500">{oppData.name}</p>
+                <p className="text-4xl font-black text-slate-600">{oppSpeed}</p>
               </div>
             </div>
           </div>
@@ -140,18 +142,18 @@ export default function SpeedCalculator({ baseSpeed, pokemonName, nature }) {
       </div>
 
       {/* Benchmark table */}
-      <div className="border-t border-gray-100 pt-4">
-        <p className="text-xs font-bold text-gray-500 mb-2">常見速度參考（0 BP・中性）</p>
-        <div className="space-y-1">
+      <div className="border-t border-gray-100 pt-5">
+        <p className="text-base font-bold text-gray-500 mb-3">常見速度參考（0 BP・中性）</p>
+        <div className="space-y-1.5">
           {SPEED_BENCHMARKS.map(b => {
             const bs = calcSpeed(b.base, 0, 1.0);
             const faster = mySpeed > bs;
             const tied = mySpeed === bs;
             return (
-              <div key={b.name} className="flex items-center gap-2 text-xs">
+              <div key={b.name} className="flex items-center gap-3 text-base">
                 <span className="flex-1 text-gray-600 truncate">{b.name}</span>
-                <span className="font-mono text-gray-500 w-8 text-right">{bs}</span>
-                <span className={`w-12 text-right font-semibold ${tied ? 'text-gray-400' : faster ? 'text-emerald-600' : 'text-red-400'}`}>
+                <span className="font-mono text-gray-500 w-10 text-right">{bs}</span>
+                <span className={`w-14 text-right font-semibold ${tied ? 'text-gray-400' : faster ? 'text-emerald-600' : 'text-red-400'}`}>
                   {tied ? '同速' : faster ? '先制' : '後手'}
                 </span>
               </div>

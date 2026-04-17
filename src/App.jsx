@@ -38,19 +38,19 @@ function ListPage() {
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-screen-2xl mx-auto px-3 py-3 space-y-2.5">
           <div className="flex items-center gap-3">
-            <h1 className="text-xl font-black text-gray-800 shrink-0">寶可夢工具</h1>
+            <h1 className="text-2xl font-black text-gray-800 shrink-0">寶可夢工具</h1>
             <span className="text-xs text-gray-400 shrink-0">Pokemon Champions</span>
             {/* Language toggle */}
             <div className="flex rounded-lg overflow-hidden border border-gray-200 shrink-0">
               <button
                 onClick={() => setLang('zh')}
-                className={`px-2.5 py-1 text-xs font-semibold transition-colors ${
+                className={`px-3 py-1.5 text-base font-semibold transition-colors ${
                   lang === 'zh' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >中文</button>
               <button
                 onClick={() => setLang('en')}
-                className={`px-2.5 py-1 text-xs font-semibold transition-colors border-l border-gray-200 ${
+                className={`px-3 py-1.5 text-base font-semibold transition-colors border-l border-gray-200 ${
                   lang === 'en' ? 'bg-blue-500 text-white' : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >EN</button>
@@ -60,7 +60,7 @@ function ListPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={lang === 'zh' ? '搜尋名稱...' : 'Search name...'}
-              className="ml-auto w-44 border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="ml-auto w-52 border border-gray-200 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
           <TypeFilter selected={typeFilter} onChange={setTypeFilter} />
