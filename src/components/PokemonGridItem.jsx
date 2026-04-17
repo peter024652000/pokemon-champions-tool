@@ -23,11 +23,17 @@ export default function PokemonGridItem({ pokemon, onClick }) {
     ? (pokemon.zhName || pokemon.enName || pokemon.name)
     : (pokemon.enName || pokemon.zhName || pokemon.name);
 
-  // Mega: show badge. Other variants (Rotom, regional): append label to name.
+  // X/Y suffix for dual Mega forms (e.g. Charizard)
+  const megaSuffix = pokemon.apiName?.includes('-mega-x') ? ' X'
+    : pokemon.apiName?.includes('-mega-y') ? ' Y' : '';
+
+  // Mega: show full Mega name. Other variants: append label to name.
   const variantLabel = lang === 'zh' ? pokemon.variantLabel : (pokemon.enLabel || pokemon.variantLabel);
-  const displayName = variantLabel && !pokemon.isMega
-    ? `${baseName} ${variantLabel}`
-    : baseName;
+  const displayName = pokemon.isMega
+    ? (lang === 'zh' ? `超級${baseName}${megaSuffix}` : `Mega ${baseName}${megaSuffix}`)
+    : variantLabel
+      ? `${baseName} ${variantLabel}`
+      : baseName;
 
   return (
     <button

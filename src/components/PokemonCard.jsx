@@ -192,9 +192,12 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
   })();
   const activeLabel = lang === 'zh' ? variantLabel : (enLabel || variantLabel);
 
-  const displayName = activeLabel && !isMegaVariant
-    ? `${baseName} ${activeLabel}`
-    : baseName;
+  const megaSuffix = isMegaVariant
+    ? (pokemon.name?.includes('-mega-x') ? ' X' : pokemon.name?.includes('-mega-y') ? ' Y' : '')
+    : '';
+  const displayName = isMegaVariant
+    ? (lang === 'zh' ? `超級${baseName}${megaSuffix}` : `Mega ${baseName}${megaSuffix}`)
+    : (activeLabel ? `${baseName} ${activeLabel}` : baseName);
 
   const primaryType = pokemon.types[0]?.type.name;
   const headerColor = TYPE_COLORS[primaryType] || '#6390F0';
@@ -235,11 +238,11 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
             <p className="text-white/70 text-xs">#{String(pokemon.id).padStart(4, '0')}</p>
             <div className="flex items-center gap-2 flex-wrap">
               <h2 className="text-3xl font-black leading-tight">
-                {isMegaVariant && activeLabel ? baseName : displayName}
+                {displayName}
               </h2>
-              {isMegaVariant && activeLabel && (
+              {isMegaVariant && (
                 <span className="text-sm font-bold bg-white/20 px-2 py-0.5 rounded-full">
-                  {activeLabel}
+                  Mega
                 </span>
               )}
             </div>

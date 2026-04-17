@@ -13,7 +13,7 @@ export const CHAMPIONS_IDS = [
   497, 500, 503, 505, 510, 512, 514, 516, 530, 531, 534, 547, 553, 563, 569, 571,
   579, 584, 587, 609, 614, 618, 623, 635, 637,
   652, 655, 658, 660, 663, 666, 670, 671, 675, 676, 678, 681, 683, 685,
-  693, 695, 697, 699, 700, 701, 702, 706, 707, 709, 711, 713, 715,
+  693, 695, 697, 699, 700, 701, 702, 706, 707, 709, 710, 711, 713, 715,
   724, 727, 730, 733, 740, 745, 748, 750, 752, 758, 763, 765, 766, 778, 780, 784,
   823, 841, 842, 844, 855, 858, 866, 867, 869, 877, 887,
   899, 900, 902, 903,
@@ -21,14 +21,19 @@ export const CHAMPIONS_IDS = [
   1013, 1018, 1019,
 ];
 
+// For Pokemon whose default form needs an explicit label (e.g. Lycanroc base = Midday)
+export const BASE_FORM_LABELS = {
+  745: { zh: '白晝型', en: 'Midday Form' },
+};
+
 // Mega Evolutions in Champions
 // Standard (XY/ORAS): confirmed in PokeAPI
 // Z-A new megas: attempted via PokeAPI, gracefully skipped if 404
 export const MEGA_ENTRIES = [
   // Standard XY/ORAS megas
   { baseId: 3,   apiName: 'venusaur-mega',     label: 'Mega' },
-  { baseId: 6,   apiName: 'charizard-mega-x',  label: 'Mega X' },
-  { baseId: 6,   apiName: 'charizard-mega-y',  label: 'Mega Y' },
+  { baseId: 6,   apiName: 'charizard-mega-x',  label: 'Mega' },
+  { baseId: 6,   apiName: 'charizard-mega-y',  label: 'Mega' },
   { baseId: 9,   apiName: 'blastoise-mega',    label: 'Mega' },
   { baseId: 15,  apiName: 'beedrill-mega',     label: 'Mega' },
   { baseId: 18,  apiName: 'pidgeot-mega',      label: 'Mega' },
@@ -62,7 +67,7 @@ export const MEGA_ENTRIES = [
   { baseId: 460, apiName: 'abomasnow-mega',    label: 'Mega' },
   { baseId: 475, apiName: 'gallade-mega',      label: 'Mega' },
   { baseId: 531, apiName: 'audino-mega',       label: 'Mega' },
-  // Legends Z-A new megas (Champions roster only)
+  // Legends Z-A new megas (Champions roster only, gracefully skipped if not yet in PokeAPI)
   { baseId: 36,  apiName: 'clefable-mega',     label: 'Mega' },
   { baseId: 71,  apiName: 'victreebel-mega',   label: 'Mega' },
   { baseId: 121, apiName: 'starmie-mega',      label: 'Mega' },
@@ -70,11 +75,18 @@ export const MEGA_ENTRIES = [
   { baseId: 154, apiName: 'meganium-mega',     label: 'Mega' },
   { baseId: 160, apiName: 'feraligatr-mega',   label: 'Mega' },
   { baseId: 227, apiName: 'skarmory-mega',     label: 'Mega' },
+  { baseId: 358, apiName: 'chimecho-mega',     label: 'Mega' },
+  { baseId: 478, apiName: 'froslass-mega',     label: 'Mega' },
   { baseId: 500, apiName: 'emboar-mega',       label: 'Mega' },
+  { baseId: 530, apiName: 'excadrill-mega',    label: 'Mega' },
   { baseId: 609, apiName: 'chandelure-mega',   label: 'Mega' },
   { baseId: 623, apiName: 'golurk-mega',       label: 'Mega' },
+  { baseId: 652, apiName: 'chesnaught-mega',   label: 'Mega' },
+  { baseId: 655, apiName: 'delphox-mega',      label: 'Mega' },
+  { baseId: 658, apiName: 'greninja-mega',     label: 'Mega' },
   { baseId: 670, apiName: 'floette-mega',      label: 'Mega' },
   { baseId: 678, apiName: 'meowstic-mega',     label: 'Mega' },
+  { baseId: 701, apiName: 'hawlucha-mega',     label: 'Mega' },
   { baseId: 740, apiName: 'crabominable-mega', label: 'Mega' },
   { baseId: 780, apiName: 'drampa-mega',       label: 'Mega' },
   { baseId: 952, apiName: 'scovillain-mega',   label: 'Mega' },
@@ -90,20 +102,32 @@ export const ROTOM_FORMS = [
   { baseId: 479, apiName: 'rotom-mow',   label: '割草機型' },
 ];
 
-// Regional alternate forms (PokeAPI confirmed)
+// Regional alternate forms and gender/size variants (PokeAPI confirmed)
 export const REGIONAL_FORMS = [
-  { baseId: 26,  apiName: 'raichu-alola',          label: '阿羅拉型' },
-  { baseId: 38,  apiName: 'ninetales-alola',        label: '阿羅拉型' },
-  { baseId: 80,  apiName: 'slowbro-galar',          label: '伽勒爾型' },
-  { baseId: 128, apiName: 'tauros-paldea-combat',   label: '帕底亞型(格鬥)' },
-  { baseId: 128, apiName: 'tauros-paldea-blaze',    label: '帕底亞型(火)' },
-  { baseId: 128, apiName: 'tauros-paldea-aqua',     label: '帕底亞型(水)' },
-  { baseId: 157, apiName: 'typhlosion-hisui',       label: '洗翠型' },
-  { baseId: 199, apiName: 'slowking-galar',         label: '伽勒爾型' },
-  { baseId: 503, apiName: 'samurott-hisui',         label: '洗翠型' },
-  { baseId: 571, apiName: 'zoroark-hisui',          label: '洗翠型' },
-  { baseId: 618, apiName: 'stunfisk-galar',         label: '伽勒爾型' },
-  { baseId: 724, apiName: 'decidueye-hisui',        label: '洗翠型' },
-  { baseId: 745, apiName: 'lycanroc-midnight',      label: '午夜型' },
-  { baseId: 745, apiName: 'lycanroc-dusk',          label: '黃昏型' },
+  // Regional forms
+  { baseId: 26,  apiName: 'raichu-alola',               label: '阿羅拉型' },
+  { baseId: 38,  apiName: 'ninetales-alola',             label: '阿羅拉型' },
+  { baseId: 59,  apiName: 'arcanine-hisui',              label: '洗翠型' },
+  { baseId: 80,  apiName: 'slowbro-galar',               label: '伽勒爾型' },
+  { baseId: 128, apiName: 'tauros-paldea-combat-breed',  label: '帕底亞型(格鬥)' },
+  { baseId: 128, apiName: 'tauros-paldea-blaze-breed',   label: '帕底亞型(火)' },
+  { baseId: 128, apiName: 'tauros-paldea-aqua-breed',    label: '帕底亞型(水)' },
+  { baseId: 157, apiName: 'typhlosion-hisui',            label: '洗翠型' },
+  { baseId: 199, apiName: 'slowking-galar',              label: '伽勒爾型' },
+  { baseId: 503, apiName: 'samurott-hisui',              label: '洗翠型' },
+  { baseId: 571, apiName: 'zoroark-hisui',               label: '洗翠型' },
+  { baseId: 618, apiName: 'stunfisk-galar',              label: '伽勒爾型' },
+  { baseId: 670, apiName: 'floette-eternal',             label: '永恆之花' },
+  { baseId: 678, apiName: 'meowstic-female',             label: '♀' },
+  { baseId: 710, apiName: 'pumpkaboo-small',             label: '小號' },
+  { baseId: 710, apiName: 'pumpkaboo-large',             label: '大號' },
+  { baseId: 710, apiName: 'pumpkaboo-super',             label: '超大號' },
+  { baseId: 711, apiName: 'gourgeist-small',             label: '小號' },
+  { baseId: 711, apiName: 'gourgeist-large',             label: '大號' },
+  { baseId: 711, apiName: 'gourgeist-super',             label: '超大號' },
+  { baseId: 713, apiName: 'avalugg-hisui',               label: '洗翠型' },
+  { baseId: 724, apiName: 'decidueye-hisui',             label: '洗翠型' },
+  { baseId: 745, apiName: 'lycanroc-midnight',           label: '午夜型' },
+  { baseId: 745, apiName: 'lycanroc-dusk',               label: '黃昏型' },
+  { baseId: 902, apiName: 'basculegion-female',          label: '♀' },
 ];

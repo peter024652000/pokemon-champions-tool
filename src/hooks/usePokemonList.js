@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchWithCache } from '../utils/pokeapi';
-import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS, REGIONAL_FORMS } from '../utils/championsIds';
+import { CHAMPIONS_IDS, MEGA_ENTRIES, ROTOM_FORMS, REGIONAL_FORMS, BASE_FORM_LABELS } from '../utils/championsIds';
 import pokemonNamesData from '../data/pokemon-names.json';
 
 const BASE = 'https://pokeapi.co/api/v2';
@@ -14,8 +14,14 @@ function enLabelFromApiName(apiName) {
   if (apiName.includes('-paldea-combat'))  return 'Paldean Form (Combat)';
   if (apiName.includes('-paldea-blaze'))   return 'Paldean Form (Blaze)';
   if (apiName.includes('-paldea-aqua'))    return 'Paldean Form (Aqua)';
+  if (apiName.includes('-midday'))         return 'Midday Form';
   if (apiName.includes('-midnight'))       return 'Midnight Form';
   if (apiName.includes('-dusk'))           return 'Dusk Form';
+  if (apiName.includes('-eternal'))        return 'Eternal Flower';
+  if (apiName.includes('-female'))         return '♀';
+  if (apiName.includes('-small'))          return 'Small Form';
+  if (apiName.includes('-large'))          return 'Large Form';
+  if (apiName.includes('-super'))          return 'Super Form';
   if (apiName === 'rotom-heat')  return 'Heat';
   if (apiName === 'rotom-wash')  return 'Wash';
   if (apiName === 'rotom-fan')   return 'Fan';
@@ -40,7 +46,14 @@ function buildEntries() {
 
   const entries = [];
   for (const id of CHAMPIONS_IDS) {
-    entries.push({ id, apiName: String(id), variantLabel: null, enLabel: null, isMega: false });
+    const baseLabel = BASE_FORM_LABELS[id];
+    entries.push({
+      id,
+      apiName: String(id),
+      variantLabel: baseLabel?.zh || null,
+      enLabel: baseLabel?.en || null,
+      isMega: false,
+    });
     if (byBase[id]) {
       for (const v of byBase[id]) {
         entries.push({
