@@ -55,14 +55,15 @@ export default function PokemonModal() {
       />
 
       {/* Centred overlay panel with padding */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none relative">
-        {/* Close button — sits outside the card, top-right of the overlay area */}
-        <button
-          onClick={onClose}
-          className="pointer-events-auto absolute top-2 right-2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:text-gray-800 text-2xl leading-none z-10"
-        >
-          ×
-        </button>
+      {/* Close button — fixed to viewport top-right, above everything */}
+      <button
+        onClick={onClose}
+        className="fixed top-4 right-4 z-[60] w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-500 hover:text-gray-800 text-2xl leading-none pointer-events-auto"
+      >
+        ×
+      </button>
+
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
 
         <div
           className={`pointer-events-auto w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-2xl shadow-2xl transition-all duration-200 ${
