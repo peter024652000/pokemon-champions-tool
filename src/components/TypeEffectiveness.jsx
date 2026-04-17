@@ -75,27 +75,24 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
     ];
 
     return (
-      <div className="space-y-2 w-full">
+      <div className="space-y-3 w-full">
         {rows.map(({ label, labelClass, sub }) => {
-          const hasAny = sub.some(s => s.types.length > 0);
-          if (!hasAny) return null;
+          const activeSub = sub.filter(s => s.types.length > 0);
+          if (!activeSub.length) return null;
           return (
-            <div key={label} className="flex items-start gap-3">
-              {/* Group label */}
-              <span className={`text-base font-bold shrink-0 w-10 pt-0.5 ${labelClass}`}>{label}</span>
-              {/* Sub-groups with multiplier labels */}
-              <div className="flex flex-wrap gap-x-5 gap-y-1 items-center">
-                {sub.map(({ mult, types, multClass }) => {
-                  if (!types.length) return null;
-                  return (
-                    <div key={mult} className="flex items-center gap-1.5">
-                      <span className={`text-sm shrink-0 ${multClass}`}>{mult}</span>
-                      <div className="flex flex-wrap gap-1">
-                        {types.map(t => <TypeBadge key={t} type={t} size="sm" />)}
-                      </div>
+            <div key={label} className="flex gap-3">
+              {/* Group label — 固定寬度，對齊第一排 */}
+              <span className={`text-base font-bold w-10 shrink-0 text-right pt-1.5 ${labelClass}`}>{label}</span>
+              {/* 每個倍率獨立一排，垂直堆疊 */}
+              <div className="flex-1 space-y-1.5">
+                {activeSub.map(({ mult, types, multClass }) => (
+                  <div key={mult} className="flex items-start gap-2">
+                    <span className={`text-sm font-bold w-7 shrink-0 text-right pt-1.5 ${multClass}`}>{mult}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {types.map(t => <TypeBadge key={t} type={t} size="sm" />)}
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
             </div>
           );
