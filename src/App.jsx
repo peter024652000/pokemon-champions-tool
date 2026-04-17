@@ -36,7 +36,7 @@ function ListPage() {
     <div className="min-h-screen bg-slate-100">
       {/* Sticky header */}
       <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3 space-y-2.5">
+        <div className="max-w-screen-2xl mx-auto px-3 py-3 space-y-2.5">
           <div className="flex items-center gap-3">
             <h1 className="text-xl font-black text-gray-800 shrink-0">寶可夢工具</h1>
             <span className="text-xs text-gray-400 shrink-0">Pokemon Champions</span>
@@ -74,7 +74,7 @@ function ListPage() {
       </div>
 
       {/* Grid */}
-      <div className="max-w-5xl mx-auto px-4 py-4">
+      <div className="max-w-screen-2xl mx-auto px-3 py-4">
         {filtered.length === 0 && loadingDone ? (
           <div className="text-center py-20 text-gray-400">
             <p className="text-4xl mb-3">🔍</p>
@@ -88,7 +88,7 @@ function ListPage() {
                 : `${lang === 'zh' ? '載入中' : 'Loading'} ${loadedCount} / ${total}...`}
               {isFiltering && loadingDone && (lang === 'zh' ? ` （篩選自 ${total} 筆）` : ` (of ${total})`)}
             </p>
-            <div className="grid grid-cols-6 gap-2">
+            <div className="grid grid-cols-8 gap-2">
               {filtered.map((p, i) => (
                 <PokemonGridItem key={p.apiName || i} pokemon={p} />
               ))}
