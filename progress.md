@@ -5,8 +5,35 @@
 ### 核心架構
 - [x] React 19 + Vite 5 + Tailwind CSS v3 建置
 - [x] 繁中 / 英文語言切換（LangContext）
-- [x] 寶可夢列表（Champions 名單篩選）
-- [x] 屬性篩選器（TypeFilter）
+- [x] React Router v7（SPA 多頁路由 + Modal 背景路由）
+- [x] Layout + TopNav（固定頂部，Logo / 圖鑑 / 屬性相剋 / 語言切換）
+
+### 頁面架構
+- [x] LandingPage `/`：說明頁，兩個 CTA（圖鑑、屬性相剋）
+- [x] PokedexPage `/pokedex`：搜尋置中 + 屬性篩選 + Mega 篩選
+- [x] TypeChartPage `/types`：18 屬性選擇器 + 攻擊/防守面板，使用 TYPE_CHART
+- [x] PokemonDetailPage `/pokemon/:apiName`：Modal 疊加在背景路由上
+
+### 屬性相剋頁（TypeChartPage）
+- [x] 18 屬性選擇器（2×9 grid，pokesprite masters icon + 底色膠囊按鈕）
+- [x] 選取後顯示攻擊面（劍圖示，紅色邊框）與防守面（盾圖示，藍色邊框）
+- [x] 六倍率等級：×4 / ×2 / ×1 / ×½ / ×¼ / ×0，統一背景，僅文字顏色區分
+- [x] 中間欄位顯示所選屬性 icon + badge（手機版隱藏）
+
+### UI 元件
+- [x] TypeFilter：2×9 grid、pokesprite icon、maxSelect prop、Mega 圓形 toggle
+- [x] TypeBadge：加入 pokesprite masters 純圖形 icon（無文字）
+- [x] PokemonGridItem：右上角 Mega 進化符號（圓形 bg-purple-100 badge）
+- [x] PokemonCard：header Mega 標示（符號 + 「超級進化」/ "Mega"）
+
+### 屬性色系（constants.js）
+- [x] 調整：飛行 `#84C4E0`、龍 `#1B6B83`、惡 `#3A3048`、妖精 `#E898C8`
+- [x] 新增：`MEGA_SIGIL_URL`（pokesprite mega-evolution-sigil-hires.png）
+- [x] 新增：`TYPE_ICON_BASE`（pokesprite misc/types/masters/ 純圖形 icon）
+
+### 寶可夢列表
+- [x] 屬性篩選器（TypeFilter，支援最多選 2 個）
+- [x] Mega 篩選 toggle
 
 ### 資料層
 - [x] `scripts/build-data.js`：從 PokeAPI GitHub CSV 一次性產生本地 JSON
