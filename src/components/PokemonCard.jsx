@@ -5,7 +5,7 @@ import TypeEffectiveness from './TypeEffectiveness';
 import SpeedCalculator from './SpeedCalculator';
 import MoveList from './MoveList';
 import { getSpriteUrl } from '../utils/pokeapi';
-import { TYPE_COLORS, NATURES } from '../utils/constants';
+import { TYPE_COLORS, NATURES, MEGA_SIGIL_URL } from '../utils/constants';
 import { getAbilityNames } from '../utils/abilityCache';
 import { useLang } from '../context/LangContext';
 import pokemonNamesData from '../data/pokemon-names.json';
@@ -242,7 +242,10 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
             <div className="flex items-center gap-3 flex-wrap mb-1">
               <h2 className="text-4xl font-black leading-tight">{displayName}</h2>
               {isMegaVariant && (
-                <span className="text-base font-bold bg-white/20 px-3 py-1 rounded-full">Mega</span>
+                <span className="inline-flex items-center gap-1.5 text-base font-bold bg-white/20 px-3 py-1 rounded-full">
+                  <img src={MEGA_SIGIL_URL} alt="" className="h-5 w-5 shrink-0" />
+                  {lang === 'zh' ? '超級進化' : 'Mega'}
+                </span>
               )}
             </div>
 

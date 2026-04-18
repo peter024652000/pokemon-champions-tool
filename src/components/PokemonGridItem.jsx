@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
+import { MEGA_SIGIL_URL } from '../utils/constants';
 
 export default function PokemonGridItem({ pokemon }) {
   const { lang } = useLang();
@@ -50,9 +51,9 @@ export default function PokemonGridItem({ pokemon }) {
       className="bg-white rounded-xl border border-gray-100 p-3 flex flex-col items-center gap-1.5
         hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all duration-150 w-full text-left relative"
     >
-      {pokemon.isMega && pokemon.variantLabel && (
-        <span className="absolute top-2 right-2 text-xs font-bold px-2 py-0.5 rounded-full leading-none bg-purple-100 text-purple-600">
-          {pokemon.variantLabel}
+      {pokemon.isMega && (
+        <span className="absolute top-2 right-2 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center shadow-sm">
+          <img src={MEGA_SIGIL_URL} alt="Mega" className="h-5 w-5" />
         </span>
       )}
 

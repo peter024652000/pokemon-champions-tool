@@ -1,22 +1,22 @@
 export const TYPE_COLORS = {
-  normal: '#A8A77A',
-  fire: '#EE8130',
-  water: '#6390F0',
+  normal:   '#A8A77A',
+  fire:     '#EE8130',
+  water:    '#6390F0',
   electric: '#F7D02C',
-  grass: '#7AC74C',
-  ice: '#96D9D6',
+  grass:    '#7AC74C',
+  ice:      '#96D9D6',
   fighting: '#C22E28',
-  poison: '#A33EA1',
-  ground: '#E2BF65',
-  flying: '#A98FF3',
-  psychic: '#F95587',
-  bug: '#A6B91A',
-  rock: '#B6A136',
-  ghost: '#735797',
-  dragon: '#6F35FC',
-  dark: '#705746',
-  steel: '#B7B7CE',
-  fairy: '#D685AD',
+  poison:   '#A33EA1',
+  ground:   '#E2BF65',
+  flying:   '#84C4E0',
+  psychic:  '#F95587',
+  bug:      '#A6B91A',
+  rock:     '#B6A136',
+  ghost:    '#735797',
+  dragon:   '#1B6B83',
+  dark:     '#3A3048',
+  steel:    '#B7B7CE',
+  fairy:    '#E898C8',
 };
 
 export const TYPE_NAMES_ZH = {
@@ -81,6 +81,14 @@ export const TYPE_CHART = {
 };
 
 export const ALL_TYPES = Object.keys(TYPE_CHART);
+
+// Mega Evolution sigil icon (pokesprite misc/special-attribute)
+export const MEGA_SIGIL_URL =
+  'https://raw.githubusercontent.com/msikma/pokesprite/master/misc/special-attribute/mega-evolution-sigil-hires.png';
+
+// Pure type icon sprites — pokesprite misc/types/masters/{type}.png
+export const TYPE_ICON_BASE =
+  'https://raw.githubusercontent.com/msikma/pokesprite/master/misc/types/masters/';
 
 // Speed benchmarks — Champions roster only
 export const SPEED_BENCHMARKS = [
