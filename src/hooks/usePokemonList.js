@@ -99,7 +99,9 @@ export function usePokemonList() {
             map[key] = {
               name: p.name,
               types: p.types.map(t => t.type.name),
-              sprite: p.sprites?.front_default || null,
+              sprite: p.sprites?.front_default
+                   || p.sprites?.other?.['official-artwork']?.front_default
+                   || null,
               abilities: p.abilities || [],
               stats: p.stats || [],
               loaded: true,
