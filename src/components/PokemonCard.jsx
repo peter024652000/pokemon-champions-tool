@@ -2,143 +2,18 @@ import { useState, useEffect } from 'react';
 import TypeBadge from './TypeBadge';
 import BaseStats from './BaseStats';
 import TypeEffectiveness from './TypeEffectiveness';
-import SpeedCalculator from './SpeedCalculator';
 import MoveList from './MoveList';
 import { getSpriteUrl } from '../utils/pokeapi';
-import { TYPE_COLORS, NATURES, MEGA_SIGIL_URL } from '../utils/constants';
+import { MEGA_SIGIL_URL } from '../utils/constants';
 import { getAbilityNames } from '../utils/abilityCache';
 import { useLang } from '../context/LangContext';
 import pokemonNamesData from '../data/pokemon-names.json';
 
 const TABS = [
-  { id: 'stats', label: '種族值' },
-  { id: 'speed', label: '速度計算' },
-  { id: 'moves', label: '招式列表' },
+  { id: 'stats', zh: '種族值',   en: 'Base Stats'  },
+  { id: 'types', zh: '屬性相剋', en: 'Type Chart'  },
+  { id: 'moves', zh: '招式列表', en: 'Moves'       },
 ];
-
-// Nature matrix constants
-const STAT_AXES = ['attack', 'defense', 'special-attack', 'special-defense', 'speed'];
-const NEUTRAL_NATURE_ENS = ['Hardy', 'Docile', 'Bashful', 'Quirky', 'Serious'];
-const STAT_SHORT_ZH = { attack: '攻', defense: '防', 'special-attack': '特攻', 'special-defense': '特防', speed: '速' };
-const STAT_SHORT_EN = { attack: 'Atk', defense: 'Def', 'special-attack': 'SpA', 'special-defense': 'SpD', speed: 'Spe' };
-
-function statShort(stat, lang) {
-  return lang === 'zh' ? (STAT_SHORT_ZH[stat] || stat) : (STAT_SHORT_EN[stat] || stat);
-}
-
-function statLabel(statKey, lang) {
-  if (lang === 'en') {
-    const map = { attack: 'Atk', defense: 'Def', 'special-attack': 'Sp.Atk', 'special-defense': 'Sp.Def', speed: 'Spe' };
-    return map[statKey] || statKey;
-  }
-  const map = { attack: '攻擊', defense: '防禦', 'special-attack': '特攻', 'special-defense': '特防', speed: '速度' };
-  return map[statKey] || statKey;
-}
-
-function getNatureForCell(colIdx, rowIdx) {
-  if (colIdx === rowIdx) {
-    return NATURES.find(n => n.en === NEUTRAL_NATURE_ENS[rowIdx]);
-  }
-  // Rows = increased (直項=加), Columns = decreased (橫向=減)
-  const inc = STAT_AXES[rowIdx];
-  const dec = STAT_AXES[colIdx];
-  return NATURES.find(n => n.increased === inc && n.decreased === dec);
-}
-
-function NatureMatrix({ nature, onChange, lang }) {
-  return (
-    <div className="overflow-x-auto">
-      <table className="text-sm border-collapse w-full">
-        <thead>
-          <tr>
-            <th className="w-10"></th>
-            {/* Columns = decreased (橫向=減) */}
-            {STAT_AXES.map(s => (
-              <th key={s} className="text-center font-bold text-blue-500 pb-1 px-1 whitespace-nowrap">
-                ↓{statShort(s, lang)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {/* Rows = increased (直項=加) */}
-          {STAT_AXES.map((incStat, rowIdx) => (
-            <tr key={incStat}>
-              <td className="text-right font-bold text-red-500 pr-1.5 whitespace-nowrap">
-                ↑{statShort(incStat, lang)}
-              </td>
-              {STAT_AXES.map((decStat, colIdx) => {
-                const n = getNatureForCell(colIdx, rowIdx);
-                const isNeutral = colIdx === rowIdx;
-                const isSelected = n && nature.en === n.en;
-                return (
-                  <td key={decStat}
-                    onClick={() => { if (n) onChange(n); }}
-                    className={`
-                      text-center cursor-pointer px-1 py-1.5 rounded transition-colors
-                      ${isSelected
-                        ? 'bg-blue-500 text-white font-bold'
-                        : isNeutral
-                        ? 'bg-gray-100 text-gray-400 hover:bg-gray-200'
-                        : 'text-gray-700 hover:bg-blue-50'}
-                    `}
-                  >
-                    {n ? (lang === 'zh' ? n.zh : n.en) : '?'}
-                  </td>
-                );
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-function NatureSelector({ nature, setNature, lang }) {
-  const [open, setOpen] = useState(false);
-
-  function select(n) {
-    setNature(n);
-    setOpen(false);
-  }
-
-  return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden">
-      {/* Summary row — always visible */}
-      <button
-        onClick={() => setOpen(v => !v)}
-        className="w-full flex items-center gap-3 px-4 py-3 text-base hover:bg-gray-50 transition-colors"
-      >
-        <span className="font-semibold text-gray-500 shrink-0">{lang === 'zh' ? '個性' : 'Nature'}</span>
-        <span className="font-bold text-gray-800">
-          {lang === 'zh' ? nature.zh : nature.en}
-        </span>
-        {nature.increased && (
-          <span className="text-red-500 font-semibold shrink-0">
-            ↑{statLabel(nature.increased, lang)}
-          </span>
-        )}
-        {nature.decreased && (
-          <span className="text-blue-500 font-semibold shrink-0">
-            ↓{statLabel(nature.decreased, lang)}
-          </span>
-        )}
-        {!nature.increased && !nature.decreased && (
-          <span className="text-gray-400 shrink-0">{lang === 'zh' ? '無效果' : 'Neutral'}</span>
-        )}
-        <span className="ml-auto text-gray-400">{open ? '▴' : '▾'}</span>
-      </button>
-
-      {/* Matrix — shown when open */}
-      {open && (
-        <div className="border-t border-gray-100 px-4 pb-4 pt-3">
-          <NatureMatrix nature={nature} onChange={select} lang={lang} />
-        </div>
-      )}
-    </div>
-  );
-}
 
 function formatAbility(name) {
   return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -146,7 +21,6 @@ function formatAbility(name) {
 
 export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant, speciesId }) {
   const [tab, setTab] = useState('stats');
-  const [nature, setNature] = useState(NATURES[0]);
   const [abilityNames, setAbilityNames] = useState({});
   const { lang } = useLang();
 
@@ -202,7 +76,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     : (activeLabel ? `${baseName} ${activeLabel}` : baseName);
 
   const spriteUrl = getSpriteUrl(pokemon);
-  const baseSpeed = pokemon.stats.find(s => s.stat.name === 'speed')?.base_stat ?? 0;
 
   const normalAbilities = pokemon.abilities?.filter(a => !a.is_hidden) ?? [];
   const hiddenAbility = pokemon.abilities?.find(a => a.is_hidden);
@@ -220,8 +93,6 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     return cached?.enDesc || null;
   }
 
-  const showNature = tab === 'stats' || tab === 'speed';
-
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {/* Header */}
@@ -235,10 +106,8 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
               className="w-32 h-32 object-contain drop-shadow-lg shrink-0" />
           )}
           <div className="min-w-0 flex-1">
-            {/* ID — xs */}
             <p className="text-white/60 text-xs mb-0.5">#{String(pokemon.id).padStart(4, '0')}</p>
 
-            {/* Name — lg (36px) */}
             <div className="flex items-center gap-3 flex-wrap mb-1">
               <h2 className="text-4xl font-black leading-tight">{displayName}</h2>
               {isMegaVariant && (
@@ -249,17 +118,14 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
               )}
             </div>
 
-            {/* API slug — xs fine print */}
             <p className="text-white/40 text-xs capitalize mb-3">{pokemon.name}</p>
 
-            {/* Type badges — md (16px) */}
             <div className="flex gap-2 flex-wrap mb-3">
               {pokemon.types.map(({ type }) => (
                 <TypeBadge key={type.name} type={type.name} />
               ))}
             </div>
 
-            {/* Abilities — sm (16px) */}
             <div className="flex flex-wrap gap-2">
               {normalAbilities.map(a => {
                 const desc = abilityDesc(a.ability.name);
@@ -296,34 +162,21 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
         </div>
       </div>
 
-      {/* Type effectiveness — horizontal strip, sm (16px) */}
-      <div className="px-6 py-4 bg-slate-50 border-b border-gray-200 flex items-start gap-4">
-        <span className="text-base font-bold text-gray-500 shrink-0 pt-0.5">屬性相剋</span>
-        <TypeEffectiveness types={pokemon.types} horizontal />
-      </div>
-
-      {/* Tabs — sm (16px) */}
+      {/* Tabs */}
       <div className="flex border-b border-gray-200">
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             className={`flex-1 py-4 text-base font-semibold transition-colors
               ${tab === t.id ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}>
-            {t.label}
+            {lang === 'zh' ? t.zh : t.en}
           </button>
         ))}
       </div>
 
-      {/* Nature selector */}
-      {showNature && (
-        <div className="px-6 pt-5 pb-0">
-          <NatureSelector nature={nature} setNature={setNature} lang={lang} />
-        </div>
-      )}
-
       {/* Tab content */}
       <div className="p-6">
-        {tab === 'stats' && <BaseStats stats={pokemon.stats} nature={nature} />}
-        {tab === 'speed' && <SpeedCalculator baseSpeed={baseSpeed} pokemonName={baseName} nature={nature} />}
+        {tab === 'stats' && <BaseStats stats={pokemon.stats} />}
+        {tab === 'types' && <TypeEffectiveness types={pokemon.types} horizontal />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
       </div>
     </div>
