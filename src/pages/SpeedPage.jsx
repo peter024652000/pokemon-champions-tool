@@ -247,7 +247,13 @@ export default function SpeedPage() {
                           } : undefined}
                         >
                           {p.sprite
-                            ? <img src={p.sprite} alt="" className="w-20 h-20 object-contain" loading="lazy" />
+                            ? <img
+                                src={p.sprite}
+                                alt=""
+                                className="w-20 h-20 object-contain"
+                                loading="lazy"
+                                onError={p.spriteFallback ? (e) => { e.currentTarget.src = p.spriteFallback; e.currentTarget.onerror = null; } : undefined}
+                              />
                             : <div className="w-20 h-20 bg-gray-100 rounded-full" />}
                           {p.isMega && (
                             <span className="absolute top-0.5 right-0.5 w-5 h-5 bg-purple-100 rounded-full flex items-center justify-center">

@@ -58,7 +58,13 @@ export default function PokemonGridItem({ pokemon }) {
       )}
 
       {pokemon.sprite
-        ? <img src={pokemon.sprite} alt={pokemon.name} className="w-20 h-20 object-contain" loading="lazy" />
+        ? <img
+            src={pokemon.sprite}
+            alt={pokemon.name}
+            className="w-20 h-20 object-contain"
+            loading="lazy"
+            onError={pokemon.spriteFallback ? (e) => { e.currentTarget.src = pokemon.spriteFallback; e.currentTarget.onerror = null; } : undefined}
+          />
         : <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-gray-300 text-2xl">?</div>
       }
       <p className="text-gray-400 text-xs leading-none">#{String(pokemon.id).padStart(4, '0')}</p>
