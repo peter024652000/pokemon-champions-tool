@@ -99,8 +99,7 @@ export function usePokemonList() {
             map[key] = {
               name: p.name,
               types: p.types.map(t => t.type.name),
-              sprite: p.sprites?.front_default
-                   || `https://play.pokemonshowdown.com/sprites/dex/${key}.png`,
+              sprite: `https://play.pokemonshowdown.com/sprites/dex/${p.name.replace('-mega-x', '-megax').replace('-mega-y', '-megay')}.png`,
               spriteFallback: p.sprites?.other?.['official-artwork']?.front_default || null,
               abilities: p.abilities || [],
               stats: p.stats || [],
