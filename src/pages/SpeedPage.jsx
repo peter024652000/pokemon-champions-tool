@@ -99,10 +99,10 @@ export default function SpeedPage() {
       if (!el) return;
       const dist = (el.getBoundingClientRect().top + el.offsetHeight / 2 - centerY) / halfH;
       const abs  = Math.abs(dist);
-      // Gradual falloff: each step visibly smaller/dimmer than the previous
+      // Gradual falloff: adjacent rows stay clearly visible, only distant edges dim
       el.style.transform       = `scale(${Math.max(0.68, 1 - abs * 0.20).toFixed(3)})`;
-      el.style.opacity         = Math.max(0.18, 1 - abs * 0.45).toFixed(3);
-      el.style.backgroundColor = i === closestIdx ? 'rgba(99,144,240,0.09)' : '';
+      el.style.opacity         = Math.max(0.45, 1 - abs * 0.18).toFixed(3);
+      el.style.backgroundColor = i === closestIdx ? 'rgba(99,144,240,0.22)' : '';
       el.style.borderRadius    = i === closestIdx ? '12px' : '';
     });
   }, []);
@@ -243,7 +243,7 @@ export default function SpeedPage() {
                         <div
                           className="relative w-20 h-20 shrink-0 rounded-full"
                           style={matched ? {
-                            background: 'radial-gradient(circle at center, rgba(255,255,255,0.95) 0%, rgba(250,242,220,0.55) 55%, transparent 80%)',
+                            background: 'radial-gradient(circle at center, white 0%, rgba(255,237,0,0.90) 42%, rgba(255,230,0,0.18) 66%, transparent 82%)',
                           } : undefined}
                         >
                           {p.sprite
