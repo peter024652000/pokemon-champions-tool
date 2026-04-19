@@ -100,7 +100,7 @@ export function usePokemonList() {
               name: p.name,
               types: p.types.map(t => t.type.name),
               sprite: p.sprites?.front_default
-                   || `https://play.pokemonshowdown.com/sprites/dex/${name}.png`,
+                   || `https://play.pokemonshowdown.com/sprites/dex/${key}.png`,
               spriteFallback: p.sprites?.other?.['official-artwork']?.front_default || null,
               abilities: p.abilities || [],
               stats: p.stats || [],
