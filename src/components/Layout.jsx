@@ -2,8 +2,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLang } from '../context/LangContext';
 
 const NAV_ITEMS = [
-  { path: '/pokedex', zh: '圖鑑', en: 'Pokédex' },
+  { path: '/pokedex', zh: '圖鑑',     en: 'Pokédex'    },
   { path: '/types',   zh: '屬性相剋', en: 'Type Chart' },
+  { path: '/speed',   zh: '速度排行', en: 'Speed'      },
 ];
 
 export default function Layout({ children }) {

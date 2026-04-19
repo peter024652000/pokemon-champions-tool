@@ -13,11 +13,11 @@ function singleEff(atk, def) {
 }
 
 const EFF_LABELS = [
-  { value: 4,    zh: '×4　效果絕佳無比',  en: '×4　Devastating',         textClass: 'text-red-700'  },
-  { value: 2,    zh: '×2　效果較佳',      en: '×2　Super effective',      textClass: 'text-red-500'  },
+  { value: 4,    zh: '×4　效果絕佳無比',  en: '×4　Devastating',         textClass: 'text-gray-700' },
+  { value: 2,    zh: '×2　效果較佳',      en: '×2　Super effective',      textClass: 'text-gray-700' },
   { value: 1,    zh: '×1　有效果',        en: '×1　Normal',               textClass: 'text-gray-500' },
-  { value: 0.5,  zh: '×½　效果不佳',     en: '×½　Not very effective',   textClass: 'text-blue-500' },
-  { value: 0.25, zh: '×¼　效果極度不佳', en: '×¼　Barely effective',     textClass: 'text-blue-700' },
+  { value: 0.5,  zh: '×½　效果不佳',     en: '×½　Not very effective',   textClass: 'text-gray-500' },
+  { value: 0.25, zh: '×¼　效果極度不佳', en: '×¼　Barely effective',     textClass: 'text-gray-500' },
   { value: 0,    zh: '×0　沒有效果',     en: '×0　No effect',            textClass: 'text-gray-400' },
 ];
 
@@ -71,7 +71,7 @@ export default function TypeChartPage() {
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-slate-100">
-      <div className="max-w-screen-lg mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-6">
 
         {/* Page title */}
         <h1 className="text-2xl font-black text-gray-800 mb-1">
@@ -117,8 +117,7 @@ export default function TypeChartPage() {
 
             {/* Offense panel */}
             <div className="flex-1 w-full bg-white rounded-2xl border-2 border-red-300 shadow-sm overflow-hidden">
-              <div className="bg-red-50 border-b border-red-200 px-5 py-3 flex items-center gap-3">
-                <SwordIcon className="w-7 h-7 text-red-400 shrink-0" />
+              <div className="bg-red-50 border-b border-red-200 px-5 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-bold text-red-400 uppercase tracking-widest leading-none mb-1">
                     {zh ? '攻擊面' : 'Offense'}
@@ -127,6 +126,7 @@ export default function TypeChartPage() {
                     {zh ? '作為攻擊方' : 'As the attacker'}
                   </h2>
                 </div>
+                <SwordIcon className="w-7 h-7 text-red-400 shrink-0" />
               </div>
               <div className="p-4 space-y-2">
                 {EFF_LABELS.map(eff => (
@@ -148,8 +148,7 @@ export default function TypeChartPage() {
 
             {/* Defense panel */}
             <div className="flex-1 w-full bg-white rounded-2xl border-2 border-blue-300 shadow-sm overflow-hidden">
-              <div className="bg-blue-50 border-b border-blue-200 px-5 py-3 flex items-center gap-3">
-                <ShieldIcon className="w-7 h-7 text-blue-400 shrink-0" />
+              <div className="bg-blue-50 border-b border-blue-200 px-5 py-3 flex items-center justify-between">
                 <div>
                   <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest leading-none mb-1">
                     {zh ? '防守面' : 'Defense'}
@@ -158,6 +157,7 @@ export default function TypeChartPage() {
                     {zh ? '作為防守方' : 'As the defender'}
                   </h2>
                 </div>
+                <ShieldIcon className="w-7 h-7 text-blue-400 shrink-0" />
               </div>
               <div className="p-4 space-y-2">
                 {EFF_LABELS.map(eff => (

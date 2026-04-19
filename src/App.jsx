@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import LandingPage from './pages/LandingPage';
 import PokedexPage from './pages/PokedexPage';
 import TypeChartPage from './pages/TypeChartPage';
+import SpeedPage from './pages/SpeedPage';
 import PokemonDetailPage from './pages/PokemonDetailPage';
 import PokemonModal from './components/PokemonModal';
 
@@ -19,6 +20,7 @@ function AppRouter() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/pokedex" element={<PokedexPage />} />
         <Route path="/types" element={<TypeChartPage />} />
+        <Route path="/speed" element={<SpeedPage />} />
         <Route path="/pokemon/:apiName" element={<PokemonDetailPage />} />
       </Routes>
 
