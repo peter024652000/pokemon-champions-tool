@@ -83,7 +83,7 @@ export default function TypeChartPage() {
 
         {/* ── Type selector: 2 rows × 9 cols, pill buttons ── */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
-          <div className="grid grid-cols-9 gap-x-3 gap-y-3">
+          <div className="grid grid-cols-6 sm:grid-cols-9 gap-x-2 gap-y-2 sm:gap-x-3 sm:gap-y-3">
             {ALL_TYPES.map(type => {
               const active = selected === type;
               const label = zh ? TYPE_NAMES_ZH[type] : type.charAt(0).toUpperCase() + type.slice(1);

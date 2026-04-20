@@ -49,7 +49,7 @@ export default function TypeFilter({
       {/* 2×9 grid + Mega toggle vertically centered on the right */}
       <div className="flex items-center gap-3">
         {/* Type grid */}
-        <div className="grid grid-cols-9 gap-x-3 gap-y-2 flex-1">
+        <div className="grid grid-cols-6 sm:grid-cols-9 gap-x-2 gap-y-2 sm:gap-x-3 flex-1">
           {ALL_TYPES.map(type => {
             const active = selected.includes(type);
             const disabled = !active && atMax;

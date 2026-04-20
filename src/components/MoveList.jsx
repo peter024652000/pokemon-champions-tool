@@ -182,11 +182,11 @@ export default function MoveList({ moves }) {
     const text = getEffectText(slug, lang);
     if (!text) { setTooltip(null); return; }
     const rect = e.currentTarget.getBoundingClientRect();
-    const TOOLTIP_EST_HEIGHT = 72;
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const top = spaceBelow < TOOLTIP_EST_HEIGHT + 12
-      ? rect.top - TOOLTIP_EST_HEIGHT - 4   // 上方顯示（靠近底部時）
-      : rect.bottom + 4;                     // 下方顯示
+    // 預設顯示在格子上方（穩定）；只有離頂部太近時才改為下方
+    const TOOLTIP_EST_HEIGHT = 110;
+    const top = rect.top >= TOOLTIP_EST_HEIGHT + 8
+      ? rect.top - TOOLTIP_EST_HEIGHT - 4
+      : rect.bottom + 4;
     setTooltip({ text, top, left: rect.left });
   }
 

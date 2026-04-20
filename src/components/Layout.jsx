@@ -14,21 +14,21 @@ export default function Layout({ children }) {
   return (
     <div className="min-h-screen bg-slate-100">
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 h-14 flex items-center gap-4">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 h-14 flex items-center gap-2 sm:gap-4">
           {/* Logo */}
-          <Link to="/" className="text-lg font-black text-gray-800 shrink-0 hover:text-blue-600 transition-colors">
-            Champions Tool
+          <Link to="/" className="text-base sm:text-lg font-black text-gray-800 shrink-0 hover:text-blue-600 transition-colors">
+            Champions<span className="hidden sm:inline"> Tool</span>
           </Link>
 
           {/* Nav links */}
-          <div className="flex gap-1">
+          <div className="flex gap-0.5 sm:gap-1">
             {NAV_ITEMS.map(item => {
               const active = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
               return (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                  className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors ${
                     active
                       ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
