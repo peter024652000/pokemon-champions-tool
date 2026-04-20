@@ -23,10 +23,18 @@ export default function PokemonDetailPage() {
     setLoading(true);
     setPokemon(null);
     setSpecies(null);
-    Promise.all([
+
+    const fetches = [
       fetchWithCache(`${BASE}/pokemon/${entry.apiName}`),
       fetchWithCache(`${BASE}/pokemon-species/${entry.id}`),
-    ]).then(([p, s]) => {
+      // Mega forms have empty moves in PokeAPI — fetch base form for moves
+      entry.isMega ? fetchWithCache(`${BASE}/pokemon/${entry.id}`) : Promise.resolve(null),
+    ];
+
+    Promise.all(fetches).then(([p, s, baseForm]) => {
+      if (baseForm?.moves?.length) {
+        p = { ...p, moves: baseForm.moves };
+      }
       setPokemon(p);
       setSpecies(s);
       setLoading(false);

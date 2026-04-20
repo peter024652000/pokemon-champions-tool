@@ -117,7 +117,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     <>
       {/* ── Hero ── */}
       <div style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}>
-        <div className="max-w-5xl mx-auto px-6 py-8 flex items-center gap-6 flex-wrap sm:flex-nowrap">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-8 flex items-center gap-6 flex-wrap sm:flex-nowrap">
 
           {/* Sprite */}
           <div className="relative shrink-0">
@@ -158,7 +158,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
 
       {/* ── Tab bar — sticky below nav + back button ── */}
       <div className={`sticky ${TAB_BAR_TOP} z-30 bg-white border-b border-gray-200 shadow-sm`}>
-        <div className="max-w-5xl mx-auto px-4 flex">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 flex">
           {TABS.map(t => (
             <button
               key={t.id}
@@ -176,7 +176,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
 
       {/* ── Tab content ── */}
       <div className="bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-6">
         {tab === 'stats' && <BaseStats stats={pokemon.stats} />}
         {tab === 'types' && <TypeEffectiveness types={pokemon.types} horizontal />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
