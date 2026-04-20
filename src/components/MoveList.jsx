@@ -5,8 +5,8 @@ import { TYPE_COLORS, TYPE_NAMES_ZH, TYPE_ICON_BASE } from '../utils/constants';
 import moveData from '../data/move-data.json';
 import moveEffects from '../data/move-effects.json';
 
-// ── Category icon from Pokémon Showdown ──────────────────────────────────────
-const CATEGORY_ICON_BASE = 'https://play.pokemonshowdown.com/sprites/categories/';
+// ── Category icons — PokemonDB Gen 6+ 版本 ───────────────────────────────────
+const CATEGORY_ICON_BASE = 'https://img.pokemondb.net/images/icons/move-';
 
 const CATEGORIES = ['physical', 'special', 'status'];
 const CATEGORY_LABEL = {
@@ -55,7 +55,7 @@ function CategoryFilterBtn({ cat, active, onClick, lang }) {
           : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700'}`}
     >
       <img
-        src={`${CATEGORY_ICON_BASE}${cat.charAt(0).toUpperCase() + cat.slice(1)}.png`}
+        src={`${CATEGORY_ICON_BASE}${cat}.png`}
         alt={cat}
         className="h-4 w-auto"
         draggable={false}
