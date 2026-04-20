@@ -1,5 +1,6 @@
 import { TYPE_CHART, ALL_TYPES } from '../utils/constants';
 import TypeBadge from './TypeBadge';
+import { useLang } from '../context/LangContext';
 
 function singleEffectiveness(atk, def) {
   const chart = TYPE_CHART[def];
@@ -31,6 +32,7 @@ const COMPACT_GROUPS = [
 ];
 
 export default function TypeEffectiveness({ types, compact = false, horizontal = false }) {
+  const { lang } = useLang();
   const defTypes = types.map(t => t.type.name);
 
   const map = {};
@@ -52,7 +54,7 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
 
     const SECTIONS = [
       {
-        label: '弱點', labelClass: 'text-red-500',
+        label: lang === 'zh' ? '弱點' : 'Weak to', labelClass: 'text-red-500',
         bg: 'bg-red-50', border: 'border-red-200',
         subs: [
           { mult: '×4', types: weak4,   multClass: 'text-red-600' },
@@ -60,14 +62,14 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
         ],
       },
       {
-        label: '普通', labelClass: 'text-gray-400',
+        label: lang === 'zh' ? '普通' : 'Normal', labelClass: 'text-gray-400',
         bg: 'bg-gray-50', border: 'border-gray-200',
         subs: [
           { mult: '×1', types: normal,  multClass: 'text-gray-400' },
         ],
       },
       {
-        label: '抵抗', labelClass: 'text-blue-500',
+        label: lang === 'zh' ? '抵抗' : 'Resistant to', labelClass: 'text-blue-500',
         bg: 'bg-blue-50', border: 'border-blue-200',
         subs: [
           { mult: '½',  types: half,    multClass: 'text-blue-400' },
@@ -75,7 +77,7 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
         ],
       },
       {
-        label: '無效果', labelClass: 'text-gray-500',
+        label: lang === 'zh' ? '無效果' : 'Immune', labelClass: 'text-gray-500',
         bg: 'bg-gray-100', border: 'border-gray-200',
         subs: [
           { mult: '×0', types: immune,  multClass: 'text-gray-400' },
