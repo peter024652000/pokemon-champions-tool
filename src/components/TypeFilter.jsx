@@ -59,7 +59,7 @@ export default function TypeFilter({
                 key={type}
                 onClick={() => toggle(type)}
                 disabled={disabled}
-                className={`w-full inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-full text-xs font-bold transition-all
+                className={`w-full inline-flex items-center justify-center p-1.5 sm:gap-1 sm:px-2 sm:py-1.5 rounded-full text-xs font-bold transition-all
                   ${disabled
                     ? 'opacity-25 cursor-not-allowed text-white'
                     : active
@@ -74,7 +74,7 @@ export default function TypeFilter({
                 }}
               >
                 <img src={`${TYPE_ICON_BASE}${type}.png`} alt="" className="h-4 w-4 shrink-0" />
-                {typeName(type)}
+                <span className="hidden sm:inline">{typeName(type)}</span>
               </button>
             );
           })}

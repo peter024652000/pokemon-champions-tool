@@ -91,7 +91,7 @@ export default function TypeChartPage() {
                 <button
                   key={type}
                   onClick={() => setSelected(active ? null : type)}
-                  className={`w-full inline-flex items-center justify-center gap-1 px-2 py-1.5 rounded-full text-xs font-bold transition-all
+                  className={`w-full inline-flex items-center justify-center p-1.5 sm:gap-1 sm:px-2 sm:py-1.5 rounded-full text-xs font-bold transition-all
                     ${active
                       ? 'text-white shadow-lg scale-105'
                       : 'text-white/60 hover:text-white/90 hover:scale-[1.03]'
@@ -104,7 +104,7 @@ export default function TypeChartPage() {
                   }}
                 >
                   <img src={`${TYPE_ICON_BASE}${type}.png`} alt="" className="h-4 w-4 shrink-0" />
-                  {label}
+                  <span className="hidden sm:inline">{label}</span>
                 </button>
               );
             })}
