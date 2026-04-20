@@ -77,7 +77,7 @@ function TypeFilterBtn({ type, active, disabled, onClick, lang }) {
           ? 'opacity-20 cursor-not-allowed'
           : active
             ? 'ring-2 ring-offset-1 ring-gray-700 scale-110 cursor-pointer'
-            : 'opacity-60 hover:opacity-90 hover:scale-105 cursor-pointer'}`}
+            : 'opacity-90 hover:opacity-100 hover:scale-105 cursor-pointer'}`}
       style={{ width: 28, height: 28, backgroundColor: color }}
     >
       <img
