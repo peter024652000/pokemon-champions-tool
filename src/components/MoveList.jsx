@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
-import { TYPE_COLORS, TYPE_NAMES_ZH, TYPE_ICON_BASE } from '../utils/constants';
+import { TYPE_COLORS, TYPE_NAMES_ZH, TYPE_ICON_BASE, ALL_TYPES } from '../utils/constants';
 import moveData from '../data/move-data.json';
 import moveEffects from '../data/move-effects.json';
 
-// ── Category icons — PokemonDB Gen 6+ 版本 ───────────────────────────────────
+// ── Constants ─────────────────────────────────────────────────────────────────
 const CATEGORY_ICON_BASE = 'https://img.pokemondb.net/images/icons/move-';
-
 const CATEGORIES = ['physical', 'special', 'status'];
 const CATEGORY_LABEL = {
   physical: { zh: '物理', en: 'Physical' },
@@ -15,13 +14,11 @@ const CATEGORY_LABEL = {
   status:   { zh: '變化', en: 'Status'   },
 };
 
-// ── Sort config ───────────────────────────────────────────────────────────────
-const SORT_COLS = ['name', 'type', 'category', 'power', 'accuracy', 'pp'];
-
+// ── Sort ──────────────────────────────────────────────────────────────────────
 function sortValue(slug, col, lang) {
   const d = moveData[slug];
   if (col === 'name')     return lang === 'zh' ? (d?.zh || d?.en || slug) : (d?.en || slug);
-  if (col === 'type')     return d?.type || 'zzz';
+  if (col === 'type')     return ALL_TYPES.indexOf(d?.type ?? '');   // 按 ALL_TYPES 順序
   if (col === 'category') return ({ physical: 0, special: 1, status: 2 })[d?.category] ?? 3;
   if (col === 'power')    return d?.power ?? -1;
   if (col === 'accuracy') return d?.accuracy ?? -1;
@@ -29,6 +26,7 @@ function sortValue(slug, col, lang) {
   return 0;
 }
 
+// ── Effect text ───────────────────────────────────────────────────────────────
 function getEffectText(slug, lang) {
   const d = moveData[slug];
   if (!d?.effectId) return null;
@@ -41,18 +39,20 @@ function getEffectText(slug, lang) {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 function SortIcon({ col, sortCol, sortDir }) {
-  if (sortCol !== col) return <span className="ml-0.5 text-gray-300">↕</span>;
-  return <span className="ml-0.5">{sortDir === 'asc' ? '↑' : '↓'}</span>;
+  if (sortCol !== col) return <span className="ml-0.5 text-gray-300 text-xs">↕</span>;
+  return <span className="ml-0.5 text-xs">{sortDir === 'asc' ? '↑' : '↓'}</span>;
 }
 
-function CategoryFilterBtn({ cat, active, onClick, lang }) {
+function CategoryFilterBtn({ cat, active, disabled, onClick, lang }) {
   return (
     <button
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all
-        ${active
-          ? 'bg-gray-800 border-gray-700 text-white shadow-sm'
-          : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700'}`}
+        ${disabled
+          ? 'opacity-25 cursor-not-allowed bg-white border-gray-200 text-gray-400'
+          : active
+            ? 'bg-gray-800 border-gray-700 text-white shadow-sm'
+            : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer'}`}
     >
       <img
         src={`${CATEGORY_ICON_BASE}${cat}.png`}
@@ -65,15 +65,19 @@ function CategoryFilterBtn({ cat, active, onClick, lang }) {
   );
 }
 
-function TypeFilterBtn({ type, active, onClick, lang }) {
+function TypeFilterBtn({ type, active, disabled, onClick, lang }) {
   const color = TYPE_COLORS[type] || '#888';
   const label = lang === 'zh' ? (TYPE_NAMES_ZH[type] || type) : type.charAt(0).toUpperCase() + type.slice(1);
   return (
     <button
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       title={label}
       className={`flex items-center justify-center rounded-full transition-all overflow-hidden
-        ${active ? 'ring-2 ring-offset-1 ring-gray-700 scale-110' : 'opacity-60 hover:opacity-90 hover:scale-105'}`}
+        ${disabled
+          ? 'opacity-20 cursor-not-allowed'
+          : active
+            ? 'ring-2 ring-offset-1 ring-gray-700 scale-110 cursor-pointer'
+            : 'opacity-60 hover:opacity-90 hover:scale-105 cursor-pointer'}`}
       style={{ width: 28, height: 28, backgroundColor: color }}
     >
       <img
@@ -92,29 +96,42 @@ export default function MoveList({ moves }) {
   const zh = lang === 'zh';
 
   const [search, setSearch]           = useState('');
-  const [typeFilter, setTypeFilter]   = useState(new Set());   // set of type strings
-  const [catFilter, setCatFilter]     = useState(new Set());   // set of category strings
-  const [sortCol, setSortCol]         = useState('category');
+  const [typeFilter, setTypeFilter]   = useState(new Set());  // multi-select
+  const [catFilter, setCatFilter]     = useState(null);       // single-select: null | string
+  const [sortCol, setSortCol]         = useState('type');
   const [sortDir, setSortDir]         = useState('asc');
   const [hoveredMove, setHoveredMove] = useState(null);
 
-  // ── Unique move slugs from prop ──
+  // ── All slugs, types, categories for this pokemon ──
   const allSlugs = [...new Set(moves.map(m => m.move.name))];
 
-  // ── Unique types & categories that actually appear in this pokemon's moves ──
-  const availableTypes = [...new Set(
-    allSlugs.map(s => moveData[s]?.type).filter(Boolean)
-  )].sort();
-  const availableCategories = [...new Set(
-    allSlugs.map(s => moveData[s]?.category).filter(Boolean)
-  )];
+  // Types present in this pokemon's moves, ordered by ALL_TYPES
+  const availableTypes = ALL_TYPES.filter(t =>
+    allSlugs.some(s => moveData[s]?.type === t)
+  );
+  // Categories present, ordered by CATEGORIES
+  const availableCategories = CATEGORIES.filter(c =>
+    allSlugs.some(s => moveData[s]?.category === c)
+  );
+
+  // ── Disabled state (mutual exclusion) ──
+  // A type T is disabled if catFilter is set and no move has both type=T AND category=catFilter
+  function isTypeDisabled(type) {
+    if (!catFilter) return false;
+    return !allSlugs.some(s => moveData[s]?.type === type && moveData[s]?.category === catFilter);
+  }
+  // A category C is disabled if any types are selected and no move has category=C AND type∈typeFilter
+  function isCatDisabled(cat) {
+    if (typeFilter.size === 0) return false;
+    return !allSlugs.some(s => typeFilter.has(moveData[s]?.type) && moveData[s]?.category === cat);
+  }
 
   // ── Filter ──
   const term = search.trim().toLowerCase();
   const filtered = allSlugs.filter(slug => {
     const d = moveData[slug];
     if (typeFilter.size > 0 && !typeFilter.has(d?.type)) return false;
-    if (catFilter.size > 0  && !catFilter.has(d?.category)) return false;
+    if (catFilter && d?.category !== catFilter) return false;
     if (term) {
       return slug.includes(term)
         || (d?.zh && d.zh.includes(term))
@@ -127,25 +144,30 @@ export default function MoveList({ moves }) {
   const sorted = [...filtered].sort((a, b) => {
     const va = sortValue(a, sortCol, lang);
     const vb = sortValue(b, sortCol, lang);
-    let cmp = 0;
-    if (typeof va === 'string') cmp = va.localeCompare(vb);
-    else cmp = va - vb;
-    // secondary sort: power desc for ties (except when sorting by power)
+    let cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
+    // secondary: when type is primary sort, sub-sort by category then power desc
+    if (cmp === 0 && sortCol === 'type') {
+      const ca = ({ physical: 0, special: 1, status: 2 })[moveData[a]?.category] ?? 3;
+      const cb = ({ physical: 0, special: 1, status: 2 })[moveData[b]?.category] ?? 3;
+      cmp = ca - cb;
+    }
+    // tertiary: power desc for ties
     if (cmp === 0 && sortCol !== 'power') {
-      const pa = moveData[a]?.power ?? -1;
-      const pb = moveData[b]?.power ?? -1;
-      cmp = pb - pa;
+      cmp = (moveData[b]?.power ?? -1) - (moveData[a]?.power ?? -1);
     }
     return sortDir === 'asc' ? cmp : -cmp;
   });
 
-  // ── Column header click ──
+  // ── Handlers ──
   function handleSort(col) {
-    if (sortCol === col) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
-    else { setSortCol(col); setSortDir(col === 'power' || col === 'accuracy' || col === 'pp' ? 'desc' : 'asc'); }
+    if (sortCol === col) {
+      setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortCol(col);
+      setSortDir(['power', 'accuracy', 'pp'].includes(col) ? 'desc' : 'asc');
+    }
   }
 
-  // ── Toggle helpers ──
   function toggleType(t) {
     setTypeFilter(prev => {
       const n = new Set(prev);
@@ -153,14 +175,13 @@ export default function MoveList({ moves }) {
       return n;
     });
   }
+
   function toggleCat(c) {
-    setCatFilter(prev => {
-      const n = new Set(prev);
-      n.has(c) ? n.delete(c) : n.add(c);
-      return n;
-    });
+    // single select: click active → deselect; click other → select
+    setCatFilter(prev => prev === c ? null : c);
   }
-  const hasFilter = typeFilter.size > 0 || catFilter.size > 0 || term;
+
+  const hasFilter = typeFilter.size > 0 || catFilter !== null || term;
 
   // ── Th helper ──
   const Th = ({ col, className = '', children }) => (
@@ -168,22 +189,24 @@ export default function MoveList({ moves }) {
       className={`px-2 py-2.5 font-semibold text-gray-500 cursor-pointer select-none hover:text-gray-700 transition-colors ${className}`}
       onClick={() => handleSort(col)}
     >
-      {children}<SortIcon col={col} sortCol={sortCol} sortDir={sortDir} />
+      <span className="inline-flex items-center">
+        {children}<SortIcon col={col} sortCol={sortCol} sortDir={sortDir} />
+      </span>
     </th>
   );
 
   return (
     <div>
-      {/* ── Header row ── */}
+      {/* ── Header ── */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
           <h3 className="text-2xl font-bold text-gray-700">
             {zh ? '可學招式' : 'Learnable Moves'}
           </h3>
           <p className="text-sm text-gray-400">
-            {zh
-              ? `${filtered.length === allSlugs.length ? `共 ${allSlugs.length}` : `${filtered.length} / ${allSlugs.length}`} 招`
-              : `${filtered.length === allSlugs.length ? `${allSlugs.length}` : `${filtered.length} of ${allSlugs.length}`} moves`}
+            {filtered.length === allSlugs.length
+              ? (zh ? `共 ${allSlugs.length} 招` : `${allSlugs.length} moves`)
+              : (zh ? `${filtered.length} / ${allSlugs.length} 招` : `${filtered.length} of ${allSlugs.length} moves`)}
           </p>
         </div>
         <input
@@ -197,27 +220,26 @@ export default function MoveList({ moves }) {
 
       {/* ── Filters ── */}
       <div className="mb-3 space-y-2">
-        {/* Category filter */}
+        {/* Category — single select */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-semibold text-gray-400 shrink-0">
-            {zh ? '類別' : 'Category'}
+          <span className="text-xs font-semibold text-gray-400 w-8 shrink-0">
+            {zh ? '類別' : 'Cat.'}
           </span>
-          {availableCategories
-            .sort((a, b) => CATEGORIES.indexOf(a) - CATEGORIES.indexOf(b))
-            .map(cat => (
-              <CategoryFilterBtn
-                key={cat}
-                cat={cat}
-                active={catFilter.has(cat)}
-                onClick={() => toggleCat(cat)}
-                lang={lang}
-              />
-            ))}
+          {availableCategories.map(cat => (
+            <CategoryFilterBtn
+              key={cat}
+              cat={cat}
+              active={catFilter === cat}
+              disabled={isCatDisabled(cat)}
+              onClick={() => toggleCat(cat)}
+              lang={lang}
+            />
+          ))}
         </div>
 
-        {/* Type filter */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-semibold text-gray-400 shrink-0">
+        {/* Type — multi select, ordered by ALL_TYPES */}
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="text-xs font-semibold text-gray-400 w-8 shrink-0">
             {zh ? '屬性' : 'Type'}
           </span>
           {availableTypes.map(type => (
@@ -225,16 +247,17 @@ export default function MoveList({ moves }) {
               key={type}
               type={type}
               active={typeFilter.has(type)}
+              disabled={isTypeDisabled(type)}
               onClick={() => toggleType(type)}
               lang={lang}
             />
           ))}
           {hasFilter && (
             <button
-              onClick={() => { setTypeFilter(new Set()); setCatFilter(new Set()); setSearch(''); }}
+              onClick={() => { setTypeFilter(new Set()); setCatFilter(null); setSearch(''); }}
               className="ml-1 text-xs text-gray-400 hover:text-red-500 underline transition-colors"
             >
-              {zh ? '清除篩選' : 'Clear'}
+              {zh ? '清除' : 'Clear'}
             </button>
           )}
         </div>
@@ -248,7 +271,7 @@ export default function MoveList({ moves }) {
               <Th col="name"     className="text-left w-[34%] pl-3">{zh ? '招式名稱' : 'Move'}</Th>
               <Th col="type"     className="text-left w-[14%]">{zh ? '屬性' : 'Type'}</Th>
               <Th col="category" className="text-left w-[17%]">{zh ? '類別' : 'Category'}</Th>
-              <Th col="power"    className="text-center w-[11%]">{zh ? '威力' : 'Power'}</Th>
+              <Th col="power"    className="text-center w-[11%]">{zh ? '威力' : 'Pwr'}</Th>
               <Th col="accuracy" className="text-center w-[11%]">{zh ? '命中' : 'Acc'}</Th>
               <Th col="pp"       className="text-center w-[11%] pr-3">PP</Th>
             </tr>
@@ -269,7 +292,7 @@ export default function MoveList({ moves }) {
                   className={`border-b border-gray-100 last:border-0 cursor-default transition-colors
                     ${isHovered ? 'bg-blue-50' : idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}
                 >
-                  {/* Name + effect on hover */}
+                  {/* Name + effect */}
                   <td className="pl-3 pr-2 py-2.5 align-top">
                     <span className="font-semibold text-gray-800 leading-tight">{name}</span>
                     {isHovered && effectText && (
@@ -279,19 +302,19 @@ export default function MoveList({ moves }) {
                     )}
                   </td>
 
-                  {/* Type badge */}
+                  {/* Type */}
                   <td className="px-2 py-2.5 align-top">
                     {d?.type
                       ? <TypeBadge type={d.type} size="xs" />
                       : <span className="text-gray-300">—</span>}
                   </td>
 
-                  {/* Category: Showdown icon + label */}
+                  {/* Category */}
                   <td className="px-2 py-2.5 align-top">
                     {catKey ? (
                       <span className="inline-flex items-center gap-1.5">
                         <img
-                          src={`${CATEGORY_ICON_BASE}${catKey.charAt(0).toUpperCase() + catKey.slice(1)}.png`}
+                          src={`${CATEGORY_ICON_BASE}${catKey}.png`}
                           alt={catKey}
                           className="h-4 w-auto shrink-0"
                           draggable={false}
@@ -304,9 +327,7 @@ export default function MoveList({ moves }) {
                           {CATEGORY_LABEL[catKey][zh ? 'zh' : 'en']}
                         </span>
                       </span>
-                    ) : (
-                      <span className="text-gray-300">—</span>
-                    )}
+                    ) : <span className="text-gray-300">—</span>}
                   </td>
 
                   {/* Power */}
