@@ -95,12 +95,12 @@ export default function MoveList({ moves }) {
   const { lang } = useLang();
   const zh = lang === 'zh';
 
-  const [search, setSearch]           = useState('');
-  const [typeFilter, setTypeFilter]   = useState(new Set());  // multi-select
-  const [catFilter, setCatFilter]     = useState(null);       // single-select: null | string
-  const [sortCol, setSortCol]         = useState('type');
-  const [sortDir, setSortDir]         = useState('asc');
-  const [hoveredMove, setHoveredMove] = useState(null);
+  const [search, setSearch]         = useState('');
+  const [typeFilter, setTypeFilter] = useState(new Set());  // multi-select
+  const [catFilter, setCatFilter]   = useState(null);       // single-select: null | string
+  const [sortCol, setSortCol]       = useState('type');
+  const [sortDir, setSortDir]       = useState('asc');
+  const [tooltip, setTooltip]       = useState(null);       // { text, top, left }
 
   // ── All slugs, types, categories for this pokemon ──
   const allSlugs = [...new Set(moves.map(m => m.move.name))];
@@ -177,8 +177,14 @@ export default function MoveList({ moves }) {
   }
 
   function toggleCat(c) {
-    // single select: click active → deselect; click other → select
     setCatFilter(prev => prev === c ? null : c);
+  }
+
+  function handleRowEnter(e, slug) {
+    const text = getEffectText(slug, lang);
+    if (!text) { setTooltip(null); return; }
+    const rect = e.currentTarget.getBoundingClientRect();
+    setTooltip({ text, top: rect.bottom + 6, left: rect.left });
   }
 
   const hasFilter = typeFilter.size > 0 || catFilter !== null || term;
@@ -238,7 +244,7 @@ export default function MoveList({ moves }) {
         </div>
 
         {/* Type — multi select, ordered by ALL_TYPES */}
-        <div className="flex items-center gap-1.5 flex-wrap">
+        <div className="flex items-center gap-3 flex-wrap">
           <span className="text-xs font-semibold text-gray-400 w-8 shrink-0">
             {zh ? '屬性' : 'Type'}
           </span>
@@ -263,6 +269,16 @@ export default function MoveList({ moves }) {
         </div>
       </div>
 
+      {/* ── Tooltip (fixed, outside table flow) ── */}
+      {tooltip && (
+        <div
+          className="fixed z-50 max-w-sm bg-gray-900/95 text-white text-xs rounded-xl px-3 py-2 leading-relaxed shadow-xl pointer-events-none"
+          style={{ top: tooltip.top, left: tooltip.left }}
+        >
+          {tooltip.text}
+        </div>
+      )}
+
       {/* ── Table ── */}
       <div className="max-h-[480px] overflow-y-auto rounded-xl border border-gray-200">
         <table className="w-full text-sm border-collapse">
@@ -280,26 +296,23 @@ export default function MoveList({ moves }) {
             {sorted.map((slug, idx) => {
               const d = moveData[slug];
               const name = zh ? (d?.zh || d?.en || slug) : (d?.en || slug);
-              const effectText = getEffectText(slug, lang);
-              const isHovered = hoveredMove === slug;
+              const hasEffect = !!getEffectText(slug, lang);
               const catKey = d?.category;
 
               return (
                 <tr
                   key={slug}
-                  onMouseEnter={() => setHoveredMove(slug)}
-                  onMouseLeave={() => setHoveredMove(null)}
+                  onMouseEnter={e => handleRowEnter(e, slug)}
+                  onMouseLeave={() => setTooltip(null)}
                   className={`border-b border-gray-100 last:border-0 cursor-default transition-colors
-                    ${isHovered ? 'bg-blue-50' : idx % 2 === 0 ? 'bg-white' : 'bg-gray-50/40'}`}
+                    ${tooltip === null ? '' : ''}
+                    ${idx % 2 === 0 ? 'bg-white hover:bg-blue-50' : 'bg-gray-50/40 hover:bg-blue-50'}`}
                 >
-                  {/* Name + effect */}
-                  <td className="pl-3 pr-2 py-2.5 align-top">
-                    <span className="font-semibold text-gray-800 leading-tight">{name}</span>
-                    {isHovered && effectText && (
-                      <p className="text-xs text-gray-500 mt-1 leading-relaxed max-w-xs whitespace-normal">
-                        {effectText}
-                      </p>
-                    )}
+                  {/* Name */}
+                  <td className="pl-3 pr-2 py-2.5">
+                    <span className={`font-semibold leading-tight ${hasEffect ? 'text-gray-800' : 'text-gray-600'}`}>
+                      {name}
+                    </span>
                   </td>
 
                   {/* Type */}
