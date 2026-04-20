@@ -90,7 +90,7 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
           if (!activeSubs.length) return null;
           return (
             <div key={label} className={`rounded-xl px-4 py-3 ${bg} border ${border}`}>
-              <p className={`text-sm font-bold mb-2 ${labelClass}`}>{label}</p>
+              <p className={`text-base font-bold mb-2 ${labelClass}`}>{label}</p>
               <div className="space-y-2">
                 {activeSubs.map(({ mult, types, multClass }) => (
                   <div key={mult} className="flex items-start gap-2">
