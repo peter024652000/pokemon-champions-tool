@@ -3,7 +3,7 @@
  * 執行方式：node scripts/build-data.js
  */
 
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -127,6 +127,7 @@ async function main() {
         power:    row[4] ? Number(row[4]) : null,
         pp:       row[5] ? Number(row[5]) : null,
         accuracy: row[6] ? Number(row[6]) : null,
+        priority: row[7] !== '' ? Number(row[7]) : 0,
         category: DAMAGE_CLASS[row[9]] || null,
       };
     }
@@ -143,30 +144,56 @@ async function main() {
     if (langId === String(EN)) moveNames[slug].en = name;
   }
 
-  const moveData = {};
-  for (const slug of Object.keys(moveNames)) {
-    moveData[slug] = {
-      ...moveNames[slug],
-      effectId: moveEffectIdBySlug[slug] || null,
-      effectChance: moveEffectChanceBySlug[slug] || null,
-      ...(moveStatsById[slug] || {}),
-    };
-  }
-
-  // 取英文效果說明（輸出供翻譯對照）
+  // 取英文效果說明（從 CSV 展開至每個招式）
   const effectProseRaw = await fetchCsv('move_effect_prose.csv');
   // columns: move_effect_id, local_language_id, short_effect, effect
   const effectEnById = {};
   for (const row of effectProseRaw) {
-    if (row[1] === String(EN)) effectEnById[row[0]] = row[2]?.replace(/[\n\f\r]+/g, ' ').trim();
+    if (row[1] === String(EN)) effectEnById[row[0]] = row[2]?.replace(/[\n\f\r]+/g, ' ').trim() || null;
   }
-  // 輸出所有用到的唯一效果（供建立繁中翻譯表）
-  const usedEffectIds = new Set(Object.values(moveEffectIdBySlug).filter(Boolean));
-  const effectsForTranslation = {};
-  for (const id of [...usedEffectIds].sort((a, b) => Number(a) - Number(b))) {
-    effectsForTranslation[id] = effectEnById[id] || null;
+
+  // 讀取現有 zh 翻譯來源：
+  // 1. 優先讀 move-data.json 內已有的 zhEffect（手動維護，rebuild 不蓋掉）
+  // 2. 若無，從舊的 move-effects.json 搬入（一次性遷移）
+  const dataDir = join(__dirname, '..', 'src', 'data');
+  const existingMoveDataPath = join(dataDir, 'move-data.json');
+  const existingEffectsPath  = join(dataDir, 'move-effects.json');
+
+  // slug → zhEffect（來自上次 build 的結果，rebuild 時保留）
+  const existingZhBySlug = {};
+  if (existsSync(existingMoveDataPath)) {
+    const prev = JSON.parse(readFileSync(existingMoveDataPath, 'utf8'));
+    for (const [slug, d] of Object.entries(prev)) {
+      if (d.zhEffect) existingZhBySlug[slug] = d.zhEffect;
+    }
   }
-  writeFileSync(join(join(__dirname, '..', 'src', 'data'), 'move-effects-en.json'), JSON.stringify(effectsForTranslation, null, 2));
+
+  // effectId → zhEffect（從舊版 move-effects.json 做一次性搬移）
+  const legacyZhByEffectId = {};
+  if (existsSync(existingEffectsPath)) {
+    const legacy = JSON.parse(readFileSync(existingEffectsPath, 'utf8'));
+    for (const [id, v] of Object.entries(legacy)) {
+      if (v?.zh) legacyZhByEffectId[id] = v.zh;
+    }
+  }
+
+  const moveData = {};
+  for (const slug of Object.keys(moveNames)) {
+    const effectId = moveEffectIdBySlug[slug] || null;
+    const effectChance = moveEffectChanceBySlug[slug] || null;
+    const enEffect = effectId ? (effectEnById[effectId] || null) : null;
+    // zh：優先用本次 build 前已有的（手動維護），否則從舊 move-effects.json 搬入
+    const zhEffect = existingZhBySlug[slug]
+      || (effectId ? (legacyZhByEffectId[effectId] || null) : null);
+
+    moveData[slug] = {
+      ...moveNames[slug],
+      effectChance,
+      ...(moveStatsById[slug] || {}),
+      enEffect,
+      zhEffect,
+    };
+  }
 
   // ── 3. 特性名稱 + 說明 ────────────────────────────────────────
   const abilitiesRaw = await fetchCsv('abilities.csv');
@@ -193,7 +220,6 @@ async function main() {
   }
 
   // ── 4. 寫入 JSON ──────────────────────────────────────────────
-  const dataDir = join(__dirname, '..', 'src', 'data');
   mkdirSync(dataDir, { recursive: true });
 
   writeFileSync(join(dataDir, 'pokemon-names.json'), JSON.stringify(pokemonNames));
@@ -209,12 +235,13 @@ async function main() {
   ));
 
   const zhAbilityDesc = Object.values(abilityData).filter(v => v.zhDesc).length;
+  const zhEffectCount = Object.values(moveData).filter(v => v.zhEffect).length;
+  const enEffectCount = Object.values(moveData).filter(v => v.enEffect).length;
 
   console.log('\n=== 完成 ===');
   console.log(`寶可夢名稱：${Object.keys(pokemonNames).length} 筆`);
-  console.log(`招式：${Object.keys(moveData).length} 筆（唯一效果類型：${usedEffectIds.size} 種）`);
+  console.log(`招式：${Object.keys(moveData).length} 筆（en效果：${enEffectCount} 筆，zh效果：${zhEffectCount} 筆）`);
   console.log(`特性：${Object.keys(abilityData).length} 筆（繁中說明：${zhAbilityDesc} 筆）`);
-  console.log(`\n已輸出英文效果清單至 src/data/move-effects-en.json（供翻譯）`);
 }
 
 main().catch(err => { console.error('Error:', err); process.exit(1); });

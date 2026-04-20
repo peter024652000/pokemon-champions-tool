@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
 import { MEGA_SIGIL_URL } from '../utils/constants';
@@ -6,7 +6,6 @@ import { MEGA_SIGIL_URL } from '../utils/constants';
 export default function PokemonGridItem({ pokemon }) {
   const { lang } = useLang();
   const navigate = useNavigate();
-  const location = useLocation();
 
   // Don't render unavailable entries (e.g. Z-A megas not yet in PokeAPI)
   if (pokemon.unavailable) return null;
@@ -41,7 +40,7 @@ export default function PokemonGridItem({ pokemon }) {
 
   function handleClick() {
     navigate(`/pokemon/${pokemon.apiName}`, {
-      state: { background: location, entry: pokemon },
+      state: { entry: pokemon },
     });
   }
 

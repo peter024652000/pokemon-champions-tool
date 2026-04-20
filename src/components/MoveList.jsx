@@ -3,7 +3,6 @@ import TypeBadge from './TypeBadge';
 import { useLang } from '../context/LangContext';
 import { TYPE_COLORS, TYPE_NAMES_ZH, TYPE_ICON_BASE, ALL_TYPES } from '../utils/constants';
 import moveData from '../data/move-data.json';
-import moveEffects from '../data/move-effects.json';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const CATEGORY_ICON_BASE = 'https://img.pokemondb.net/images/icons/move-';
@@ -18,6 +17,7 @@ const CATEGORY_LABEL = {
 function sortValue(slug, col, lang) {
   const d = moveData[slug];
   if (col === 'name')     return lang === 'zh' ? (d?.zh || d?.en || slug) : (d?.en || slug);
+  if (col === 'priority') return d?.priority ?? 0;
   if (col === 'type')     return ALL_TYPES.indexOf(d?.type ?? '');   // 按 ALL_TYPES 順序
   if (col === 'category') return ({ physical: 0, special: 1, status: 2 })[d?.category] ?? 3;
   if (col === 'power')    return d?.power ?? -1;
@@ -29,10 +29,8 @@ function sortValue(slug, col, lang) {
 // ── Effect text ───────────────────────────────────────────────────────────────
 function getEffectText(slug, lang) {
   const d = moveData[slug];
-  if (!d?.effectId) return null;
-  const entry = moveEffects[String(d.effectId)];
-  if (!entry) return null;
-  const raw = lang === 'zh' ? (entry.zh || entry.en) : (entry.en || entry.zh);
+  if (!d) return null;
+  const raw = lang === 'zh' ? (d.zhEffect || d.enEffect) : (d.enEffect || d.zhEffect);
   if (!raw) return null;
   return raw.replace(/\$effect_chance%/g, (d.effectChance || '?') + '%');
 }
@@ -180,11 +178,16 @@ export default function MoveList({ moves }) {
     setCatFilter(prev => prev === c ? null : c);
   }
 
-  function handleRowEnter(e, slug) {
+  function handleNameEnter(e, slug) {
     const text = getEffectText(slug, lang);
     if (!text) { setTooltip(null); return; }
     const rect = e.currentTarget.getBoundingClientRect();
-    setTooltip({ text, top: rect.bottom + 6, left: rect.left });
+    const TOOLTIP_EST_HEIGHT = 72;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const top = spaceBelow < TOOLTIP_EST_HEIGHT + 12
+      ? rect.top - TOOLTIP_EST_HEIGHT - 4   // 上方顯示（靠近底部時）
+      : rect.bottom + 4;                     // 下方顯示
+    setTooltip({ text, top, left: rect.left });
   }
 
   const hasFilter = typeFilter.size > 0 || catFilter !== null || term;
@@ -284,12 +287,13 @@ export default function MoveList({ moves }) {
         <table className="w-full text-sm border-collapse">
           <thead className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200">
             <tr>
-              <Th col="name"     className="text-left w-[34%] pl-3">{zh ? '招式名稱' : 'Move'}</Th>
-              <Th col="type"     className="text-left w-[14%]">{zh ? '屬性' : 'Type'}</Th>
-              <Th col="category" className="text-left w-[17%]">{zh ? '類別' : 'Category'}</Th>
-              <Th col="power"    className="text-center w-[11%]">{zh ? '威力' : 'Pwr'}</Th>
-              <Th col="accuracy" className="text-center w-[11%]">{zh ? '命中' : 'Acc'}</Th>
-              <Th col="pp"       className="text-center w-[11%] pr-3">PP</Th>
+              <Th col="name"     className="text-left w-[30%] pl-3">{zh ? '招式名稱' : 'Move'}</Th>
+              <Th col="priority" className="text-center w-[8%]">{zh ? '先制' : 'Pri'}</Th>
+              <Th col="type"     className="text-left w-[13%]">{zh ? '屬性' : 'Type'}</Th>
+              <Th col="category" className="text-left w-[16%]">{zh ? '類別' : 'Category'}</Th>
+              <Th col="power"    className="text-center w-[10%]">{zh ? '威力' : 'Pwr'}</Th>
+              <Th col="accuracy" className="text-center w-[10%]">{zh ? '命中' : 'Acc'}</Th>
+              <Th col="pp"       className="text-center w-[9%] pr-3">PP</Th>
             </tr>
           </thead>
           <tbody>
@@ -302,17 +306,27 @@ export default function MoveList({ moves }) {
               return (
                 <tr
                   key={slug}
-                  onMouseEnter={e => handleRowEnter(e, slug)}
-                  onMouseLeave={() => setTooltip(null)}
                   className={`border-b border-gray-100 last:border-0 cursor-default transition-colors
-                    ${tooltip === null ? '' : ''}
                     ${idx % 2 === 0 ? 'bg-white hover:bg-blue-50' : 'bg-gray-50/40 hover:bg-blue-50'}`}
                 >
-                  {/* Name */}
-                  <td className="pl-3 pr-2 py-2.5">
-                    <span className={`font-semibold leading-tight ${hasEffect ? 'text-gray-800' : 'text-gray-600'}`}>
+                  {/* Name — tooltip 只在這格觸發 */}
+                  <td
+                    className="pl-3 pr-2 py-2.5"
+                    onMouseEnter={e => handleNameEnter(e, slug)}
+                    onMouseLeave={() => setTooltip(null)}
+                  >
+                    <span className={`font-semibold leading-tight ${hasEffect ? 'text-gray-800 underline decoration-dotted decoration-gray-400 underline-offset-2' : 'text-gray-600'}`}>
                       {name}
                     </span>
+                  </td>
+
+                  {/* Priority */}
+                  <td className="px-2 py-2.5 text-center tabular-nums align-top">
+                    {d?.priority > 0
+                      ? <span className="font-bold text-green-600">+{d.priority}</span>
+                      : d?.priority < 0
+                        ? <span className="font-bold text-red-500">{d.priority}</span>
+                        : <span className="text-gray-300">—</span>}
                   </td>
 
                   {/* Type */}
@@ -369,7 +383,7 @@ export default function MoveList({ moves }) {
 
             {sorted.length === 0 && (
               <tr>
-                <td colSpan={6} className="text-center py-12 text-gray-400">
+                <td colSpan={7} className="text-center py-12 text-gray-400">
                   {zh ? '沒有符合的招式' : 'No moves found'}
                 </td>
               </tr>

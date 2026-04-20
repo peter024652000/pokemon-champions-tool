@@ -59,7 +59,7 @@ export default function PokemonDetailPage() {
         </button>
       </div>
 
-      <div className="max-w-3xl mx-auto px-4 py-6">
+      <div className="max-w-5xl mx-auto px-4 py-6">
         {loading ? (
           <div className="bg-white rounded-2xl p-16 text-center text-gray-400">
             <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
