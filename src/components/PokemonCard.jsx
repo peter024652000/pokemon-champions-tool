@@ -10,7 +10,7 @@ import { useLang } from '../context/LangContext';
 import pokemonNamesData from '../data/pokemon-names.json';
 
 const TABS = [
-  { id: 'stats', zh: '種族值',   en: 'Base Stats'  },
+  { id: 'stats', zh: '種族值',   en: 'Base Stats' },
   { id: 'types', zh: '屬性相剋', en: 'Type Chart'  },
   { id: 'moves', zh: '招式列表', en: 'Moves'       },
 ];
@@ -18,6 +18,9 @@ const TABS = [
 function formatAbility(name) {
   return name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
 }
+
+// ── Sticky offset: Layout nav (h-14 = 56px) + back button (py-3 + text ≈ 44px) = 100px
+const TAB_BAR_TOP = 'top-[100px]';
 
 export default function PokemonCard({ pokemon, species, variantLabel, isMegaVariant, speciesId }) {
   const [tab, setTab] = useState('stats');
@@ -93,92 +96,90 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
     return cached?.enDesc || null;
   }
 
+  function AbilityBadge({ apiName, hidden }) {
+    const desc = abilityDesc(apiName);
+    const label = abilityDisplay(apiName) + (hidden ? (lang === 'zh' ? '（隱藏）' : ' (Hidden)') : '');
+    return (
+      <span className="relative group">
+        <span className="text-sm bg-white/15 hover:bg-white/25 transition-colors px-3 py-1 rounded-full text-white/90 cursor-default">
+          {label}
+        </span>
+        {desc && (
+          <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-xs rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
+            {desc}
+          </span>
+        )}
+      </span>
+    );
+  }
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-      {/* Header */}
-      <div
-        className="p-6 text-white"
-        style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}
-      >
-        <div className="flex items-center gap-5">
-          {spriteUrl && (
-            <img src={spriteUrl} alt={pokemon.name}
-              className="w-32 h-32 object-contain drop-shadow-lg shrink-0" />
-          )}
-          <div className="min-w-0 flex-1">
-            <p className="text-white/60 text-xs mb-0.5">#{String(pokemon.id).padStart(4, '0')}</p>
+    <>
+      {/* ── Hero ── */}
+      <div style={{ background: 'linear-gradient(135deg, #334155, #1e293b)' }}>
+        <div className="max-w-5xl mx-auto px-6 py-8 flex items-center gap-6 flex-wrap sm:flex-nowrap">
 
-            <div className="flex items-center gap-3 flex-wrap mb-1">
-              <h2 className="text-4xl font-black leading-tight">{displayName}</h2>
-              {isMegaVariant && (
-                <span className="inline-flex items-center gap-1.5 text-base font-bold bg-white/20 px-3 py-1 rounded-full">
-                  <img src={MEGA_SIGIL_URL} alt="" className="h-5 w-5 shrink-0" />
-                  {lang === 'zh' ? '超級進化' : 'Mega'}
-                </span>
-              )}
-            </div>
+          {/* Sprite */}
+          <div className="relative shrink-0">
+            {spriteUrl
+              ? <img src={spriteUrl} alt={pokemon.name}
+                  className="w-36 h-36 sm:w-44 sm:h-44 object-contain drop-shadow-xl" />
+              : <div className="w-36 h-36 sm:w-44 sm:h-44 bg-white/10 rounded-full" />}
+            {isMegaVariant && (
+              <span className="absolute top-1 right-1 w-8 h-8 bg-purple-500/80 rounded-full flex items-center justify-center shadow">
+                <img src={MEGA_SIGIL_URL} alt="Mega" className="h-5 w-5" />
+              </span>
+            )}
+          </div>
 
-            <p className="text-white/40 text-xs capitalize mb-3">{pokemon.name}</p>
+          {/* Info */}
+          <div className="min-w-0 flex-1 text-white">
+            <p className="text-white/40 text-xs mb-0.5">#{String(pokemon.id).padStart(4, '0')}</p>
+            <h1 className="text-4xl font-black leading-tight mb-1">{displayName}</h1>
+            <p className="text-white/25 text-xs capitalize mb-4">{pokemon.name}</p>
 
-            <div className="flex gap-2 flex-wrap mb-3">
+            <div className="flex gap-2 flex-wrap mb-4">
               {pokemon.types.map(({ type }) => (
                 <TypeBadge key={type.name} type={type.name} />
               ))}
             </div>
 
             <div className="flex flex-wrap gap-2">
-              {normalAbilities.map(a => {
-                const desc = abilityDesc(a.ability.name);
-                return (
-                  <span key={a.ability.name} className="relative group">
-                    <span className="text-base bg-white/20 px-3 py-1 rounded-full text-white/90 cursor-default">
-                      {abilityDisplay(a.ability.name)}
-                    </span>
-                    {desc && (
-                      <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-sm rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
-                        {desc}
-                      </span>
-                    )}
-                  </span>
-                );
-              })}
-              {hiddenAbility && (() => {
-                const desc = abilityDesc(hiddenAbility.ability.name);
-                return (
-                  <span className="relative group">
-                    <span className="text-base bg-white/20 px-3 py-1 rounded-full text-white/90 cursor-default">
-                      {abilityDisplay(hiddenAbility.ability.name)} {lang === 'zh' ? '(隱藏)' : '(Hidden)'}
-                    </span>
-                    {desc && (
-                      <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-sm rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
-                        {desc}
-                      </span>
-                    )}
-                  </span>
-                );
-              })()}
+              {normalAbilities.map(a => (
+                <AbilityBadge key={a.ability.name} apiName={a.ability.name} />
+              ))}
+              {hiddenAbility && (
+                <AbilityBadge apiName={hiddenAbility.ability.name} hidden />
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex border-b border-gray-200">
-        {TABS.map(t => (
-          <button key={t.id} onClick={() => setTab(t.id)}
-            className={`flex-1 py-4 text-base font-semibold transition-colors
-              ${tab === t.id ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 hover:text-gray-700'}`}>
-            {lang === 'zh' ? t.zh : t.en}
-          </button>
-        ))}
+      {/* ── Tab bar — sticky below nav + back button ── */}
+      <div className={`sticky ${TAB_BAR_TOP} z-30 bg-white border-b border-gray-200 shadow-sm`}>
+        <div className="max-w-5xl mx-auto px-4 flex">
+          {TABS.map(t => (
+            <button
+              key={t.id}
+              onClick={() => setTab(t.id)}
+              className={`px-6 py-4 text-sm font-semibold transition-colors border-b-2
+                ${tab === t.id
+                  ? 'border-blue-500 text-blue-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+            >
+              {lang === 'zh' ? t.zh : t.en}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Tab content */}
-      <div className="p-6">
+      {/* ── Tab content ── */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
         {tab === 'stats' && <BaseStats stats={pokemon.stats} />}
         {tab === 'types' && <TypeEffectiveness types={pokemon.types} horizontal />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
       </div>
-    </div>
+    </>
   );
 }

@@ -48,9 +48,9 @@ export default function PokemonDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      {/* Back button header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm px-4 py-3">
+    <div>
+      {/* Back button — sticks below the Layout navbar (h-14 = top-14) */}
+      <div className="sticky top-14 z-40 bg-white border-b border-gray-200 shadow-sm px-4 py-3">
         <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-gray-900"
@@ -59,24 +59,22 @@ export default function PokemonDetailPage() {
         </button>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-6">
-        {loading ? (
-          <div className="bg-white rounded-2xl p-16 text-center text-gray-400">
-            <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
-            <p className="text-sm">載入中...</p>
-          </div>
-        ) : pokemon ? (
-          <PokemonCard
-            pokemon={pokemon}
-            species={species}
-            variantLabel={entry.variantLabel}
-            isMegaVariant={entry.isMega}
-            speciesId={entry.id}
-          />
-        ) : (
-          <div className="bg-white rounded-2xl p-8 text-center text-gray-400">載入失敗</div>
-        )}
-      </div>
+      {loading ? (
+        <div className="max-w-5xl mx-auto px-4 py-16 text-center text-gray-400">
+          <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-sm">載入中...</p>
+        </div>
+      ) : pokemon ? (
+        <PokemonCard
+          pokemon={pokemon}
+          species={species}
+          variantLabel={entry.variantLabel}
+          isMegaVariant={entry.isMega}
+          speciesId={entry.id}
+        />
+      ) : (
+        <div className="max-w-5xl mx-auto px-4 py-8 text-center text-gray-400">載入失敗</div>
+      )}
     </div>
   );
 }

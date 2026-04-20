@@ -283,7 +283,7 @@ export default function MoveList({ moves }) {
       )}
 
       {/* ── Table ── */}
-      <div className="max-h-[480px] overflow-y-auto rounded-xl border border-gray-200">
+      <div className="rounded-xl border border-gray-200">
         <table className="w-full text-sm border-collapse">
           <thead className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200">
             <tr>
