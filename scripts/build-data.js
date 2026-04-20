@@ -98,19 +98,37 @@ async function main() {
     if (langId === String(EN)) pokemonNames[id].en = name;
   }
 
-  // ── 2. 招式名稱 + 效果 ID ────────────────────────────────────
+  // ── 2. 招式名稱 + 效果 ID + 戰鬥數值 ────────────────────────
   // columns: id, identifier, generation_id, type_id, power, pp, accuracy, priority,
   //          target_id, damage_class_id, effect_id, effect_chance, ...
+  // damage_class_id: 1=status, 2=physical, 3=special
+
+  // 先取得 type_id → identifier 對應表（從 types.csv: id, identifier, ...）
+  const typesRaw = await fetchCsv('types.csv');
+  const typeNameById = {};
+  for (const row of typesRaw) {
+    typeNameById[row[0]] = row[1]; // e.g. '1' → 'normal'
+  }
+  const DAMAGE_CLASS = { '1': 'status', '2': 'physical', '3': 'special' };
+
   const movesRaw = await fetchCsv('moves.csv');
   const moveSlugById = {};
   const moveEffectIdBySlug = {};
   const moveEffectChanceBySlug = {};
+  const moveStatsById = {};
   for (const row of movesRaw) {
     const slug = row[1];
     moveSlugById[row[0]] = slug;
     if (slug) {
       moveEffectIdBySlug[slug] = row[10] || null;
       moveEffectChanceBySlug[slug] = row[11] || null;
+      moveStatsById[slug] = {
+        type:     typeNameById[row[3]] || null,
+        power:    row[4] ? Number(row[4]) : null,
+        pp:       row[5] ? Number(row[5]) : null,
+        accuracy: row[6] ? Number(row[6]) : null,
+        category: DAMAGE_CLASS[row[9]] || null,
+      };
     }
   }
 
@@ -131,6 +149,7 @@ async function main() {
       ...moveNames[slug],
       effectId: moveEffectIdBySlug[slug] || null,
       effectChance: moveEffectChanceBySlug[slug] || null,
+      ...(moveStatsById[slug] || {}),
     };
   }
 
