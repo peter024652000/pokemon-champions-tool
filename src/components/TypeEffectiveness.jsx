@@ -50,45 +50,52 @@ export default function TypeEffectiveness({ types, compact = false, horizontal =
     const quarter = ALL_TYPES.filter(t => map[t] === 0.25);
     const immune  = ALL_TYPES.filter(t => map[t] === 0);
 
-    const rows = [
+    const SECTIONS = [
       {
-        label: '弱點', labelClass: 'text-red-500',
-        sub: [
-          { mult: '×4', types: weak4, multClass: 'text-red-600 font-black' },
-          { mult: '×2', types: weak2, multClass: 'text-red-400 font-bold' },
+        label: '弱點', labelClass: 'text-red-500 font-bold',
+        bg: 'bg-red-50', border: 'border-red-200',
+        subs: [
+          { mult: '×4', types: weak4,   multClass: 'text-red-600 font-black text-base' },
+          { mult: '×2', types: weak2,   multClass: 'text-red-400 font-bold  text-sm'  },
         ],
       },
       {
-        label: '普通', labelClass: 'text-gray-400',
-        sub: [
-          { mult: '×1', types: normal, multClass: 'text-gray-400 font-bold' },
+        label: '普通', labelClass: 'text-gray-400 font-bold',
+        bg: 'bg-gray-50', border: 'border-gray-200',
+        subs: [
+          { mult: '×1', types: normal,  multClass: 'text-gray-400 font-bold text-sm'  },
         ],
       },
       {
-        label: '抵抗', labelClass: 'text-blue-500',
-        sub: [
-          { mult: '½',  types: half,    multClass: 'text-blue-400 font-bold' },
-          { mult: '¼',  types: quarter, multClass: 'text-blue-600 font-bold' },
-          { mult: '×0', types: immune,  multClass: 'text-gray-400 font-bold' },
+        label: '抵抗', labelClass: 'text-blue-500 font-bold',
+        bg: 'bg-blue-50', border: 'border-blue-200',
+        subs: [
+          { mult: '½',  types: half,    multClass: 'text-blue-400 font-bold  text-sm' },
+          { mult: '¼',  types: quarter, multClass: 'text-blue-600 font-bold  text-sm' },
+        ],
+      },
+      {
+        label: '無效果', labelClass: 'text-gray-500 font-bold',
+        bg: 'bg-gray-100', border: 'border-gray-200',
+        subs: [
+          { mult: '×0', types: immune,  multClass: 'text-gray-400 font-bold text-sm'  },
         ],
       },
     ];
 
     return (
-      <div className="space-y-3 w-full">
-        {rows.map(({ label, labelClass, sub }) => {
-          const activeSub = sub.filter(s => s.types.length > 0);
-          if (!activeSub.length) return null;
+      <div className="space-y-2 w-full">
+        {SECTIONS.map(({ label, labelClass, bg, border, subs }) => {
+          const activeSubs = subs.filter(s => s.types.length > 0);
+          if (!activeSubs.length) return null;
           return (
-            <div key={label} className="flex gap-3">
-              {/* Group label — 固定寬度，對齊第一排 */}
-              <span className={`text-base font-bold w-10 shrink-0 text-right pt-1.5 ${labelClass}`}>{label}</span>
-              {/* 每個倍率獨立一排，垂直堆疊 */}
-              <div className="flex-1 space-y-1.5">
-                {activeSub.map(({ mult, types, multClass }) => (
+            <div key={label} className={`rounded-xl px-4 py-3 ${bg} border ${border}`}>
+              <p className={`text-xs mb-2 ${labelClass}`}>{label}</p>
+              <div className="space-y-2">
+                {activeSubs.map(({ mult, types, multClass }) => (
                   <div key={mult} className="flex items-start gap-2">
-                    <span className={`text-sm font-bold w-7 shrink-0 text-right pt-1.5 ${multClass}`}>{mult}</span>
-                    <div className="flex flex-wrap gap-1.5">
+                    <span className={`shrink-0 w-7 text-right leading-none pt-1 tabular-nums ${multClass}`}>{mult}</span>
+                    <div className="flex flex-wrap gap-1">
                       {types.map(t => <TypeBadge key={t} type={t} size="sm" />)}
                     </div>
                   </div>

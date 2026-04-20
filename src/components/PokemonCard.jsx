@@ -120,22 +120,25 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-8 flex items-center gap-6 flex-wrap sm:flex-nowrap">
 
           {/* Sprite */}
-          <div className="relative shrink-0">
+          <div className="shrink-0">
             {spriteUrl
               ? <img src={spriteUrl} alt={pokemon.name}
                   className="w-36 h-36 sm:w-44 sm:h-44 object-contain drop-shadow-xl" />
               : <div className="w-36 h-36 sm:w-44 sm:h-44 bg-white/10 rounded-full" />}
-            {isMegaVariant && (
-              <span className="absolute top-1 right-1 w-8 h-8 bg-purple-500/80 rounded-full flex items-center justify-center shadow">
-                <img src={MEGA_SIGIL_URL} alt="Mega" className="h-5 w-5" />
-              </span>
-            )}
           </div>
 
           {/* Info */}
           <div className="min-w-0 flex-1 text-white">
             <p className="text-white/40 text-xs mb-0.5">#{String(pokemon.id).padStart(4, '0')}</p>
-            <h1 className="text-4xl font-black leading-tight mb-1">{displayName}</h1>
+            <div className="flex items-center gap-3 flex-wrap mb-1">
+              <h1 className="text-4xl font-black leading-tight">{displayName}</h1>
+              {isMegaVariant && (
+                <span className="inline-flex items-center gap-1.5 bg-white/20 px-3 py-1 rounded-full">
+                  <img src={MEGA_SIGIL_URL} alt="" className="h-5 w-5 shrink-0" />
+                  <span className="text-sm font-bold">{lang === 'zh' ? '超級進化' : 'Mega'}</span>
+                </span>
+              )}
+            </div>
             <p className="text-white/25 text-xs capitalize mb-4">{pokemon.name}</p>
 
             <div className="flex gap-2 flex-wrap mb-4">
