@@ -175,10 +175,12 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       </div>
 
       {/* ── Tab content ── */}
+      <div className="bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
         {tab === 'stats' && <BaseStats stats={pokemon.stats} />}
         {tab === 'types' && <TypeEffectiveness types={pokemon.types} horizontal />}
         {tab === 'moves' && <MoveList moves={pokemon.moves} />}
+      </div>
       </div>
     </>
   );
