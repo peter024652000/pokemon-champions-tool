@@ -6,8 +6,8 @@ export default function TeamGrid({ slots, activeTab, setActiveTab, onPickerOpen,
 
   return (
     <div>
-      {/* Tab bar */}
-      <div className="flex gap-1.5 mb-4">
+      {/* Tab bar — centered */}
+      <div className="flex justify-center gap-1.5 mb-4">
         {[
           { key: 'ability', zh: '能力', en: 'Ability' },
           { key: 'status',  zh: '狀態', en: 'Status'  },

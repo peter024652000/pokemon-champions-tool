@@ -57,7 +57,7 @@ export default function PokemonPicker({ onSelect, onClose }) {
             {lang === 'zh' ? '沒有符合條件的寶可夢' : 'No Pokémon found'}
           </div>
         ) : (
-          <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-7 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 xl:grid-cols-8 gap-2">
             {filtered.map(p => (
               <PickerGridItem key={p.apiName} pokemon={p} lang={lang} onClick={() => onSelect(p)} />
             ))}
@@ -84,23 +84,24 @@ function PickerGridItem({ pokemon, lang, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="bg-white rounded-xl border border-gray-100 p-2 flex flex-col items-center gap-1
+      className="bg-white rounded-xl border border-gray-100 p-3 flex flex-col items-center gap-1.5
         hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all duration-150 relative"
     >
       {pokemon.isMega && (
-        <span className="absolute top-1 right-1 w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center">
-          <img src={MEGA_SIGIL_URL} alt="Mega" className="h-3.5 w-3.5" />
+        <span className="absolute top-2 right-2 w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center shadow-sm">
+          <img src={MEGA_SIGIL_URL} alt="Mega" className="h-4 w-4" />
         </span>
       )}
       {pokemon.sprite
-        ? <img src={pokemon.sprite} alt={pokemon.name} className="w-14 h-14 object-contain" loading="lazy" />
-        : <div className="w-14 h-14 bg-gray-100 rounded-full" />
+        ? <img src={pokemon.sprite} alt={pokemon.name} className="w-20 h-20 object-contain" loading="lazy" />
+        : <div className="w-20 h-20 bg-gray-100 rounded-full" />
       }
-      <p className="text-gray-800 text-xs font-semibold text-center leading-tight w-full truncate px-0.5">
+      <p className="text-gray-400 text-xs leading-none">#{String(pokemon.id).padStart(4, '0')}</p>
+      <p className="text-gray-800 text-sm font-semibold text-center leading-tight w-full truncate px-1">
         {displayName}
       </p>
-      <div className="flex gap-0.5 flex-wrap justify-center">
-        {pokemon.types?.map(t => <TypeBadge key={t} type={t} size="xs" />)}
+      <div className="flex gap-1 flex-wrap justify-center">
+        {pokemon.types?.map(t => <TypeBadge key={t} type={t} size="sm" />)}
       </div>
     </button>
   );

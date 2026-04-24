@@ -155,13 +155,14 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                       const isHP = stat === 'hp';
                       const calc = base > 0 ? calcStat(base, bp, mod, isHP) : 0;
                       const barPct = Math.min((calc / STAT_BAR_MAX) * 100, 100);
+                      const color = STAT_COLORS[stat] || '#9CA3AF';
                       const natureUp = !isHP && mod > 1;
                       const natureDown = !isHP && mod < 1;
 
                       return (
-                        <div key={stat} className="flex items-center gap-2">
+                        <div key={stat} className="flex items-center gap-1.5">
                           {/* Icon + Stat name */}
-                          <div className="flex items-center gap-1 w-16 shrink-0">
+                          <div className="flex items-center gap-1 w-14 shrink-0">
                             <span className="text-xs text-gray-400">{STAT_ICONS[stat]}</span>
                             <span className={`text-xs font-medium ${
                               natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-600'
@@ -177,13 +178,14 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                             {calc || '—'}
                           </span>
 
-                          {/* Bar */}
-                          <div className="flex-1 bg-gray-100 rounded-full h-2.5 min-w-0">
+                          {/* Bar: full color when bp>0, muted when bp=0 */}
+                          <div className="flex-1 bg-gray-100 rounded-full h-3 min-w-0">
                             <div
-                              className="h-2.5 rounded-full transition-all duration-150"
+                              className="h-3 rounded-full transition-all duration-150"
                               style={{
                                 width: `${barPct}%`,
-                                backgroundColor: bp > 0 ? '#EAB308' : (STAT_COLORS[stat] || '#9CA3AF'),
+                                backgroundColor: color,
+                                opacity: bp > 0 ? 1 : 0.35,
                               }}
                             />
                           </div>
@@ -195,8 +197,24 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                             max={BP_MAX_PER_STAT}
                             value={bp}
                             onChange={e => setBp(stat, parseInt(e.target.value, 10))}
-                            className="w-12 text-xs font-mono text-center border border-gray-200 rounded-lg py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-300 shrink-0"
+                            className="w-11 text-xs font-mono text-center border border-gray-200 rounded-lg py-0.5 focus:outline-none focus:ring-1 focus:ring-blue-300 shrink-0"
                           />
+
+                          {/* ▲ fill remaining */}
+                          <button
+                            onClick={() => setBp(stat, bp + remaining)}
+                            disabled={remaining <= 0 || bp >= BP_MAX_PER_STAT}
+                            title={lang === 'zh' ? '加到上限' : 'Max out'}
+                            className="w-6 h-6 rounded bg-blue-50 text-blue-500 hover:bg-blue-100 disabled:opacity-25 text-[10px] font-bold shrink-0 flex items-center justify-center transition-colors"
+                          >▲</button>
+
+                          {/* ✕ reset */}
+                          <button
+                            onClick={() => setBp(stat, 0)}
+                            disabled={bp === 0}
+                            title={lang === 'zh' ? '歸零' : 'Reset'}
+                            className="w-6 h-6 rounded bg-gray-100 text-gray-500 hover:bg-gray-200 disabled:opacity-25 text-[10px] font-bold shrink-0 flex items-center justify-center transition-colors"
+                          >✕</button>
                         </div>
                       );
                     })}

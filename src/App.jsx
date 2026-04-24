@@ -7,7 +7,8 @@ import PokedexPage from './pages/PokedexPage';
 import TypeChartPage from './pages/TypeChartPage';
 import SpeedPage from './pages/SpeedPage';
 import PokemonDetailPage from './pages/PokemonDetailPage';
-import TeamBuilderPage from './pages/TeamBuilderPage';
+import TeamListPage from './pages/TeamListPage';
+import TeamDetailPage from './pages/TeamDetailPage';
 
 function AppRouter() {
   return (
@@ -18,7 +19,8 @@ function AppRouter() {
         <Route path="/types" element={<TypeChartPage />} />
         <Route path="/speed" element={<SpeedPage />} />
         <Route path="/pokemon/:apiName" element={<PokemonDetailPage />} />
-        <Route path="/team" element={<TeamBuilderPage />} />
+        <Route path="/team" element={<TeamListPage />} />
+        <Route path="/team/:teamId" element={<TeamDetailPage />} />
       </Routes>
     </Layout>
   );
