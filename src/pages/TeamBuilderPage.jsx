@@ -84,7 +84,7 @@ export default function TeamBuilderPage() {
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 xl:px-10 py-6">
-      <h1 className="text-2xl font-black text-gray-800 mb-6">
+      <h1 className="text-2xl font-black text-clay-charcoal mb-6">
         {lang === 'zh' ? '組隊' : 'Team Builder'}
       </h1>
 

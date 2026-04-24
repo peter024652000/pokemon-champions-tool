@@ -105,7 +105,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
           {label}
         </span>
         {desc && (
-          <span className="absolute bottom-full left-0 mb-2 w-64 bg-gray-900/95 text-white text-xs rounded-xl px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-xl">
+          <span className="absolute bottom-full left-0 mb-2 w-64 bg-clay-charcoal/95 text-white text-xs rounded-[12px] px-3 py-2 leading-relaxed hidden group-hover:block z-20 pointer-events-none shadow-clay-md">
             {desc}
           </span>
         )}
@@ -160,7 +160,7 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
       </div>
 
       {/* ── Tab bar — sticky below nav + back button ── */}
-      <div className={`sticky ${TAB_BAR_TOP} z-30 bg-white border-b border-gray-200 shadow-sm`}>
+      <div className={`sticky ${TAB_BAR_TOP} z-30 bg-white border-b border-clay-border shadow-clay-nav`}>
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 flex">
           {TABS.map(t => (
             <button
@@ -168,8 +168,8 @@ export default function PokemonCard({ pokemon, species, variantLabel, isMegaVari
               onClick={() => setTab(t.id)}
               className={`px-6 py-4 text-sm font-semibold transition-colors border-b-2
                 ${tab === t.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`}
+                  ? 'border-clay-blue text-clay-blue'
+                  : 'border-transparent text-clay-silver hover:text-clay-charcoal hover:border-clay-border'}`}
             >
               {lang === 'zh' ? t.zh : t.en}
             </button>

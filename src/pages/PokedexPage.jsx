@@ -34,7 +34,7 @@ export default function PokedexPage() {
   return (
     <div>
       {/* Sticky header */}
-      <div className="sticky top-14 z-40 bg-white border-b border-gray-200 shadow-sm">
+      <div className="sticky top-14 z-40 bg-white border-b border-clay-border shadow-clay-nav">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-3 space-y-2.5">
           {/* Search — centered */}
           <div className="flex justify-center">
@@ -43,7 +43,7 @@ export default function PokedexPage() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={lang === 'zh' ? '搜尋名稱...' : 'Search name...'}
-              className="w-full max-w-md border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full max-w-md border border-clay-border rounded-[16px] px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
             />
           </div>
 
@@ -58,9 +58,9 @@ export default function PokedexPage() {
         </div>
 
         {!loadingDone && (
-          <div className="h-1 bg-gray-100">
+          <div className="h-1 bg-clay-oat">
             <div
-              className="h-1 bg-blue-400 transition-all duration-300"
+              className="h-1 bg-clay-blue transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -70,7 +70,7 @@ export default function PokedexPage() {
       {/* Grid */}
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-4">
         {filtered.length === 0 && loadingDone ? (
-          <div className="text-center py-20 text-gray-400">
+          <div className="text-center py-20 text-clay-silver">
             <p className="text-4xl mb-3">🔍</p>
             <p className="text-sm">
               {lang === 'zh' ? '沒有符合條件的寶可夢' : 'No Pokémon found'}
@@ -78,7 +78,7 @@ export default function PokedexPage() {
           </div>
         ) : (
           <>
-            <p className="text-xs text-gray-400 mb-3">
+            <p className="text-xs text-clay-silver mb-3">
               {loadingDone
                 ? `${lang === 'zh' ? '共' : 'Total'} ${filtered.length}${lang === 'zh' ? ' 筆' : ''}`
                 : `${lang === 'zh' ? '載入中' : 'Loading'} ${loadedCount} / ${total}...`}

@@ -39,7 +39,7 @@ export default function AbilityView({ slot }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1">
             {slot.isMega && <img src={MEGA_SIGIL_URL} alt="Mega" className="h-3.5 w-3.5" />}
-            <span className="text-sm font-bold text-gray-900 truncate leading-tight">{fullName}</span>
+            <span className="text-sm font-bold text-clay-charcoal truncate leading-tight">{fullName}</span>
           </div>
           <div className="flex gap-0.5 flex-wrap mt-0.5">
             {slot.types?.map(t => <TypeBadge key={t} type={t} size="xs" />)}
@@ -50,12 +50,12 @@ export default function AbilityView({ slot }) {
       {/* Ability & Item */}
       <div className="text-xs space-y-0.5">
         <div className="flex gap-1.5">
-          <span className="text-gray-400 shrink-0">{lang === 'zh' ? '特性' : 'Ability'}:</span>
-          <span className="font-semibold text-gray-700 truncate">{abilityName}</span>
+          <span className="text-clay-silver shrink-0">{lang === 'zh' ? '特性' : 'Ability'}:</span>
+          <span className="font-semibold text-clay-charcoal truncate">{abilityName}</span>
         </div>
         <div className="flex gap-1.5">
-          <span className="text-gray-400 shrink-0">{lang === 'zh' ? '道具' : 'Item'}:</span>
-          <span className="font-semibold text-gray-700 truncate">{slot.heldItem || '—'}</span>
+          <span className="text-clay-silver shrink-0">{lang === 'zh' ? '道具' : 'Item'}:</span>
+          <span className="font-semibold text-clay-charcoal truncate">{slot.heldItem || '—'}</span>
         </div>
       </div>
 
@@ -69,7 +69,7 @@ export default function AbilityView({ slot }) {
             <div
               key={i}
               className={`flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs ${
-                d ? 'bg-white border border-gray-100' : 'bg-gray-50 text-gray-300'
+                d ? 'bg-white border border-clay-border/50' : 'bg-clay-oat text-clay-border'
               }`}
               style={d ? { borderLeft: `3px solid ${color}` } : {}}
             >
@@ -79,7 +79,7 @@ export default function AbilityView({ slot }) {
                   <img src={`${CATEGORY_ICON_BASE}${d.category}.png`} alt="" className="h-3.5 w-auto shrink-0" />
                 </>
               )}
-              <span className={`truncate ${d ? 'text-gray-800 font-medium' : ''}`}>
+              <span className={`truncate ${d ? 'text-clay-charcoal font-medium' : ''}`}>
                 {moveName || '—'}
               </span>
             </div>

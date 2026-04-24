@@ -33,9 +33,9 @@ export default function StatusView({ slot }) {
       <div className="h-full flex flex-col gap-2">
         <div className="flex items-center gap-2">
           {slot.sprite && <img src={slot.sprite} alt="" className="w-10 h-10 object-contain shrink-0" />}
-          <span className="text-sm font-bold text-gray-900 truncate">{fullName}</span>
+          <span className="text-sm font-bold text-clay-charcoal truncate">{fullName}</span>
         </div>
-        <div className="flex-1 flex items-center justify-center text-xs text-gray-300">
+        <div className="flex-1 flex items-center justify-center text-xs text-clay-border">
           {lang === 'zh' ? '載入中...' : 'Loading...'}
         </div>
       </div>
@@ -57,7 +57,7 @@ export default function StatusView({ slot }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1">
             {slot.isMega && <img src={MEGA_SIGIL_URL} alt="Mega" className="h-3.5 w-3.5" />}
-            <span className="text-sm font-bold text-gray-900 truncate leading-tight">{fullName}</span>
+            <span className="text-sm font-bold text-clay-charcoal truncate leading-tight">{fullName}</span>
           </div>
           <div className="flex gap-0.5 flex-wrap mt-0.5">
             {slot.types?.map(t => <TypeBadge key={t} type={t} size="xs" />)}
@@ -83,23 +83,23 @@ export default function StatusView({ slot }) {
           return (
             <div key={statName} className="flex items-center gap-1.5">
               <span className={`w-10 text-right text-[11px] font-medium shrink-0 ${
-                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-500'
+                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-clay-silver'
               }`}>
                 {STAT_NAMES_ZH[statName]}{natureUp ? '↑' : natureDown ? '↓' : ''}
               </span>
               <span className={`w-8 text-right font-mono font-bold text-xs shrink-0 ${
-                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-gray-800'
+                natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-clay-charcoal'
               }`}>
                 {calc}
               </span>
-              <div className="flex-1 bg-gray-100 rounded-full h-1.5 min-w-0">
+              <div className="flex-1 bg-clay-border/40 rounded-full h-1.5 min-w-0">
                 <div
                   className="h-1.5 rounded-full transition-all"
                   style={{ width: `${barPct}%`, backgroundColor: color }}
                 />
               </div>
-              <span className="text-[11px] text-gray-400 shrink-0 font-mono whitespace-nowrap">
-                {base}<span className="text-gray-200 mx-0.5">—</span>{bp}
+              <span className="text-[11px] text-clay-silver shrink-0 font-mono whitespace-nowrap">
+                {base}<span className="text-clay-border mx-0.5">—</span>{bp}
               </span>
             </div>
           );

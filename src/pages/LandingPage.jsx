@@ -31,13 +31,13 @@ export default function LandingPage() {
   const zh = lang === 'zh';
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-slate-100 flex flex-col">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-clay-cream flex flex-col">
       {/* Hero */}
       <div className="bg-gradient-to-br from-slate-800 to-slate-900 text-white px-6 py-16 text-center">
         <p className="text-sm font-semibold text-blue-400 uppercase tracking-widest mb-3">
           {zh ? '非官方工具' : 'Unofficial fan tool'}
         </p>
-        <h1 className="text-4xl sm:text-5xl font-black mb-4">
+        <h1 className="text-4xl sm:text-5xl font-black mb-4 tracking-tight">
           {zh ? 'Champions 查詢工具' : 'Champions Tool'}
         </h1>
         <p className="text-slate-400 max-w-xl mx-auto text-base leading-relaxed">
@@ -49,13 +49,13 @@ export default function LandingPage() {
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             to="/pokedex"
-            className="px-6 py-3 bg-blue-500 hover:bg-blue-400 rounded-xl font-bold text-base transition-colors shadow-lg"
+            className="px-6 py-3 bg-clay-blue hover:opacity-90 rounded-full font-bold text-base transition-opacity shadow-lg"
           >
             {zh ? '前往圖鑑 →' : 'Open Pokédex →'}
           </Link>
           <Link
             to="/types"
-            className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-xl font-bold text-base transition-colors border border-white/20"
+            className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full font-bold text-base transition-colors border border-white/20"
           >
             {zh ? '屬性相剋 →' : 'Type Chart →'}
           </Link>
@@ -68,18 +68,18 @@ export default function LandingPage() {
           <Link
             key={f.to}
             to={f.to}
-            className="group bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-gray-100"
+            className="group bg-white rounded-[16px] shadow-clay hover:shadow-clay-md transition-shadow overflow-hidden border border-clay-border"
           >
             <div className={`h-2 bg-gradient-to-r ${f.color}`} />
             <div className="p-6">
               <p className="text-3xl mb-3">{f.icon}</p>
-              <h2 className="text-lg font-black text-gray-800 mb-1">
+              <h2 className="text-lg font-black text-clay-charcoal mb-1">
                 {zh ? f.zh : f.en}
               </h2>
-              <p className="text-sm text-gray-500 leading-relaxed mb-4">
+              <p className="text-sm text-clay-silver leading-relaxed mb-4">
                 {zh ? f.descZh : f.descEn}
               </p>
-              <span className={`inline-block px-4 py-1.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r ${f.color} group-hover:opacity-90 transition-opacity`}>
+              <span className={`inline-block px-4 py-1.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${f.color} group-hover:opacity-90 transition-opacity`}>
                 {zh ? f.btnZh : f.btnEn}
               </span>
             </div>
@@ -88,7 +88,7 @@ export default function LandingPage() {
       </div>
 
       {/* Footer note */}
-      <div className="mt-auto py-6 text-center text-xs text-gray-400 px-4">
+      <div className="mt-auto py-6 text-center text-xs text-clay-silver px-4">
         {zh
           ? '資料來源：PokeAPI（主線數值）。部分數值可能與 Pokémon Champions 遊戲內不同。'
           : 'Data source: PokeAPI (main series). Some values may differ from in-game Pokémon Champions data.'}

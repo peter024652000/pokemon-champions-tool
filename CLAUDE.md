@@ -96,6 +96,14 @@ effectText.replace(/\$effect_chance%/g, (d.effectChance || '?') + '%')
 - **正式網址**：https://pokemon-champions-tool.vercel.app/
 - Vercel 與 GitHub main branch 連動，`git push` 自動觸發重新部署
 
+## Git Commit 規則
+
+**執行 `git commit` 前，必須先告知使用者將要提交的內容，並等待使用者明確確認後才能執行。不得在未經確認的情況下自動 commit。**
+
+同樣地，`git push` 也必須等待使用者明確指示後才能執行。
+
+---
+
 ## Git / 開發環境
 
 - Remote: `git@github.com:peter024652000/pokemon-champions-tool.git`（SSH）

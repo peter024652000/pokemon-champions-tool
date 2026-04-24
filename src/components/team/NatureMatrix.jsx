@@ -23,14 +23,14 @@ export default function NatureMatrix({ currentNature, onSelect, onClose }) {
 
   return (
     <div className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl">
-        <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100">
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
-          <span className="font-bold text-gray-800">
+      <div className="bg-white rounded-[16px] shadow-clay-md w-full max-w-xl">
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-clay-border">
+          <button onClick={onClose} className="text-clay-silver hover:text-clay-charcoal text-lg leading-none">✕</button>
+          <span className="font-bold text-clay-charcoal">
             {lang === 'zh' ? '選擇個性' : 'Select Nature'}
           </span>
           {currentNature && (
-            <span className="ml-auto text-sm text-blue-600 font-semibold">
+            <span className="ml-auto text-sm text-clay-blue font-semibold">
               {lang === 'zh' ? currentNature.zh : currentNature.en}
             </span>
           )}
@@ -41,11 +41,11 @@ export default function NatureMatrix({ currentNature, onSelect, onClose }) {
           <table className="w-full border-collapse text-center text-xs">
             <thead>
               <tr>
-                <th className="w-14 pb-2 text-gray-400 font-normal">
+                <th className="w-14 pb-2 text-clay-silver font-normal">
                   <span className="text-[10px]">{lang === 'zh' ? '↑\\↓' : '↑\\↓'}</span>
                 </th>
                 {STATS_5.map(s => (
-                  <th key={s} className="pb-2 font-semibold text-blue-500 text-[11px]">
+                  <th key={s} className="pb-2 font-semibold text-clay-blue text-[11px]">
                     -{labels[s]}
                   </th>
                 ))}
@@ -69,10 +69,10 @@ export default function NatureMatrix({ currentNature, onSelect, onClose }) {
                           onClick={() => { onSelect(nature.en); onClose(); }}
                           className={`w-full px-1 py-1.5 rounded-lg text-[11px] font-semibold transition-all leading-tight ${
                             isSelected
-                              ? 'bg-blue-600 text-white shadow-sm'
+                              ? 'bg-clay-blue text-white shadow-clay'
                               : isNeutral
-                                ? 'bg-gray-100 text-gray-400 hover:bg-gray-200'
-                                : 'bg-white border border-gray-200 text-gray-700 hover:bg-blue-50 hover:border-blue-300'
+                                ? 'bg-clay-oat text-clay-silver hover:bg-clay-border/50'
+                                : 'bg-white border border-clay-border text-clay-charcoal hover:bg-clay-blue-light hover:border-clay-blue/40'
                           }`}
                         >
                           <div>{lang === 'zh' ? nature.zh : nature.en}</div>
@@ -85,7 +85,7 @@ export default function NatureMatrix({ currentNature, onSelect, onClose }) {
             </tbody>
           </table>
 
-          <p className="text-[11px] text-gray-400 mt-3 text-center">
+          <p className="text-[11px] text-clay-silver mt-3 text-center">
             {lang === 'zh'
               ? '行 = 上升能力，列 = 下降能力，灰色 = 無加成'
               : 'Row = increased stat, Column = decreased stat, Gray = neutral'}

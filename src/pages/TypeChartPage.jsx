@@ -24,7 +24,7 @@ const EFF_LABELS = [
 function EffRow({ effLabel, types, lang }) {
   if (types.length === 0) return null;
   return (
-    <div className="rounded-xl px-3 py-2.5 bg-gray-50 border border-gray-200">
+    <div className="rounded-[16px] px-3 py-2.5 bg-clay-oat border border-clay-border">
       <p className={`text-xs font-bold mb-1.5 tabular-nums ${effLabel.textClass}`}>
         {lang === 'zh' ? effLabel.zh : effLabel.en}
       </p>
@@ -70,19 +70,19 @@ export default function TypeChartPage() {
     : null;
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-slate-100">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-clay-cream">
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 py-6">
 
         {/* Page title */}
-        <h1 className="text-2xl font-black text-gray-800 mb-1">
+        <h1 className="text-2xl font-black text-clay-charcoal mb-1">
           {zh ? '屬性相剋表' : 'Type Chart'}
         </h1>
-        <p className="text-sm text-gray-400 mb-6">
+        <p className="text-sm text-clay-silver mb-6">
           {zh ? '選擇一個屬性，查看攻擊與防守的相剋關係' : 'Select a type to view offensive and defensive matchups'}
         </p>
 
-        {/* ── Type selector: 2 rows × 9 cols, pill buttons ── */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 mb-6">
+        {/* ── Type selector ── */}
+        <div className="bg-white rounded-[16px] border border-clay-border shadow-clay p-5 mb-6">
           <div className="grid grid-cols-6 sm:grid-cols-9 gap-x-2 gap-y-2 sm:gap-x-3 sm:gap-y-3">
             {ALL_TYPES.map(type => {
               const active = selected === type;
@@ -138,11 +138,7 @@ export default function TypeChartPage() {
 
             {/* Centre: selected type */}
             <div className="hidden sm:flex flex-col items-center justify-center gap-2 shrink-0 w-20">
-              <img
-                src={`${TYPE_ICON_BASE}${selected}.png`}
-                alt=""
-                className="w-14 h-14 drop-shadow-md"
-              />
+              <img src={`${TYPE_ICON_BASE}${selected}.png`} alt="" className="w-14 h-14 drop-shadow-md" />
               <TypeBadge type={selected} size="sm" />
             </div>
 
@@ -169,7 +165,7 @@ export default function TypeChartPage() {
 
           </div>
         ) : (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-clay-silver">
             <p className="text-5xl mb-3">⚡</p>
             <p className="text-sm">{zh ? '請選擇一個屬性' : 'Select a type above'}</p>
           </div>

@@ -43,11 +43,11 @@ export default function PokemonDetailPage() {
 
   if (!entry) {
     return (
-      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
-        <div className="text-gray-400 text-center">
+      <div className="min-h-screen bg-clay-cream flex items-center justify-center">
+        <div className="text-clay-silver text-center">
           <p className="text-2xl mb-2">😵</p>
           <p>找不到這隻寶可夢</p>
-          <button onClick={() => navigate('/')} className="mt-4 text-blue-500 text-sm underline">
+          <button onClick={() => navigate('/')} className="mt-4 text-clay-blue text-sm underline">
             回列表
           </button>
         </div>
@@ -58,18 +58,18 @@ export default function PokemonDetailPage() {
   return (
     <div>
       {/* Back button — sticks below the Layout navbar (h-14 = top-14) */}
-      <div className="sticky top-14 z-40 bg-white border-b border-gray-200 shadow-sm px-4 py-3">
+      <div className="sticky top-14 z-40 bg-white border-b border-clay-border shadow-clay-nav px-4 py-3">
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-gray-900"
+          className="flex items-center gap-1.5 text-sm font-semibold text-clay-silver hover:text-clay-charcoal"
         >
           ← 回列表
         </button>
       </div>
 
       {loading ? (
-        <div className="max-w-5xl mx-auto px-4 py-16 text-center text-gray-400">
-          <div className="w-8 h-8 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin mx-auto mb-3" />
+        <div className="max-w-5xl mx-auto px-4 py-16 text-center text-clay-silver">
+          <div className="w-8 h-8 border-4 border-clay-blue-mid border-t-clay-blue rounded-full animate-spin mx-auto mb-3" />
           <p className="text-sm">載入中...</p>
         </div>
       ) : pokemon ? (
@@ -81,7 +81,7 @@ export default function PokemonDetailPage() {
           speciesId={entry.id}
         />
       ) : (
-        <div className="max-w-5xl mx-auto px-4 py-8 text-center text-gray-400">載入失敗</div>
+        <div className="max-w-5xl mx-auto px-4 py-8 text-center text-clay-silver">載入失敗</div>
       )}
     </div>
   );

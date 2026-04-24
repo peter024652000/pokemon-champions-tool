@@ -22,11 +22,11 @@ function LangDropdown({ lang, setLang }) {
     <div className="relative shrink-0">
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-gray-200 bg-white text-xs sm:text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-clay-border bg-white text-xs sm:text-sm font-semibold text-clay-charcoal hover:bg-clay-oat transition-colors"
       >
         {current?.label}
         <svg
-          className={`w-3 h-3 text-gray-400 transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
+          className={`w-3 h-3 text-clay-silver transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
           fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -38,13 +38,13 @@ function LangDropdown({ lang, setLang }) {
           {/* Backdrop */}
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           {/* Menu */}
-          <div className="absolute right-0 top-full mt-1.5 bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden z-50 min-w-[80px]">
+          <div className="absolute right-0 top-full mt-1.5 bg-white border border-clay-border rounded-[16px] shadow-clay-md overflow-hidden z-50 min-w-[80px]">
             {LANGS.map(l => (
               <button
                 key={l.value}
                 onClick={() => { setLang(l.value); setOpen(false); }}
-                className={`w-full px-4 py-2.5 text-sm text-left font-semibold transition-colors hover:bg-gray-50
-                  ${lang === l.value ? 'text-blue-600 bg-blue-50' : 'text-gray-700'}`}
+                className={`w-full px-4 py-2.5 text-sm text-left font-semibold transition-colors hover:bg-clay-oat
+                  ${lang === l.value ? 'text-clay-blue bg-clay-blue-light' : 'text-clay-charcoal'}`}
               >
                 {l.label}
               </button>
@@ -61,11 +61,11 @@ export default function Layout({ children }) {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div className="min-h-screen bg-clay-cream">
+      <nav className="sticky top-0 z-50 bg-white border-b border-clay-border shadow-clay-nav">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 xl:px-10 h-14 flex items-center gap-2 sm:gap-4">
           {/* Logo */}
-          <Link to="/" className="text-base sm:text-lg font-black text-gray-800 shrink-0 hover:text-blue-600 transition-colors whitespace-nowrap">
+          <Link to="/" className="text-base sm:text-lg font-black text-clay-charcoal shrink-0 hover:text-clay-blue transition-colors whitespace-nowrap">
             Champions<span className="hidden sm:inline"> Tool</span>
           </Link>
 
@@ -79,8 +79,8 @@ export default function Layout({ children }) {
                   to={item.path}
                   className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap ${
                     active
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
+                      ? 'bg-clay-blue-mid text-clay-blue'
+                      : 'text-clay-silver hover:bg-clay-oat hover:text-clay-charcoal'
                   }`}
                 >
                   {lang === 'zh' ? item.zh : item.en}

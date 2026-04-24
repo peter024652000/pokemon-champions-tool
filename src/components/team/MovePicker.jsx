@@ -43,31 +43,31 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
   return (
     <div className="fixed inset-0 z-[60] bg-black/60 flex flex-col">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center gap-3 shrink-0">
-        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
-        <span className="font-bold text-gray-800">
+      <div className="bg-white border-b border-clay-border px-4 py-3 flex items-center gap-3 shrink-0">
+        <button onClick={onClose} className="text-clay-silver hover:text-clay-charcoal text-lg leading-none">✕</button>
+        <span className="font-bold text-clay-charcoal">
           {lang === 'zh' ? `招式 ${slotIndex + 1}` : `Move ${slotIndex + 1}`}
         </span>
-        <span className="text-xs text-gray-400 ml-auto">{filtered.length}</span>
+        <span className="text-xs text-clay-silver ml-auto">{filtered.length}</span>
       </div>
 
       {/* Filters */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 space-y-2.5 shrink-0">
+      <div className="bg-white border-b border-clay-border px-4 py-3 space-y-2.5 shrink-0">
         <input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={lang === 'zh' ? '搜尋招式...' : 'Search move...'}
           autoFocus
-          className="w-full border border-gray-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="w-full border border-clay-border rounded-[16px] px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
         />
 
-        {/* Type filter — same style as MoveList */}
+        {/* Type filter */}
         <div className="flex gap-1 flex-wrap items-center">
           {typeFilter && (
             <button
               onClick={() => setTypeFilter(null)}
-              className="text-xs text-gray-400 hover:text-gray-600 px-2 py-1 rounded-lg border border-gray-200 hover:border-gray-300 shrink-0"
+              className="text-xs text-clay-silver hover:text-clay-charcoal px-2 py-1 rounded-lg border border-clay-border hover:border-clay-border shrink-0"
             >
               {lang === 'zh' ? '清除' : 'Clear'}
             </button>
@@ -83,7 +83,7 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
                 title={label}
                 className={`flex items-center justify-center rounded-full transition-all overflow-hidden ${
                   active
-                    ? 'ring-2 ring-offset-1 ring-gray-700 scale-110'
+                    ? 'ring-2 ring-offset-1 ring-clay-charcoal scale-110'
                     : 'opacity-90 hover:opacity-100 hover:scale-105'
                 }`}
                 style={{ width: 28, height: 28, backgroundColor: color }}
@@ -102,8 +102,8 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
               onClick={() => setCatFilter(catFilter === cat ? null : cat)}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
                 catFilter === cat
-                  ? 'bg-gray-800 border-gray-700 text-white shadow-sm'
-                  : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  ? 'bg-clay-charcoal border-clay-charcoal text-white shadow-clay'
+                  : 'bg-white border-clay-border text-clay-silver hover:border-clay-border hover:text-clay-charcoal'
               }`}
             >
               <img src={`${CATEGORY_ICON_BASE}${cat}.png`} alt={cat} className="h-4 w-auto" />
@@ -114,8 +114,8 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
       </div>
 
       {/* Column headers */}
-      <div className="bg-gray-50 border-b border-gray-200 px-4 py-2 shrink-0">
-        <div className="flex items-center gap-2 text-xs font-semibold text-gray-400">
+      <div className="bg-clay-oat border-b border-clay-border px-4 py-2 shrink-0">
+        <div className="flex items-center gap-2 text-xs font-semibold text-clay-silver">
           <span className="w-24 shrink-0">{lang === 'zh' ? '屬性' : 'Type'}</span>
           <span className="w-10 shrink-0">{lang === 'zh' ? '類別' : 'Cat.'}</span>
           <span className="flex-1">{lang === 'zh' ? '招式名稱' : 'Move Name'}</span>
@@ -129,7 +129,7 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
         {/* Remove option */}
         <button
           onClick={() => onSelect(null)}
-          className="w-full px-4 py-2.5 text-sm text-gray-400 hover:bg-gray-50 text-left border-b border-gray-100"
+          className="w-full px-4 py-2.5 text-sm text-clay-silver hover:bg-clay-oat text-left border-b border-clay-border/40"
         >
           {lang === 'zh' ? '— 移除招式 —' : '— Remove move —'}
         </button>
@@ -146,7 +146,7 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
             <button
               key={slug}
               onClick={() => onSelect(slug)}
-              className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-blue-50 text-left transition-colors border-b border-gray-50"
+              className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-clay-blue-light text-left transition-colors border-b border-clay-border/30"
             >
               {/* Type badge */}
               <span
@@ -163,15 +163,15 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
               </span>
 
               {/* Move name */}
-              <span className="text-sm text-gray-800 font-medium flex-1 truncate">{name}</span>
+              <span className="text-sm text-clay-charcoal font-medium flex-1 truncate">{name}</span>
 
               {/* Power */}
-              <span className="w-10 text-right text-xs font-mono text-gray-600 shrink-0">
+              <span className="w-10 text-right text-xs font-mono text-clay-charcoal shrink-0">
                 {d.power ?? '—'}
               </span>
 
               {/* Accuracy */}
-              <span className="w-10 text-right text-xs font-mono text-gray-400 shrink-0">
+              <span className="w-10 text-right text-xs font-mono text-clay-silver shrink-0">
                 {d.accuracy != null ? `${d.accuracy}%` : '—'}
               </span>
             </button>
@@ -179,7 +179,7 @@ export default function MovePicker({ moveSlugs, slotIndex, onSelect, onClose }) 
         })}
 
         {filtered.length === 0 && (
-          <div className="text-center py-16 text-gray-400 text-sm">
+          <div className="text-center py-16 text-clay-silver text-sm">
             {lang === 'zh' ? '沒有符合條件的招式' : 'No moves found'}
           </div>
         )}

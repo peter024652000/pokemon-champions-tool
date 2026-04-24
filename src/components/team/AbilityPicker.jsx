@@ -6,10 +6,10 @@ export default function AbilityPicker({ abilities, currentAbility, onSelect, onC
 
   return (
     <div className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center px-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-sm">
-        <div className="flex items-center gap-3 px-5 py-3 border-b border-gray-100">
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
-          <span className="font-bold text-gray-800">
+      <div className="bg-white rounded-[16px] shadow-clay-md w-full max-w-sm">
+        <div className="flex items-center gap-3 px-5 py-3 border-b border-clay-border">
+          <button onClick={onClose} className="text-clay-silver hover:text-clay-charcoal text-lg leading-none">✕</button>
+          <span className="font-bold text-clay-charcoal">
             {lang === 'zh' ? '選擇特性' : 'Select Ability'}
           </span>
         </div>
@@ -27,14 +27,14 @@ export default function AbilityPicker({ abilities, currentAbility, onSelect, onC
               <button
                 key={slug}
                 onClick={() => { onSelect(slug); onClose(); }}
-                className={`w-full text-left px-4 py-3 rounded-xl border transition-all ${
+                className={`w-full text-left px-4 py-3 rounded-[16px] border transition-all ${
                   isSelected
-                    ? 'bg-blue-600 border-blue-600 text-white'
-                    : 'bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+                    ? 'bg-clay-blue border-clay-blue text-white'
+                    : 'bg-white border-clay-border hover:border-clay-blue/40 hover:bg-clay-blue-light'
                 }`}
               >
                 <div className="flex items-center gap-2">
-                  <span className={`font-bold text-sm ${isSelected ? 'text-white' : 'text-gray-900'}`}>
+                  <span className={`font-bold text-sm ${isSelected ? 'text-white' : 'text-clay-charcoal'}`}>
                     {name}
                   </span>
                   {a.is_hidden && (
@@ -46,7 +46,7 @@ export default function AbilityPicker({ abilities, currentAbility, onSelect, onC
                   )}
                 </div>
                 {desc && (
-                  <p className={`text-xs mt-1 leading-relaxed ${isSelected ? 'text-white/80' : 'text-gray-400'}`}>
+                  <p className={`text-xs mt-1 leading-relaxed ${isSelected ? 'text-white/80' : 'text-clay-silver'}`}>
                     {desc}
                   </p>
                 )}

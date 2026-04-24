@@ -15,10 +15,10 @@ export default function TeamGrid({ slots, activeTab, setActiveTab, onPickerOpen,
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`px-6 py-2 rounded-xl text-sm font-semibold transition-colors ${
+            className={`px-6 py-2 rounded-[16px] text-sm font-semibold transition-colors ${
               activeTab === tab.key
-                ? 'bg-blue-600 text-white shadow-sm'
-                : 'bg-white text-gray-500 hover:bg-gray-100 border border-gray-200'
+                ? 'bg-clay-blue text-white shadow-clay'
+                : 'bg-white text-clay-silver hover:bg-clay-oat border border-clay-border'
             }`}
           >
             {lang === 'zh' ? tab.zh : tab.en}

@@ -37,7 +37,7 @@ function getEffectText(slug, lang) {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 function SortIcon({ col, sortCol, sortDir }) {
-  if (sortCol !== col) return <span className="ml-0.5 text-gray-300 text-xs">↕</span>;
+  if (sortCol !== col) return <span className="ml-0.5 text-clay-border text-xs">↕</span>;
   return <span className="ml-0.5 text-xs">{sortDir === 'asc' ? '↑' : '↓'}</span>;
 }
 
@@ -47,10 +47,10 @@ function CategoryFilterBtn({ cat, active, disabled, onClick, lang }) {
       onClick={disabled ? undefined : onClick}
       className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all
         ${disabled
-          ? 'opacity-25 cursor-not-allowed bg-white border-gray-200 text-gray-400'
+          ? 'opacity-25 cursor-not-allowed bg-white border-clay-border text-clay-silver'
           : active
-            ? 'bg-gray-800 border-gray-700 text-white shadow-sm'
-            : 'bg-white border-gray-200 text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer'}`}
+            ? 'bg-clay-border text-clay-charcoal border-clay-border shadow-clay'
+            : 'bg-white border-clay-border text-clay-silver hover:text-clay-charcoal cursor-pointer'}`}
     >
       <img
         src={`${CATEGORY_ICON_BASE}${cat}.png`}
@@ -74,7 +74,7 @@ function TypeFilterBtn({ type, active, disabled, onClick, lang }) {
         ${disabled
           ? 'opacity-20 cursor-not-allowed'
           : active
-            ? 'ring-2 ring-offset-1 ring-gray-700 scale-110 cursor-pointer'
+            ? 'ring-2 ring-offset-1 ring-clay-charcoal scale-110 cursor-pointer'
             : 'opacity-90 hover:opacity-100 hover:scale-105 cursor-pointer'}`}
       style={{ width: 28, height: 28, backgroundColor: color }}
     >
@@ -113,12 +113,10 @@ export default function MoveList({ moves }) {
   );
 
   // ── Disabled state (mutual exclusion) ──
-  // A type T is disabled if catFilter is set and no move has both type=T AND category=catFilter
   function isTypeDisabled(type) {
     if (!catFilter) return false;
     return !allSlugs.some(s => moveData[s]?.type === type && moveData[s]?.category === catFilter);
   }
-  // A category C is disabled if any types are selected and no move has category=C AND type∈typeFilter
   function isCatDisabled(cat) {
     if (typeFilter.size === 0) return false;
     return !allSlugs.some(s => typeFilter.has(moveData[s]?.type) && moveData[s]?.category === cat);
@@ -143,13 +141,11 @@ export default function MoveList({ moves }) {
     const va = sortValue(a, sortCol, lang);
     const vb = sortValue(b, sortCol, lang);
     let cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
-    // secondary: when type is primary sort, sub-sort by category then power desc
     if (cmp === 0 && sortCol === 'type') {
       const ca = ({ physical: 0, special: 1, status: 2 })[moveData[a]?.category] ?? 3;
       const cb = ({ physical: 0, special: 1, status: 2 })[moveData[b]?.category] ?? 3;
       cmp = ca - cb;
     }
-    // tertiary: power desc for ties
     if (cmp === 0 && sortCol !== 'power') {
       cmp = (moveData[b]?.power ?? -1) - (moveData[a]?.power ?? -1);
     }
@@ -182,7 +178,6 @@ export default function MoveList({ moves }) {
     const text = getEffectText(slug, lang);
     if (!text) { setTooltip(null); return; }
     const rect = e.currentTarget.getBoundingClientRect();
-    // 預設顯示在格子上方（穩定）；只有離頂部太近時才改為下方
     const TOOLTIP_EST_HEIGHT = 110;
     const top = rect.top >= TOOLTIP_EST_HEIGHT + 8
       ? rect.top - TOOLTIP_EST_HEIGHT - 4
@@ -195,7 +190,7 @@ export default function MoveList({ moves }) {
   // ── Th helper ──
   const Th = ({ col, className = '', children }) => (
     <th
-      className={`px-2 py-2.5 font-semibold text-gray-500 cursor-pointer select-none hover:text-gray-700 transition-colors ${className}`}
+      className={`px-2 py-2.5 font-semibold text-clay-silver cursor-pointer select-none hover:text-clay-charcoal transition-colors ${className}`}
       onClick={() => handleSort(col)}
     >
       <span className="inline-flex items-center">
@@ -209,10 +204,10 @@ export default function MoveList({ moves }) {
       {/* ── Header ── */}
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
-          <h3 className="text-2xl font-bold text-gray-700">
+          <h3 className="text-2xl font-bold text-clay-charcoal">
             {zh ? '可學招式' : 'Learnable Moves'}
           </h3>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-clay-silver">
             {filtered.length === allSlugs.length
               ? (zh ? `共 ${allSlugs.length} 招` : `${allSlugs.length} moves`)
               : (zh ? `${filtered.length} / ${allSlugs.length} 招` : `${filtered.length} of ${allSlugs.length} moves`)}
@@ -223,7 +218,7 @@ export default function MoveList({ moves }) {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder={zh ? '搜尋招式...' : 'Search moves...'}
-          className="w-40 shrink-0 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+          className="w-40 shrink-0 border border-clay-border rounded-[16px] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
         />
       </div>
 
@@ -231,7 +226,7 @@ export default function MoveList({ moves }) {
       <div className="mb-3 space-y-2">
         {/* Category — single select */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-semibold text-gray-400 w-8 shrink-0">
+          <span className="text-xs font-semibold text-clay-silver w-8 shrink-0">
             {zh ? '類別' : 'Cat.'}
           </span>
           {availableCategories.map(cat => (
@@ -248,7 +243,7 @@ export default function MoveList({ moves }) {
 
         {/* Type — multi select, ordered by ALL_TYPES */}
         <div className="flex items-center gap-3 flex-wrap">
-          <span className="text-xs font-semibold text-gray-400 w-8 shrink-0">
+          <span className="text-xs font-semibold text-clay-silver w-8 shrink-0">
             {zh ? '屬性' : 'Type'}
           </span>
           {availableTypes.map(type => (
@@ -264,7 +259,7 @@ export default function MoveList({ moves }) {
           {hasFilter && (
             <button
               onClick={() => { setTypeFilter(new Set()); setCatFilter(null); setSearch(''); }}
-              className="ml-1 text-xs text-gray-400 hover:text-red-500 underline transition-colors"
+              className="ml-1 text-xs text-clay-silver hover:text-red-500 underline transition-colors"
             >
               {zh ? '清除' : 'Clear'}
             </button>
@@ -275,7 +270,7 @@ export default function MoveList({ moves }) {
       {/* ── Tooltip (fixed, outside table flow) ── */}
       {tooltip && (
         <div
-          className="fixed z-50 max-w-sm bg-gray-900/95 text-white text-xs rounded-xl px-3 py-2 leading-relaxed shadow-xl pointer-events-none"
+          className="fixed z-50 max-w-sm bg-clay-charcoal/95 text-white text-xs rounded-[12px] px-3 py-2 leading-relaxed shadow-clay-md pointer-events-none"
           style={{ top: tooltip.top, left: tooltip.left }}
         >
           {tooltip.text}
@@ -283,9 +278,9 @@ export default function MoveList({ moves }) {
       )}
 
       {/* ── Table ── */}
-      <div className="rounded-xl border border-gray-200">
+      <div className="rounded-[16px] border border-clay-border">
         <table className="w-full text-sm border-collapse">
-          <thead className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200">
+          <thead className="sticky top-0 z-10 bg-clay-oat border-b border-clay-border">
             <tr>
               <Th col="name"     className="text-left w-[30%] pl-3">{zh ? '招式名稱' : 'Move'}</Th>
               <Th col="priority" className="text-center w-[8%]">{zh ? '先制' : 'Pri'}</Th>
@@ -306,8 +301,8 @@ export default function MoveList({ moves }) {
               return (
                 <tr
                   key={slug}
-                  className={`border-b border-gray-100 last:border-0 cursor-default transition-colors
-                    ${idx % 2 === 0 ? 'bg-white hover:bg-blue-50' : 'bg-gray-50/40 hover:bg-blue-50'}`}
+                  className={`border-b border-clay-border/30 last:border-0 cursor-default transition-colors
+                    ${idx % 2 === 0 ? 'bg-white hover:bg-clay-blue-light' : 'bg-clay-cream hover:bg-clay-blue-light'}`}
                 >
                   {/* Name — tooltip 只在這格觸發 */}
                   <td
@@ -315,7 +310,7 @@ export default function MoveList({ moves }) {
                     onMouseEnter={e => handleNameEnter(e, slug)}
                     onMouseLeave={() => setTooltip(null)}
                   >
-                    <span className={`font-semibold leading-tight ${hasEffect ? 'text-gray-800 underline decoration-dotted decoration-gray-400 underline-offset-2' : 'text-gray-600'}`}>
+                    <span className={`font-semibold leading-tight ${hasEffect ? 'text-clay-charcoal underline decoration-dotted decoration-clay-silver underline-offset-2' : 'text-clay-silver'}`}>
                       {name}
                     </span>
                   </td>
@@ -326,14 +321,14 @@ export default function MoveList({ moves }) {
                       ? <span className="font-bold text-green-600">+{d.priority}</span>
                       : d?.priority < 0
                         ? <span className="font-bold text-red-500">{d.priority}</span>
-                        : <span className="text-gray-300">—</span>}
+                        : <span className="text-clay-border">—</span>}
                   </td>
 
                   {/* Type */}
                   <td className="px-2 py-2.5 align-top">
                     {d?.type
                       ? <TypeBadge type={d.type} size="xs" />
-                      : <span className="text-gray-300">—</span>}
+                      : <span className="text-clay-border">—</span>}
                   </td>
 
                   {/* Category */}
@@ -349,33 +344,33 @@ export default function MoveList({ moves }) {
                         <span className={`text-xs font-semibold ${
                           catKey === 'physical' ? 'text-orange-700'
                           : catKey === 'special' ? 'text-blue-700'
-                          : 'text-gray-500'
+                          : 'text-clay-silver'
                         }`}>
                           {CATEGORY_LABEL[catKey][zh ? 'zh' : 'en']}
                         </span>
                       </span>
-                    ) : <span className="text-gray-300">—</span>}
+                    ) : <span className="text-clay-border">—</span>}
                   </td>
 
                   {/* Power */}
                   <td className="px-2 py-2.5 text-center tabular-nums align-top">
                     {d?.power != null
-                      ? <span className="font-bold text-gray-700">{d.power}</span>
-                      : <span className="text-gray-300">—</span>}
+                      ? <span className="font-bold text-clay-charcoal">{d.power}</span>
+                      : <span className="text-clay-border">—</span>}
                   </td>
 
                   {/* Accuracy */}
                   <td className="px-2 py-2.5 text-center tabular-nums align-top">
                     {d?.accuracy != null
-                      ? <span className="text-gray-600">{d.accuracy}</span>
-                      : <span className="text-gray-300">—</span>}
+                      ? <span className="text-clay-charcoal">{d.accuracy}</span>
+                      : <span className="text-clay-border">—</span>}
                   </td>
 
                   {/* PP */}
                   <td className="pr-3 pl-2 py-2.5 text-center tabular-nums align-top">
                     {d?.pp != null
-                      ? <span className="text-gray-500">{d.pp}</span>
-                      : <span className="text-gray-300">—</span>}
+                      ? <span className="text-clay-silver">{d.pp}</span>
+                      : <span className="text-clay-border">—</span>}
                   </td>
                 </tr>
               );
@@ -383,7 +378,7 @@ export default function MoveList({ moves }) {
 
             {sorted.length === 0 && (
               <tr>
-                <td colSpan={7} className="text-center py-12 text-gray-400">
+                <td colSpan={7} className="text-center py-12 text-clay-silver">
                   {zh ? '沒有符合的招式' : 'No moves found'}
                 </td>
               </tr>

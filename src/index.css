@@ -8,5 +8,9 @@
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, 'Noto Sans TC', sans-serif;
+  font-family: 'Plus Jakarta Sans', 'Noto Sans TC', system-ui, sans-serif;
+  background-color: #faf9f7;
+  color: #333333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

@@ -20,7 +20,6 @@ export default function TeamDetailPage() {
   const [pickerSlot, setPickerSlot] = useState(null);
   const [configState, setConfigState] = useState(null);
 
-  // Merge stored slots with live stats/abilities from PokemonContext
   const hydratedSlots = useMemo(() => {
     if (!team) return Array(6).fill(null);
     return team.slots.map(slot => {
@@ -39,9 +38,9 @@ export default function TeamDetailPage() {
 
   if (!team) {
     return (
-      <div className="max-w-screen-xl mx-auto px-4 py-20 text-center text-gray-400">
+      <div className="max-w-screen-xl mx-auto px-4 py-20 text-center text-clay-silver">
         <p className="text-lg mb-4">{lang === 'zh' ? '找不到此隊伍' : 'Team not found'}</p>
-        <button onClick={() => navigate('/team')} className="text-blue-500 hover:underline text-sm">
+        <button onClick={() => navigate('/team')} className="text-clay-blue hover:underline text-sm">
           {lang === 'zh' ? '← 返回隊伍清單' : '← Back to teams'}
         </button>
       </div>
@@ -105,21 +104,21 @@ export default function TeamDetailPage() {
       {/* Back link */}
       <button
         onClick={() => navigate('/team')}
-        className="text-sm text-gray-400 hover:text-gray-600 mb-4 flex items-center gap-1 transition-colors"
+        className="text-sm text-clay-silver hover:text-clay-charcoal mb-4 flex items-center gap-1 transition-colors"
       >
         ← {lang === 'zh' ? '所有隊伍' : 'All Teams'}
       </button>
 
-      {/* Editable title + centered tabs */}
+      {/* Editable title */}
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
         <input
           type="text"
           value={team.title}
           onChange={e => updateTeam(teamId, { title: e.target.value })}
           placeholder={lang === 'zh' ? '隊伍名稱...' : 'Team name...'}
-          className="text-2xl font-black text-gray-800 bg-transparent border-b-2 border-transparent
-            hover:border-gray-200 focus:border-blue-400 focus:outline-none transition-colors
-            placeholder-gray-300 min-w-0"
+          className="text-2xl font-black text-clay-charcoal bg-transparent border-b-2 border-transparent
+            hover:border-clay-border focus:border-clay-blue focus:outline-none transition-colors
+            placeholder-clay-border min-w-0"
         />
       </div>
 
