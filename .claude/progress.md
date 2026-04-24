@@ -1,6 +1,6 @@
 # Pokemon Champions Tool — 工作進度
 
-> 最後更新：2026-04-17
+> 最後更新：2026-04-24
 
 ---
 
@@ -99,6 +99,21 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - `.claude/progress.md`：工作進度紀錄（本檔案），已 commit 至 Git
 - `.claude/commands/progress.md`：`/progress` 指令定義
 - `CLAUDE.md`：專案開發說明
+
+### 對戰功能 — 組隊（/team）
+- **TopNav 對戰 dropdown**（BattleNavDropdown）：4 個子項，只有「組隊」可點，其餘 disabled 佔位
+- **多隊管理**：
+  - `/team`：隊伍列表（TeamListPage），卡片有 ✕ 刪除、鉛筆編輯提示、2×3 精靈圖預覽
+  - `/team/:teamId`：單隊編輯（TeamDetailPage），可編輯隊伍名稱、回上一頁
+  - `useTeams.js` hook：多隊陣列 + localStorage 持久化（key: `champions-teams-v1`）
+- **組隊流程**：點格 → PokemonPicker 選寶可夢 → ConfigPanel 配置
+  - PokemonPicker：全螢幕、大卡片（仿圖鑑）、屬性篩選 + 搜尋
+  - ConfigPanel：左側 BP 分配（▲ 填滿 / ✕ 歸零，原本配色 + 透明度）、右側四招、底部特性 + 個性
+  - MovePicker：全螢幕、圓形屬性篩選（附圖示）、欄位標題（屬性/類別/招式名稱/威力/命中）
+  - NatureMatrix：5×5 個性矩陣
+  - AbilityPicker：特性選擇含說明
+- **格子顯示**：能力 tab（AbilityView：特性、道具、四招）、狀態 tab（StatusView：Lv50 計算值）
+- **PokemonContext**：把 usePokemonList 提升至 app root，Pokédex 與組隊共用同一份資料
 
 ---
 
