@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLang } from '../context/LangContext';
+import BattleNavDropdown from './team/BattleNavDropdown';
 
 const NAV_ITEMS = [
   { path: '/pokedex', zh: '圖鑑',     en: 'Pokédex'    },
@@ -87,6 +88,9 @@ export default function Layout({ children }) {
               );
             })}
           </div>
+
+          {/* Battle dropdown */}
+          <BattleNavDropdown />
 
           {/* Language dropdown — pushed right */}
           <div className="ml-auto">

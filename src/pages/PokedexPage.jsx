@@ -1,11 +1,11 @@
 import { useState, useMemo } from 'react';
-import { usePokemonList } from '../hooks/usePokemonList';
+import { usePokemonData } from '../context/PokemonContext';
 import PokemonGridItem from '../components/PokemonGridItem';
 import TypeFilter from '../components/TypeFilter';
 import { useLang } from '../context/LangContext';
 
 export default function PokedexPage() {
-  const { list, loadedCount, total } = usePokemonList();
+  const { list, loadedCount, total } = usePokemonData();
   const [search, setSearch] = useState('');
   const [typeFilter, setTypeFilter] = useState([]);
   const [showMegaOnly, setShowMegaOnly] = useState(false);
