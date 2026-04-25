@@ -1,6 +1,6 @@
 # Pokemon Champions Tool — 工作進度
 
-> 最後更新：2026-04-24
+> 最後更新：2026-04-25
 
 ---
 
@@ -111,8 +111,14 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
   - ConfigPanel：左側 BP 分配（▲ 填滿 / ✕ 歸零，原本配色 + 透明度）、右側四招、底部特性 + 個性
   - MovePicker：全螢幕、圓形屬性篩選（附圖示）、欄位標題（屬性/類別/招式名稱/威力/命中）
   - NatureMatrix：5×5 個性矩陣
-  - AbilityPicker：特性選擇含說明
-- **格子顯示**：能力 tab（AbilityView：特性、道具、四招）、狀態 tab（StatusView：Lv50 計算值）
+  - AbilityPicker：特性選擇含說明（隱藏特性標籤已移除）
+- **格子顯示**：能力 tab（AbilityView：特性、持有物、四招）、狀態 tab（StatusView：Lv50 計算值）
+- **ConfigPanel 細節優化**（2026-04-25）：
+  - Header：sprite `w-11 h-11`，名稱 `text-lg`，`py-4`（放大）
+  - Screen A BP/招式欄：桌面 `sm:flex sm:flex-col sm:justify-center` 垂直置中
+  - Screen A 底部：改為兩列（個性+特性 `grid-cols-2` / 持有物全寬），「道具」→「持有物」
+  - Screen B 欄寬（中英文均適用）：TypeBadge `w-20`（80px，容納英文 "Fighting"/"Electric"）、類別 `w-8 sm:w-9`、名稱 `flex-1 min-w-0`、威力 `w-10 sm:w-14`、命中 `w-12 sm:w-16`
+  - Screen B 屬性標籤：自訂拉伸 span → 全站共用 `TypeBadge` 元件
 - **PokemonContext**：把 usePokemonList 提升至 app root，Pokédex 與組隊共用同一份資料
 
 ---

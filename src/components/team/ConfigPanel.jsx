@@ -42,7 +42,6 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
   const [showNatureMatrix, setShowNatureMatrix] = useState(false);
   const [showAbilityPicker, setShowAbilityPicker] = useState(false);
 
-  // Inline move picker filter state
   const [moveSearch, setMoveSearch] = useState('');
   const [moveTypeFilter, setMoveTypeFilter] = useState(null);
   const [moveCatFilter, setMoveCatFilter] = useState(null);
@@ -67,7 +66,6 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
     setMoveCatFilter(null);
   }
 
-  // Sorted + filtered moves for inline picker
   const sortedMoves = useMemo(() => {
     return moveSlugs
       .filter(slug => moveData[slug])
@@ -129,26 +127,26 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
 
   return (
     <>
-      {/* Backdrop — click to close */}
+      {/* Backdrop */}
       <div
-        className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center sm:p-4"
         onClick={onCancel}
       >
-        {/* Modal panel */}
+        {/* Modal — full-screen on mobile, fixed-size card on desktop */}
         <div
-          className="bg-white rounded-[16px] shadow-clay-md w-full max-w-2xl flex flex-col max-h-[90vh] relative"
+          className="bg-white sm:rounded-[16px] overflow-hidden shadow-clay-md w-full sm:max-w-3xl flex flex-col relative h-screen sm:h-[680px] sm:max-h-[90vh]"
           onClick={e => e.stopPropagation()}
         >
-          {/* ✕ Close button — top right */}
+          {/* ✕ Close */}
           <button
             onClick={onCancel}
             className="absolute top-3 right-3 w-8 h-8 rounded-full bg-clay-oat hover:bg-clay-border/50 text-clay-silver hover:text-clay-charcoal flex items-center justify-center text-sm transition-colors z-10"
           >✕</button>
 
-          {/* Header — pokemon info */}
-          <div className="flex items-center gap-3 px-5 py-3 border-b border-clay-border pr-14 shrink-0">
+          {/* Header — always visible, same height on both screens */}
+          <div className="flex items-center gap-3 px-4 py-4 border-b border-clay-border pr-12 shrink-0">
             {pokemon.sprite && (
-              <img src={pokemon.sprite} alt="" className="w-10 h-10 object-contain shrink-0" />
+              <img src={pokemon.sprite} alt="" className="w-11 h-11 object-contain shrink-0" />
             )}
             <span className="font-bold text-clay-charcoal text-lg truncate">{fullName}</span>
             <div className="flex gap-1 flex-wrap">
@@ -156,31 +154,31 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
             </div>
           </div>
 
-          {/* Sliding body — Screen A (config) / Screen B (move picker) */}
+          {/* Sliding body */}
           <div className="relative overflow-hidden flex-1 min-h-0">
 
             {/* ── Screen A: Config ── */}
-            <div className={`absolute inset-0 overflow-y-auto transition-transform duration-200 ${
+            <div className={`absolute inset-0 flex flex-col transition-transform duration-200 ${
               movePickerSlot !== null ? '-translate-x-full' : 'translate-x-0'
             }`}>
 
-              {/* 2-column: BP stats + Moves */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 sm:divide-x divide-clay-border">
+              {/* Top: BP (left) + Moves (right) */}
+              <div className="overflow-y-auto sm:overflow-hidden sm:flex-1 sm:min-h-0 flex flex-col sm:flex-row sm:divide-x divide-clay-border">
 
-                {/* Left: BP Stats */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-bold text-clay-charcoal">
+                {/* Left: BP allocation */}
+                <div className="p-4 sm:flex-1 sm:overflow-y-auto sm:flex sm:flex-col sm:justify-center">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <h3 className="text-xs font-bold text-clay-charcoal uppercase tracking-wide">
                       {lang === 'zh' ? '能力分配' : 'BP Allocation'}
                     </h3>
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                       remaining === 0 ? 'bg-red-100 text-red-600' : 'bg-clay-oat text-clay-silver'
                     }`}>
                       {usedBP} / {BP_TOTAL}
                     </span>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-1.5">
                     {STAT_ORDER.map(stat => {
                       const entry = pokemon.stats?.find(s => s.stat.name === stat);
                       const base = entry?.base_stat ?? 0;
@@ -195,52 +193,41 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
 
                       return (
                         <div key={stat} className="flex items-center gap-1.5">
-                          {/* Stat name only (no icon) */}
-                          <span className={`text-xs font-medium w-12 text-right shrink-0 ${
+                          <span className={`text-xs font-medium w-9 text-right shrink-0 ${
                             natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-clay-silver'
                           }`}>
                             {STAT_NAMES_ZH[stat]}{natureUp ? '↑' : natureDown ? '↓' : ''}
                           </span>
-
-                          {/* Calculated value */}
-                          <span className={`w-9 text-sm font-mono font-bold text-right shrink-0 ${
+                          <span className={`w-8 text-xs font-mono font-bold text-right shrink-0 ${
                             natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-clay-charcoal'
                           }`}>
                             {calc || '—'}
                           </span>
-
-                          {/* Bar — always full opacity */}
-                          <div className="flex-1 bg-clay-border/40 rounded-full h-3 min-w-0">
+                          <div className="flex-1 bg-clay-border/30 rounded-full h-2 min-w-0">
                             <div
-                              className="h-3 rounded-full transition-all duration-150"
+                              className="h-2 rounded-full transition-all duration-150"
                               style={{ width: `${barPct}%`, backgroundColor: color }}
                             />
                           </div>
-
-                          {/* BP input */}
                           <input
                             type="number"
                             min={0}
                             max={BP_MAX_PER_STAT}
                             value={bp}
                             onChange={e => setBp(stat, parseInt(e.target.value, 10))}
-                            className="w-11 text-xs font-mono text-center border border-clay-border rounded-lg py-0.5 focus:outline-none focus:ring-1 focus:ring-clay-blue/30 shrink-0"
+                            className="w-9 text-xs font-mono text-center border border-clay-border rounded-lg py-0.5 focus:outline-none focus:ring-1 focus:ring-clay-blue/30 shrink-0"
                           />
-
-                          {/* ▲ fill remaining */}
                           <button
                             onClick={() => setBp(stat, bp + remaining)}
                             disabled={remaining <= 0 || bp >= BP_MAX_PER_STAT}
                             title={lang === 'zh' ? '加到上限' : 'Max out'}
-                            className="w-6 h-6 rounded bg-clay-blue-light text-clay-blue hover:bg-clay-blue-mid disabled:opacity-25 text-[10px] font-bold shrink-0 flex items-center justify-center transition-colors"
+                            className="w-5 h-5 rounded bg-clay-blue-light text-clay-blue hover:bg-clay-blue-mid disabled:opacity-25 text-[9px] font-bold shrink-0 flex items-center justify-center transition-colors"
                           >▲</button>
-
-                          {/* ✕ reset */}
                           <button
                             onClick={() => setBp(stat, 0)}
                             disabled={bp === 0}
                             title={lang === 'zh' ? '歸零' : 'Reset'}
-                            className="w-6 h-6 rounded bg-clay-oat text-clay-silver hover:bg-clay-border/50 disabled:opacity-25 text-[10px] font-bold shrink-0 flex items-center justify-center transition-colors"
+                            className="w-5 h-5 rounded bg-clay-oat text-clay-silver hover:bg-clay-border/50 disabled:opacity-25 text-[9px] font-bold shrink-0 flex items-center justify-center transition-colors"
                           >✕</button>
                         </div>
                       );
@@ -249,13 +236,13 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                 </div>
 
                 {/* Right: Move slots */}
-                <div className="p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-sm font-bold text-clay-charcoal">
+                <div className="p-4 border-t sm:border-t-0 border-clay-border sm:flex-1 sm:overflow-y-auto sm:flex sm:flex-col sm:justify-center">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <h3 className="text-xs font-bold text-clay-charcoal uppercase tracking-wide">
                       {lang === 'zh' ? '招式' : 'Moves'}
                     </h3>
                     {moveSlugs.length === 0 && (
-                      <span className="text-xs text-clay-border">
+                      <span className="text-xs text-clay-silver animate-pulse">
                         {lang === 'zh' ? '載入中...' : 'Loading...'}
                       </span>
                     )}
@@ -272,7 +259,7 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                         <button
                           key={i}
                           onClick={() => openMovePicker(i)}
-                          className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-[16px] border transition-all text-left ${
+                          className={`w-full flex items-center gap-2 px-3 py-2 rounded-[12px] border transition-all text-left ${
                             d
                               ? 'bg-white border-clay-border hover:border-clay-blue/40 hover:shadow-clay'
                               : 'bg-clay-oat border-dashed border-clay-border hover:border-clay-blue/50 hover:bg-clay-blue-light'
@@ -281,22 +268,25 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                           {d ? (
                             <>
                               <span
-                                className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+                                className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
                                 style={{ backgroundColor: color }}
                               >
-                                <img src={`${TYPE_ICON_BASE}${d.type}.png`} alt="" className="h-4 w-4" />
+                                <img src={`${TYPE_ICON_BASE}${d.type}.png`} alt="" className="h-3.5 w-3.5" />
                               </span>
-                              <span className="flex-1 text-sm font-semibold text-clay-charcoal truncate">{moveName}</span>
+                              <span className="flex-1 text-sm font-semibold text-clay-charcoal truncate min-w-0">{moveName}</span>
                               {d.category && (
                                 <img src={`${CATEGORY_ICON_BASE}${d.category}.png`} alt={d.category} className="h-4 w-auto shrink-0" />
                               )}
-                              <span className="text-xs text-clay-silver shrink-0 font-mono w-5 text-right">
-                                {d.pp ?? '—'}
-                              </span>
+                              <span className="text-xs text-clay-silver shrink-0 font-mono w-5 text-right">{d.pp ?? '—'}</span>
                             </>
                           ) : (
                             <>
-                              <span className="w-8 h-8 rounded-full bg-clay-border flex items-center justify-center text-white text-lg leading-none shrink-0">+</span>
+                              {/* + circle — border-dashed for consistent alignment */}
+                              <span className="w-7 h-7 rounded-full border-2 border-dashed border-clay-border/60 flex items-center justify-center shrink-0">
+                                <svg viewBox="0 0 16 16" className="w-3.5 h-3.5 text-clay-border" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                                  <path d="M8 3v10M3 8h10"/>
+                                </svg>
+                              </span>
                               <span className="text-sm text-clay-silver">
                                 {lang === 'zh' ? `招式 ${i + 1}` : `Move ${i + 1}`}
                               </span>
@@ -309,65 +299,69 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                 </div>
               </div>
 
-              {/* Nature + Ability */}
-              <div className="grid grid-cols-2 gap-3 px-4 pt-3 border-t border-clay-border">
-                <div>
-                  <p className="text-xs font-semibold text-clay-silver mb-1.5">
-                    {lang === 'zh' ? '個性' : 'Nature'}
-                  </p>
-                  <button
-                    onClick={() => setShowNatureMatrix(true)}
-                    className="w-full px-4 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[16px] text-left transition-all"
-                  >
-                    <div className="text-sm font-bold text-clay-charcoal">
-                      {lang === 'zh' ? currentNature.zh : currentNature.en}
-                    </div>
-                    {currentNature.increased ? (
-                      <div className="text-[11px] mt-0.5">
-                        <span className="text-red-500">↑{STAT_NAMES_ZH[currentNature.increased]}</span>
-                        <span className="text-clay-border mx-1">/</span>
-                        <span className="text-blue-500">↓{STAT_NAMES_ZH[currentNature.decreased]}</span>
+              {/* Bottom: Row 1 (Nature + Ability) + Row 2 (Held Item) — always visible, no scroll */}
+              <div className="shrink-0 border-t border-clay-border px-4 py-3 space-y-2">
+
+                {/* Row 1: Nature | Ability */}
+                <div className="grid grid-cols-2 gap-2">
+
+                  {/* Nature */}
+                  <div>
+                    <p className="text-[10px] font-semibold text-clay-silver mb-1">
+                      {lang === 'zh' ? '個性' : 'Nature'}
+                    </p>
+                    <button
+                      onClick={() => setShowNatureMatrix(true)}
+                      className="w-full px-2.5 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
+                    >
+                      <div className="text-xs font-bold text-clay-charcoal truncate">
+                        {lang === 'zh' ? currentNature.zh : currentNature.en}
                       </div>
-                    ) : (
-                      <div className="text-[11px] text-clay-silver mt-0.5">
-                        {lang === 'zh' ? '無加成' : 'Neutral'}
-                      </div>
-                    )}
-                  </button>
+                      {currentNature.increased ? (
+                        <div className="text-[10px] mt-0.5 space-x-1">
+                          <span className="text-red-500">↑{STAT_NAMES_ZH[currentNature.increased]}</span>
+                          <span className="text-blue-500">↓{STAT_NAMES_ZH[currentNature.decreased]}</span>
+                        </div>
+                      ) : (
+                        <div className="text-[10px] text-clay-silver mt-0.5">{lang === 'zh' ? '無加成' : 'Neutral'}</div>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Ability */}
+                  <div>
+                    <p className="text-[10px] font-semibold text-clay-silver mb-1">
+                      {lang === 'zh' ? '特性' : 'Ability'}
+                    </p>
+                    <button
+                      onClick={() => setShowAbilityPicker(true)}
+                      className="w-full px-2.5 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
+                    >
+                      <div className="text-xs font-bold text-clay-charcoal truncate">{abilityName}</div>
+                      {currentAbilityEntry && (
+                        <div className="text-[10px] text-clay-silver mt-0.5 line-clamp-1">
+                          {lang === 'zh'
+                            ? (currentAbilityEntry.zhDesc || currentAbilityEntry.enDesc)
+                            : currentAbilityEntry.enDesc}
+                        </div>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
+                {/* Row 2: Held Item — full width */}
                 <div>
-                  <p className="text-xs font-semibold text-clay-silver mb-1.5">
-                    {lang === 'zh' ? '特性' : 'Ability'}
+                  <p className="text-[10px] font-semibold text-clay-silver mb-1">
+                    {lang === 'zh' ? '持有物' : 'Held Item'}
                   </p>
-                  <button
-                    onClick={() => setShowAbilityPicker(true)}
-                    className="w-full px-4 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[16px] text-left transition-all"
-                  >
-                    <div className="text-sm font-bold text-clay-charcoal">{abilityName}</div>
-                    {currentAbilityEntry && (
-                      <div className="text-[11px] text-clay-silver mt-0.5 line-clamp-1">
-                        {lang === 'zh'
-                          ? (currentAbilityEntry.zhDesc || currentAbilityEntry.enDesc)
-                          : currentAbilityEntry.enDesc}
-                      </div>
-                    )}
-                  </button>
+                  <input
+                    type="text"
+                    value={draft.heldItem}
+                    onChange={e => setDraft(d => ({ ...d, heldItem: e.target.value }))}
+                    placeholder={lang === 'zh' ? '輸入持有物...' : 'Held item name...'}
+                    className="w-full border border-clay-border rounded-[12px] px-2.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
+                  />
                 </div>
-              </div>
-
-              {/* Item */}
-              <div className="px-4 pt-3 pb-4">
-                <label className="block text-xs font-semibold text-clay-silver mb-1.5">
-                  {lang === 'zh' ? '道具' : 'Held Item'}
-                </label>
-                <input
-                  type="text"
-                  value={draft.heldItem}
-                  onChange={e => setDraft(d => ({ ...d, heldItem: e.target.value }))}
-                  placeholder={lang === 'zh' ? '輸入道具名稱...' : 'Enter item name...'}
-                  className="w-full border border-clay-border rounded-[16px] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
-                />
               </div>
             </div>
 
@@ -380,26 +374,26 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
               <div className="flex items-center gap-3 px-4 py-3 border-b border-clay-border shrink-0">
                 <button
                   onClick={() => setMovePickerSlot(null)}
-                  className="text-clay-silver hover:text-clay-charcoal text-sm font-semibold flex items-center gap-1 shrink-0 transition-colors"
+                  className="text-clay-silver hover:text-clay-charcoal font-semibold flex items-center gap-1 shrink-0 transition-colors text-sm"
                 >
-                  ← {lang === 'zh' ? '返回' : 'Back'}
+                  ←
                 </button>
                 <span className="font-semibold text-clay-charcoal text-sm">
                   {lang === 'zh'
-                    ? `招式 ${movePickerSlot !== null ? movePickerSlot + 1 : ''}`
-                    : `Move ${movePickerSlot !== null ? movePickerSlot + 1 : ''}`}
+                    ? `選擇招式 ${movePickerSlot !== null ? movePickerSlot + 1 : ''}`
+                    : `Select Move ${movePickerSlot !== null ? movePickerSlot + 1 : ''}`}
                 </span>
                 <span className="text-xs text-clay-silver ml-auto">{filteredMoves.length}</span>
               </div>
 
               {/* Filters */}
-              <div className="px-4 py-3 space-y-2 border-b border-clay-border shrink-0">
+              <div className="px-4 py-2.5 space-y-2 border-b border-clay-border shrink-0">
                 <input
                   type="text"
                   value={moveSearch}
                   onChange={e => setMoveSearch(e.target.value)}
                   placeholder={lang === 'zh' ? '搜尋招式...' : 'Search move...'}
-                  className="w-full border border-clay-border rounded-[16px] px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
+                  className="w-full border border-clay-border rounded-[12px] px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
                 />
 
                 {/* Type filter */}
@@ -407,28 +401,24 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                   {moveTypeFilter && (
                     <button
                       onClick={() => setMoveTypeFilter(null)}
-                      className="text-xs text-clay-silver hover:text-clay-charcoal px-2 py-1 rounded-lg border border-clay-border shrink-0 transition-colors"
+                      className="text-xs text-clay-silver hover:text-clay-charcoal px-2 py-0.5 rounded border border-clay-border shrink-0 transition-colors"
                     >
                       {lang === 'zh' ? '清除' : 'Clear'}
                     </button>
                   )}
-                  {ALL_TYPES.map(t => {
-                    const active = moveTypeFilter === t;
-                    const label = lang === 'zh' ? TYPE_NAMES_ZH[t] : t.charAt(0).toUpperCase() + t.slice(1);
-                    return (
-                      <button
-                        key={t}
-                        onClick={() => setMoveTypeFilter(active ? null : t)}
-                        title={label}
-                        className={`flex items-center justify-center rounded-full transition-all overflow-hidden ${
-                          active ? 'ring-2 ring-offset-1 ring-clay-charcoal scale-110' : 'opacity-90 hover:opacity-100 hover:scale-105'
-                        }`}
-                        style={{ width: 26, height: 26, backgroundColor: TYPE_COLORS[t] }}
-                      >
-                        <img src={`${TYPE_ICON_BASE}${t}.png`} alt={label} className="h-3.5 w-3.5" />
-                      </button>
-                    );
-                  })}
+                  {ALL_TYPES.map(t => (
+                    <button
+                      key={t}
+                      onClick={() => setMoveTypeFilter(moveTypeFilter === t ? null : t)}
+                      title={lang === 'zh' ? TYPE_NAMES_ZH[t] : t}
+                      className={`rounded-full transition-all overflow-hidden flex items-center justify-center ${
+                        moveTypeFilter === t ? 'ring-2 ring-offset-1 ring-clay-charcoal scale-110' : 'opacity-80 hover:opacity-100 hover:scale-105'
+                      }`}
+                      style={{ width: 24, height: 24, backgroundColor: TYPE_COLORS[t] }}
+                    >
+                      <img src={`${TYPE_ICON_BASE}${t}.png`} alt="" className="h-3 w-3" />
+                    </button>
+                  ))}
                 </div>
 
                 {/* Category filter */}
@@ -437,24 +427,43 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                     <button
                       key={cat}
                       onClick={() => setMoveCatFilter(moveCatFilter === cat ? null : cat)}
-                      className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-semibold transition-all ${
+                      className={`flex items-center gap-1 px-2 py-1 rounded-lg border text-xs font-semibold transition-all ${
                         moveCatFilter === cat
                           ? 'bg-clay-border text-clay-charcoal border-clay-border shadow-clay'
                           : 'bg-white border-clay-border text-clay-silver hover:text-clay-charcoal'
                       }`}
                     >
-                      <img src={`${CATEGORY_ICON_BASE}${cat}.png`} alt={cat} className="h-4 w-auto" />
+                      <img src={`${CATEGORY_ICON_BASE}${cat}.png`} alt={cat} className="h-3.5 w-auto" />
                       {CATEGORY_LABEL[cat][lang === 'zh' ? 'zh' : 'en']}
                     </button>
                   ))}
                 </div>
               </div>
 
+              {/* Column headers */}
+              <div className="flex items-center gap-2 px-4 py-1.5 bg-clay-oat border-b border-clay-border shrink-0">
+                <span className="w-20 shrink-0 text-[10px] font-semibold text-clay-silver uppercase tracking-wide">
+                  {lang === 'zh' ? '屬性' : 'Type'}
+                </span>
+                <span className="w-8 sm:w-9 shrink-0 text-[10px] font-semibold text-clay-silver uppercase tracking-wide text-center">
+                  {lang === 'zh' ? '類' : 'Cat'}
+                </span>
+                <span className="flex-1 text-[10px] font-semibold text-clay-silver uppercase tracking-wide">
+                  {lang === 'zh' ? '招式名稱' : 'Move'}
+                </span>
+                <span className="w-10 sm:w-14 text-right text-[10px] font-semibold text-clay-silver uppercase tracking-wide shrink-0">
+                  {lang === 'zh' ? '威力' : 'PWR'}
+                </span>
+                <span className="w-12 sm:w-16 text-right text-[10px] font-semibold text-clay-silver uppercase tracking-wide shrink-0">
+                  {lang === 'zh' ? '命中' : 'ACC'}
+                </span>
+              </div>
+
               {/* Move list */}
               <div className="flex-1 overflow-y-auto">
                 <button
                   onClick={() => selectMove(null)}
-                  className="w-full px-4 py-2.5 text-sm text-clay-silver hover:bg-clay-oat text-left border-b border-clay-border/40 transition-colors"
+                  className="w-full px-4 py-2 text-sm text-clay-silver hover:bg-clay-oat text-left border-b border-clay-border/40 transition-colors"
                 >
                   {lang === 'zh' ? '— 移除招式 —' : '— Remove move —'}
                 </button>
@@ -462,30 +471,27 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                 {filteredMoves.map(slug => {
                   const d = moveData[slug];
                   const name = lang === 'zh' ? (d.zh || d.en) : (d.en || d.zh);
-                  const color = TYPE_COLORS[d.type] || '#888';
-                  const typeName = lang === 'zh'
-                    ? (TYPE_NAMES_ZH[d.type] || d.type)
-                    : (d.type.charAt(0).toUpperCase() + d.type.slice(1));
 
                   return (
                     <button
                       key={slug}
                       onClick={() => selectMove(slug)}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-clay-blue-light text-left transition-colors border-b border-clay-border/30"
+                      className="w-full flex items-center gap-2 px-4 py-2 hover:bg-clay-blue-light text-left transition-colors border-b border-clay-border/20"
                     >
-                      <span
-                        className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold text-white shrink-0 w-24"
-                        style={{ backgroundColor: color }}
-                      >
-                        <img src={`${TYPE_ICON_BASE}${d.type}.png`} alt="" className="h-3 w-3 shrink-0" />
-                        {typeName}
+                      {/* Type badge — w-20 matches header, fits all English type names */}
+                      <span className="w-20 shrink-0">
+                        <TypeBadge type={d.type} size="xs" />
                       </span>
-                      <span className="w-9 shrink-0 flex items-center">
-                        <img src={`${CATEGORY_ICON_BASE}${d.category}.png`} alt={d.category} className="h-4 w-auto" />
+                      {/* Category icon */}
+                      <span className="w-8 sm:w-9 shrink-0 flex items-center justify-center">
+                        <img src={`${CATEGORY_ICON_BASE}${d.category}.png`} alt={d.category} className="h-3.5 w-auto" />
                       </span>
-                      <span className="text-sm text-clay-charcoal font-medium flex-1 truncate">{name}</span>
-                      <span className="w-8 text-right text-xs font-mono text-clay-charcoal shrink-0">{d.power ?? '—'}</span>
-                      <span className="w-9 text-right text-xs font-mono text-clay-silver shrink-0">
+                      {/* Move name — takes all remaining space, power/acc fixed on right */}
+                      <span className="text-sm text-clay-charcoal font-medium flex-1 min-w-0 truncate">{name}</span>
+                      {/* Power */}
+                      <span className="w-10 sm:w-14 text-right text-xs font-mono text-clay-charcoal shrink-0">{d.power ?? '—'}</span>
+                      {/* Accuracy */}
+                      <span className="w-12 sm:w-16 text-right text-xs font-mono text-clay-silver shrink-0">
                         {d.accuracy != null ? `${d.accuracy}%` : '—'}
                       </span>
                     </button>
@@ -502,17 +508,19 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
 
           </div>
 
-          {/* Footer: Confirm — only on config screen */}
-          {movePickerSlot === null && (
-            <div className="px-5 py-4 border-t border-clay-border flex justify-center shrink-0">
+          {/* Footer — always rendered to maintain consistent modal height */}
+          <div className="px-5 py-3 border-t border-clay-border flex justify-center shrink-0">
+            {movePickerSlot === null ? (
               <button
                 onClick={() => onConfirm(draft)}
-                className="px-12 py-2.5 bg-clay-blue hover:opacity-90 text-white font-bold rounded-full text-sm transition-opacity shadow-clay"
+                className="px-12 py-2 bg-clay-blue hover:opacity-90 text-white font-bold rounded-full text-sm transition-opacity shadow-clay"
               >
                 {lang === 'zh' ? '確認' : 'Confirm'}
               </button>
-            </div>
-          )}
+            ) : (
+              <div className="h-9" />
+            )}
+          </div>
 
         </div>
       </div>
@@ -525,7 +533,6 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
           onClose={() => setShowNatureMatrix(false)}
         />
       )}
-
       {showAbilityPicker && (
         <AbilityPicker
           abilities={pokemon.abilities}

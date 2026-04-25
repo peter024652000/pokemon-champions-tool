@@ -102,6 +102,14 @@ effectText.replace(/\$effect_chance%/g, (d.effectChance || '?') + '%')
 
 同樣地，`git push` 也必須等待使用者明確指示後才能執行。
 
+## 工作進度更新規則
+
+每完成一項功能或修正後，**主動更新 `.claude/progress.md`**，記錄：
+1. 剛做了什麼（簡短一行）
+2. 下一步打算做什麼
+
+對話 /clear 前，也必須先更新 `.claude/progress.md`，確保下一個 session 能接續進度。
+
 ---
 
 ## Git / 開發環境

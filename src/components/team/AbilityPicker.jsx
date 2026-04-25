@@ -37,13 +37,6 @@ export default function AbilityPicker({ abilities, currentAbility, onSelect, onC
                   <span className={`font-bold text-sm ${isSelected ? 'text-white' : 'text-clay-charcoal'}`}>
                     {name}
                   </span>
-                  {a.is_hidden && (
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-semibold ${
-                      isSelected ? 'bg-white/20 text-white' : 'bg-purple-100 text-purple-600'
-                    }`}>
-                      {lang === 'zh' ? '隱藏' : 'Hidden'}
-                    </span>
-                  )}
                 </div>
                 {desc && (
                   <p className={`text-xs mt-1 leading-relaxed ${isSelected ? 'text-white/80' : 'text-clay-silver'}`}>
