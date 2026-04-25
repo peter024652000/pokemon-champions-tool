@@ -69,7 +69,7 @@ export default function Layout({ children }) {
             Champions<span className="hidden sm:inline"> Tool</span>
           </Link>
 
-          {/* Nav links */}
+          {/* Nav links + Battle dropdown — same container, same gap */}
           <div className="flex gap-0.5 sm:gap-1">
             {NAV_ITEMS.map(item => {
               const active = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
@@ -87,10 +87,8 @@ export default function Layout({ children }) {
                 </Link>
               );
             })}
+            <BattleNavDropdown />
           </div>
-
-          {/* Battle dropdown */}
-          <BattleNavDropdown />
 
           {/* Language dropdown — pushed right */}
           <div className="ml-auto">

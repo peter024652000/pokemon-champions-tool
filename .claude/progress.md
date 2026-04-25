@@ -1,6 +1,6 @@
 # Pokemon Champions Tool — 工作進度
 
-> 最後更新：2026-04-25
+> 最後更新：2026-04-25（第二次）
 
 ---
 
@@ -114,11 +114,16 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
   - AbilityPicker：特性選擇含說明（隱藏特性標籤已移除）
 - **格子顯示**：能力 tab（AbilityView：特性、持有物、四招）、狀態 tab（StatusView：Lv50 計算值）
 - **ConfigPanel 細節優化**（2026-04-25）：
-  - Header：sprite `w-11 h-11`，名稱 `text-lg`，`py-4`（放大）
-  - Screen A BP/招式欄：桌面 `sm:flex sm:flex-col sm:justify-center` 垂直置中
-  - Screen A 底部：改為兩列（個性+特性 `grid-cols-2` / 持有物全寬），「道具」→「持有物」
-  - Screen B 欄寬（中英文均適用）：TypeBadge `w-20`（80px，容納英文 "Fighting"/"Electric"）、類別 `w-8 sm:w-9`、名稱 `flex-1 min-w-0`、威力 `w-10 sm:w-14`、命中 `w-12 sm:w-16`
-  - Screen B 屬性標籤：自訂拉伸 span → 全站共用 `TypeBadge` 元件
+  - Header：sprite `w-11 h-11`，名稱 `text-lg font-bold`，TypeBadge `size="sm"`，`py-4`
+  - Screen B 欄寬（中英文均適用）：TypeBadge `w-20`（80px）、類別 `w-8 sm:w-9`、名稱 `flex-1 min-w-0`、威力 `w-10 sm:w-14`、命中 `w-12 sm:w-16`
+  - Screen B 屬性標籤：改用全站共用 `TypeBadge` 元件
+  - Screen A 所有區塊標題統一 `text-sm font-bold text-clay-charcoal`（能力分配/招式/個性/特性/持有物同層級）
+  - 個性/特性卡片值改 `text-sm font-medium`（同尺寸但輕量，不壓過標題）
+  - 個性/特性卡片等高：`flex flex-col` wrapper + `flex-1` button
+  - 底部區塊（個性/特性/持有物）空白平均分配上下：`flex-1 flex flex-col` + 兩個 `flex-1` spacer
+  - 持有物與個性特性之間加 `border-t border-clay-border/50` 明顯分隔
+- **Layout Nav 修正**（2026-04-25）：BattleNavDropdown 移入同一 flex 容器，消除間距不一致
+- **DESIGN.md 更新**（2026-04-25）：新增 Typography Scale 完整表、Nav spacing rule、split-panel modal compact context 規則
 - **PokemonContext**：把 usePokemonList 提升至 app root，Pokédex 與組隊共用同一份資料
 
 ---

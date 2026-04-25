@@ -150,7 +150,7 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
             )}
             <span className="font-bold text-clay-charcoal text-lg truncate">{fullName}</span>
             <div className="flex gap-1 flex-wrap">
-              {pokemon.types?.map(t => <TypeBadge key={t} type={t} size="xs" />)}
+              {pokemon.types?.map(t => <TypeBadge key={t} type={t} size="sm" />)}
             </div>
           </div>
 
@@ -163,12 +163,12 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
             }`}>
 
               {/* Top: BP (left) + Moves (right) */}
-              <div className="overflow-y-auto sm:overflow-hidden sm:flex-1 sm:min-h-0 flex flex-col sm:flex-row sm:divide-x divide-clay-border">
+              <div className="overflow-y-auto flex flex-col sm:flex-row sm:divide-x divide-clay-border">
 
                 {/* Left: BP allocation */}
-                <div className="p-4 sm:flex-1 sm:overflow-y-auto sm:flex sm:flex-col sm:justify-center">
-                  <div className="flex items-center justify-between mb-2.5">
-                    <h3 className="text-xs font-bold text-clay-charcoal uppercase tracking-wide">
+                <div className="p-4 sm:flex-1 sm:overflow-y-auto sm:flex sm:flex-col">
+                  <div className="flex items-center justify-between mb-2.5 shrink-0">
+                    <h3 className="text-sm font-bold text-clay-charcoal">
                       {lang === 'zh' ? '能力分配' : 'BP Allocation'}
                     </h3>
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
@@ -178,7 +178,7 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                     </span>
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-3 sm:my-auto">
                     {STAT_ORDER.map(stat => {
                       const entry = pokemon.stats?.find(s => s.stat.name === stat);
                       const base = entry?.base_stat ?? 0;
@@ -236,9 +236,9 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                 </div>
 
                 {/* Right: Move slots */}
-                <div className="p-4 border-t sm:border-t-0 border-clay-border sm:flex-1 sm:overflow-y-auto sm:flex sm:flex-col sm:justify-center">
+                <div className="p-4 border-t sm:border-t-0 border-clay-border sm:flex-1 sm:overflow-y-auto">
                   <div className="flex items-center justify-between mb-2.5">
-                    <h3 className="text-xs font-bold text-clay-charcoal uppercase tracking-wide">
+                    <h3 className="text-sm font-bold text-clay-charcoal">
                       {lang === 'zh' ? '招式' : 'Moves'}
                     </h3>
                     {moveSlugs.length === 0 && (
@@ -299,70 +299,84 @@ export default function ConfigPanel({ pokemon, initDraft, onConfirm, onCancel })
                 </div>
               </div>
 
-              {/* Bottom: Row 1 (Nature + Ability) + Row 2 (Held Item) — always visible, no scroll */}
-              <div className="shrink-0 border-t border-clay-border px-4 py-3 space-y-2">
+              {/* Bottom: takes all remaining space; whitespace split inside via flex-1 spacers */}
+              <div className="flex-1 flex flex-col border-t border-clay-border px-4 min-h-0">
 
-                {/* Row 1: Nature | Ability */}
-                <div className="grid grid-cols-2 gap-2">
+                {/* Space above content */}
+                <div className="flex-1" />
 
-                  {/* Nature */}
-                  <div>
-                    <p className="text-[10px] font-semibold text-clay-silver mb-1">
-                      {lang === 'zh' ? '個性' : 'Nature'}
-                    </p>
-                    <button
-                      onClick={() => setShowNatureMatrix(true)}
-                      className="w-full px-2.5 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
-                    >
-                      <div className="text-xs font-bold text-clay-charcoal truncate">
-                        {lang === 'zh' ? currentNature.zh : currentNature.en}
-                      </div>
-                      {currentNature.increased ? (
-                        <div className="text-[10px] mt-0.5 space-x-1">
-                          <span className="text-red-500">↑{STAT_NAMES_ZH[currentNature.increased]}</span>
-                          <span className="text-blue-500">↓{STAT_NAMES_ZH[currentNature.decreased]}</span>
+                {/* Content */}
+                <div className="space-y-3 py-2">
+
+                  {/* Row 1: Nature | Ability — equal height via flex-col + flex-1 on buttons */}
+                  <div className="grid grid-cols-2 gap-2 items-stretch">
+
+                    {/* Nature */}
+                    <div className="flex flex-col">
+                      <p className="text-sm font-bold text-clay-charcoal mb-1">
+                        {lang === 'zh' ? '個性' : 'Nature'}
+                      </p>
+                      <button
+                        onClick={() => setShowNatureMatrix(true)}
+                        className="flex-1 w-full px-3 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
+                      >
+                        <div className="text-sm font-medium text-clay-charcoal truncate leading-tight">
+                          {lang === 'zh' ? currentNature.zh : currentNature.en}
                         </div>
-                      ) : (
-                        <div className="text-[10px] text-clay-silver mt-0.5">{lang === 'zh' ? '無加成' : 'Neutral'}</div>
-                      )}
-                    </button>
+                        {currentNature.increased ? (
+                          <div className="text-xs font-medium mt-1 space-x-1.5">
+                            <span className="text-red-500">↑{STAT_NAMES_ZH[currentNature.increased]}</span>
+                            <span className="text-blue-500">↓{STAT_NAMES_ZH[currentNature.decreased]}</span>
+                          </div>
+                        ) : (
+                          <div className="text-xs text-clay-border mt-1">{lang === 'zh' ? '無加成' : 'Neutral'}</div>
+                        )}
+                      </button>
+                    </div>
+
+                    {/* Ability */}
+                    <div className="flex flex-col">
+                      <p className="text-sm font-bold text-clay-charcoal mb-1">
+                        {lang === 'zh' ? '特性' : 'Ability'}
+                      </p>
+                      <button
+                        onClick={() => setShowAbilityPicker(true)}
+                        className="flex-1 w-full px-3 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
+                      >
+                        <div className="text-sm font-medium text-clay-charcoal truncate leading-tight">{abilityName}</div>
+                        {currentAbilityEntry && (
+                          <div className="text-xs text-clay-silver mt-1 line-clamp-2 leading-relaxed">
+                            {lang === 'zh'
+                              ? (currentAbilityEntry.zhDesc || currentAbilityEntry.enDesc)
+                              : currentAbilityEntry.enDesc}
+                          </div>
+                        )}
+                      </button>
+                    </div>
+
                   </div>
 
-                  {/* Ability */}
-                  <div>
-                    <p className="text-[10px] font-semibold text-clay-silver mb-1">
-                      {lang === 'zh' ? '特性' : 'Ability'}
+                  {/* Row 2: Held Item — full width, clearly separated from row 1 */}
+                  <div className="border-t border-clay-border/50 pt-3">
+                    <p className="text-sm font-bold text-clay-charcoal mb-1">
+                      {lang === 'zh' ? '持有物' : 'Held Item'}
                     </p>
-                    <button
-                      onClick={() => setShowAbilityPicker(true)}
-                      className="w-full px-2.5 py-2.5 bg-clay-oat hover:bg-clay-border/40 border border-clay-border rounded-[12px] text-left transition-all"
-                    >
-                      <div className="text-xs font-bold text-clay-charcoal truncate">{abilityName}</div>
-                      {currentAbilityEntry && (
-                        <div className="text-[10px] text-clay-silver mt-0.5 line-clamp-1">
-                          {lang === 'zh'
-                            ? (currentAbilityEntry.zhDesc || currentAbilityEntry.enDesc)
-                            : currentAbilityEntry.enDesc}
-                        </div>
-                      )}
-                    </button>
+                    <input
+                      type="text"
+                      value={draft.heldItem}
+                      onChange={e => setDraft(d => ({ ...d, heldItem: e.target.value }))}
+                      placeholder={lang === 'zh' ? '輸入持有物...' : 'Held item name...'}
+                      className="w-full border border-clay-border rounded-[12px] px-3 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
+                    />
                   </div>
+
                 </div>
 
-                {/* Row 2: Held Item — full width */}
-                <div>
-                  <p className="text-[10px] font-semibold text-clay-silver mb-1">
-                    {lang === 'zh' ? '持有物' : 'Held Item'}
-                  </p>
-                  <input
-                    type="text"
-                    value={draft.heldItem}
-                    onChange={e => setDraft(d => ({ ...d, heldItem: e.target.value }))}
-                    placeholder={lang === 'zh' ? '輸入持有物...' : 'Held item name...'}
-                    className="w-full border border-clay-border rounded-[12px] px-2.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-clay-blue/30"
-                  />
-                </div>
+                {/* Space below content */}
+                <div className="flex-1" />
+
               </div>
+
             </div>
 
             {/* ── Screen B: Inline Move Picker ── */}
