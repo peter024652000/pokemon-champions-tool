@@ -90,6 +90,10 @@ export const MEGA_SIGIL_URL =
 export const TYPE_ICON_BASE =
   'https://raw.githubusercontent.com/msikma/pokesprite/master/misc/types/masters/';
 
+// Item sprites from PokeAPI (standard items only; new Champions-original items may 404)
+export const ITEM_SPRITE_BASE =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/';
+
 // Speed benchmarks — Champions roster only
 export const SPEED_BENCHMARKS = [
   { name: '烏龜爐 (20)',    base: 20  },

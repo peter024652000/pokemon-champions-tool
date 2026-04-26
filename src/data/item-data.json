@@ -1,0 +1,821 @@
+{
+  "cheri-berry": {
+    "en": "Cheri Berry",
+    "zh": "櫻子果",
+    "category": "BERRY",
+    "enEffect": "Cures being paralyzed. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒麻痺狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "chesto-berry": {
+    "en": "Chesto Berry",
+    "zh": "零餘果",
+    "category": "BERRY",
+    "enEffect": "Cures being asleep. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒睡眠狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "pecha-berry": {
+    "en": "Pecha Berry",
+    "zh": "桃桃果",
+    "category": "BERRY",
+    "enEffect": "Cures being poisoned or badly poisoned. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒中毒、劇毒狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "rawst-berry": {
+    "en": "Rawst Berry",
+    "zh": "莓莓果",
+    "category": "BERRY",
+    "enEffect": "Cures being burned. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒灼傷狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "aspear-berry": {
+    "en": "Aspear Berry",
+    "zh": "利木果",
+    "category": "BERRY",
+    "enEffect": "Cures being frozen. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒冰凍狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "leppa-berry": {
+    "en": "Leppa Berry",
+    "zh": "蘋野果",
+    "category": "BERRY",
+    "enEffect": "Restores 10 PP to a move when its PP is fully depleted. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "會讓PP變為0的招式回復10PP。 使用1次後就會在該對戰中消失。"
+  },
+  "oran-berry": {
+    "en": "Oran Berry",
+    "zh": "橙橙果",
+    "category": "BERRY",
+    "enEffect": "Restores 10 HP to the holder when its HP drops to 1/2 or less of its max. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "剩餘HP降到最大HP的1/2以下時， 會回復10HP。 使用1次後就會在該對戰中消失。"
+  },
+  "persim-berry": {
+    "en": "Persim Berry",
+    "zh": "柿仔果",
+    "category": "BERRY",
+    "enEffect": "Cures being confused. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒混亂狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "lum-berry": {
+    "en": "Lum Berry",
+    "zh": "木子果",
+    "category": "BERRY",
+    "enEffect": "Cures any status condition or confusion. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒所有異常狀態、混亂狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "sitrus-berry": {
+    "en": "Sitrus Berry",
+    "zh": "文柚果",
+    "category": "BERRY",
+    "enEffect": "Restores 1/4 of the holder’s max HP when the holder’s HP drops to 1/2 or less of its max. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "剩餘HP降到最大HP的1/2以下時， 會回復最大HP的1/4。 使用1次後就會在該對戰中消失。"
+  },
+  "occa-berry": {
+    "en": "Occa Berry",
+    "zh": "巧可果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Fire-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的火屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "passho-berry": {
+    "en": "Passho Berry",
+    "zh": "千香果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Water-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的水屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "wacan-berry": {
+    "en": "Wacan Berry",
+    "zh": "燭木果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Electric-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的電屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "rindo-berry": {
+    "en": "Rindo Berry",
+    "zh": "羅子果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Grass-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的草屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "yache-berry": {
+    "en": "Yache Berry",
+    "zh": "番荔果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Ice-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的冰屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "chople-berry": {
+    "en": "Chople Berry",
+    "zh": "蓮蒲果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Fighting-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的格鬥屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "kebia-berry": {
+    "en": "Kebia Berry",
+    "zh": "通通果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Poison-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的毒屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "shuca-berry": {
+    "en": "Shuca Berry",
+    "zh": "腰木果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Ground-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的地面屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "coba-berry": {
+    "en": "Coba Berry",
+    "zh": "稜瓜果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Flying-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的飛行屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "payapa-berry": {
+    "en": "Payapa Berry",
+    "zh": "福祿果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Psychic-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的超能力屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "tanga-berry": {
+    "en": "Tanga Berry",
+    "zh": "扁櫻果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Bug-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的蟲屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "charti-berry": {
+    "en": "Charti Berry",
+    "zh": "草蠶果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Rock-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的岩石屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "kasib-berry": {
+    "en": "Kasib Berry",
+    "zh": "佛柑果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Ghost-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的幽靈屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "haban-berry": {
+    "en": "Haban Berry",
+    "zh": "莓榴果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Dragon-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的龍屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "colbur-berry": {
+    "en": "Colbur Berry",
+    "zh": "刺耳果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Dark-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的惡屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "babiri-berry": {
+    "en": "Babiri Berry",
+    "zh": "霹霹果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Steel-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的鋼屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "chilan-berry": {
+    "en": "Chilan Berry",
+    "zh": "燈漿果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a Normal-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到一般屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "bright-powder": {
+    "en": "Bright Powder",
+    "zh": "光粉",
+    "category": "OTHER",
+    "enEffect": "Lowers the accuracy of moves used by opponents against the holder by 10%.",
+    "zhEffect": "對手對自己使用的招式的 命中率會變為0.9倍。"
+  },
+  "white-herb": {
+    "en": "White Herb",
+    "zh": "白色香草",
+    "category": "STAT_BOOST",
+    "enEffect": "Restores the holder’s stats to their usual value when they are lowered. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "能力降低時，能夠讓能力復原。 使用1次後就會在該對戰中消失。"
+  },
+  "quick-claw": {
+    "en": "Quick Claw",
+    "zh": "先制之爪",
+    "category": "OTHER",
+    "enEffect": "Gives the holder’s moves a 20% chance of going first among moves of the same priority.",
+    "zhEffect": "有20%的機率會在相同優先度的 招式中第一個行動。"
+  },
+  "mental-herb": {
+    "en": "Mental Herb",
+    "zh": "心靈香草",
+    "category": "RECOVERY",
+    "enEffect": "Cures the holder of the Infatuated, Taunted, Unable to Repeat, Move Disabled, Healing Prevented, and Encore statuses. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "可治癒著迷、挑釁、不可連續、 招式封鎖、回復封鎖、再來一次狀態。 使用1次後就會在該對戰中消失。"
+  },
+  "kings-rock": {
+    "en": "King’s Rock",
+    "zh": "王者之證",
+    "category": "OTHER",
+    "enEffect": "When the holder deals damage with its moves, there is a 10% chance that targets will flinch.",
+    "zhEffect": "用招式給予傷害時， 有10%的機率會讓對手畏縮。"
+  },
+  "silver-powder": {
+    "en": "Silver Powder",
+    "zh": "銀粉",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Bug-type moves by 20%.",
+    "zhEffect": "蟲屬性招式威力會變為1.2倍。"
+  },
+  "focus-band": {
+    "en": "Focus Band",
+    "zh": "氣勢頭帶",
+    "category": "STAT_BOOST",
+    "enEffect": "If the holder takes damage from a move that would knock it out, there’s a 10% chance the holder will endure the hit with 1 HP.",
+    "zhEffect": "受到會瀕死的招式傷害時， 有10%的機率會剩下1HP撐過去。"
+  },
+  "scope-lens": {
+    "en": "Scope Lens",
+    "zh": "焦點鏡",
+    "category": "OTHER",
+    "enEffect": "Gives the holder a 1-stage Critical-Hit Ratio Boost.",
+    "zhEffect": "易中要害+1。"
+  },
+  "metal-coat": {
+    "en": "Metal Coat",
+    "zh": "金屬膜",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Steel-type moves by 20%.",
+    "zhEffect": "鋼屬性招式威力會變為1.2倍。"
+  },
+  "leftovers": {
+    "en": "Leftovers",
+    "zh": "吃剩的東西",
+    "category": "RECOVERY",
+    "enEffect": "Restores 1/16 of the holder’s max HP at the end of every turn.",
+    "zhEffect": "在回合結束時， 會回復最大HP的1/16。"
+  },
+  "light-ball": {
+    "en": "Light Ball",
+    "zh": "電氣球",
+    "category": "STAT_BOOST",
+    "enEffect": "When held by a Pikachu, doubles the holder’s Attack and Sp. Atk.",
+    "zhEffect": "皮卡丘的攻擊、特攻會變為2倍。"
+  },
+  "soft-sand": {
+    "en": "Soft Sand",
+    "zh": "柔軟沙子",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Ground-type moves by 20%.",
+    "zhEffect": "地面屬性招式威力會變為1.2倍。"
+  },
+  "hard-stone": {
+    "en": "Hard Stone",
+    "zh": "硬石頭",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Rock-type moves by 20%.",
+    "zhEffect": "岩石屬性招式威力會變為1.2倍。"
+  },
+  "miracle-seed": {
+    "en": "Miracle Seed",
+    "zh": "奇跡種子",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Grass-type moves by 20%.",
+    "zhEffect": "草屬性招式威力會變為1.2倍。"
+  },
+  "black-glasses": {
+    "en": "Black Glasses",
+    "zh": "黑色眼鏡",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Dark-type moves by 20%.",
+    "zhEffect": "惡屬性招式威力會變為1.2倍。"
+  },
+  "black-belt": {
+    "en": "Black Belt",
+    "zh": "黑帶",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Fighting-type moves by 20%.",
+    "zhEffect": "格鬥屬性招式威力會變為1.2倍。"
+  },
+  "magnet": {
+    "en": "Magnet",
+    "zh": "磁鐵",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Electric-type moves by 20%.",
+    "zhEffect": "電屬性招式威力會變為1.2倍。"
+  },
+  "mystic-water": {
+    "en": "Mystic Water",
+    "zh": "神秘水滴",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Water-type moves by 20%.",
+    "zhEffect": "水屬性招式威力會變為1.2倍。"
+  },
+  "sharp-beak": {
+    "en": "Sharp Beak",
+    "zh": "銳利鳥嘴",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Flying-type moves by 20%.",
+    "zhEffect": "飛行屬性招式威力會變為1.2倍。"
+  },
+  "poison-barb": {
+    "en": "Poison Barb",
+    "zh": "毒針",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Poison-type moves by 20%.",
+    "zhEffect": "毒屬性招式威力會變為1.2倍。"
+  },
+  "spell-tag": {
+    "en": "Spell Tag",
+    "zh": "詛咒之符",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Ghost-type moves by 20%.",
+    "zhEffect": "幽靈屬性招式威力會變為1.2倍。"
+  },
+  "twisted-spoon": {
+    "en": "Twisted Spoon",
+    "zh": "彎曲的湯匙",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Psychic-type moves by 20%.",
+    "zhEffect": "超能力屬性招式威力會變為1.2倍。"
+  },
+  "charcoal": {
+    "en": "Charcoal",
+    "zh": "木炭",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Fire-type moves by 20%.",
+    "zhEffect": "火屬性招式威力會變為1.2倍。"
+  },
+  "dragon-fang": {
+    "en": "Dragon Fang",
+    "zh": "龍之牙",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Dragon-type moves by 20%.",
+    "zhEffect": "龍屬性招式威力會變為1.2倍。"
+  },
+  "silk-scarf": {
+    "en": "Silk Scarf",
+    "zh": "絲綢圍巾",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Normal-type moves by 20%.",
+    "zhEffect": "一般屬性招式威力會變為1.2倍。"
+  },
+  "shell-bell": {
+    "en": "Shell Bell",
+    "zh": "貝殼之鈴",
+    "category": "RECOVERY",
+    "enEffect": "When the holder deals damage with its moves, its HP is restored by 1/8 of the damage dealt.",
+    "zhEffect": "用招式給予傷害時， 會回復自己該傷害的 1/8的HP。"
+  },
+  "focus-sash": {
+    "en": "Focus Sash",
+    "zh": "氣勢披帶",
+    "category": "STAT_BOOST",
+    "enEffect": "If the holder has full HP and takes damage from a move that would knock it out in one hit, it will endure the hit with 1 HP. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "HP全滿時， 若受到一擊就會瀕死的招式傷害， 會剩下1HP撐過去。 使用1次後就會在該對戰中消失。"
+  },
+  "choice-scarf": {
+    "en": "Choice Scarf",
+    "zh": "講究圍巾",
+    "category": "STAT_BOOST",
+    "enEffect": "Boosts the holder’s Speed stat by 50%. However, once the holder uses a move, it becomes unable to use any other move but that one until it switches out of battle.",
+    "zhEffect": "速度會變為1.5倍， 但一旦使出招式後， 直到替換前都只能使出該招式。"
+  },
+  "gengarite": {
+    "en": "Gengarite",
+    "zh": "耿鬼進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Gengar to Mega Evolve.",
+    "zhEffect": "能讓耿鬼超級進化的持有物。"
+  },
+  "gardevoirite": {
+    "en": "Gardevoirite",
+    "zh": "沙奈朵進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Gardevoir to Mega Evolve.",
+    "zhEffect": "能讓沙奈朵超級進化的持有物。"
+  },
+  "ampharosite": {
+    "en": "Ampharosite",
+    "zh": "電龍進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Ampharos to Mega Evolve.",
+    "zhEffect": "能讓電龍超級進化的持有物。"
+  },
+  "venusaurite": {
+    "en": "Venusaurite",
+    "zh": "妙蛙花進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Venusaur to Mega Evolve.",
+    "zhEffect": "能讓妙蛙花超級進化的持有物。"
+  },
+  "charizardite-x": {
+    "en": "Charizardite X",
+    "zh": "噴火龍進化石Ｘ",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Charizard to Mega Evolve into Mega Charizard X.",
+    "zhEffect": "能讓噴火龍超級進化的持有物。 （超級噴火龍Ｘ）"
+  },
+  "blastoisinite": {
+    "en": "Blastoisinite",
+    "zh": "水箭龜進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Blastoise to Mega Evolve.",
+    "zhEffect": "能讓水箭龜超級進化的持有物。"
+  },
+  "medichamite": {
+    "en": "Medichamite",
+    "zh": "恰雷姆進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Medicham to Mega Evolve.",
+    "zhEffect": "能讓恰雷姆超級進化的持有物。"
+  },
+  "houndoominite": {
+    "en": "Houndoominite",
+    "zh": "黑魯加進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Houndoom to Mega Evolve.",
+    "zhEffect": "能讓黑魯加超級進化的持有物。"
+  },
+  "aggronite": {
+    "en": "Aggronite",
+    "zh": "波士可多拉進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Aggron to Mega Evolve.",
+    "zhEffect": "能讓波士可多拉超級進化的持有物。"
+  },
+  "banettite": {
+    "en": "Banettite",
+    "zh": "詛咒娃娃進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Banette to Mega Evolve.",
+    "zhEffect": "能讓詛咒娃娃超級進化的持有物。"
+  },
+  "tyranitarite": {
+    "en": "Tyranitarite",
+    "zh": "班基拉斯進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Tyranitar to Mega Evolve.",
+    "zhEffect": "能讓班基拉斯超級進化的持有物。"
+  },
+  "scizorite": {
+    "en": "Scizorite",
+    "zh": "巨鉗螳螂進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Scizor to Mega Evolve.",
+    "zhEffect": "能讓巨鉗螳螂超級進化的持有物。"
+  },
+  "pinsirite": {
+    "en": "Pinsirite",
+    "zh": "凱羅斯進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Pinsir to Mega Evolve.",
+    "zhEffect": "能讓凱羅斯超級進化的持有物。"
+  },
+  "aerodactylite": {
+    "en": "Aerodactylite",
+    "zh": "化石翼龍進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Aerodactyl to Mega Evolve.",
+    "zhEffect": "能讓化石翼龍超級進化的持有物。"
+  },
+  "lucarionite": {
+    "en": "Lucarionite",
+    "zh": "路卡利歐進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Lucario to Mega Evolve into Mega Lucario.",
+    "zhEffect": "能讓路卡利歐超級進化的持有物。 （超級路卡利歐）"
+  },
+  "abomasite": {
+    "en": "Abomasite",
+    "zh": "暴雪王進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Abomasnow to Mega Evolve.",
+    "zhEffect": "能讓暴雪王超級進化的持有物。"
+  },
+  "kangaskhanite": {
+    "en": "Kangaskhanite",
+    "zh": "袋獸進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Kangaskhan to Mega Evolve.",
+    "zhEffect": "能讓袋獸超級進化的持有物。"
+  },
+  "gyaradosite": {
+    "en": "Gyaradosite",
+    "zh": "暴鯉龍進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Gyarados to Mega Evolve.",
+    "zhEffect": "能讓暴鯉龍超級進化的持有物。"
+  },
+  "absolite": {
+    "en": "Absolite",
+    "zh": "阿勃梭魯進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Absol to Mega Evolve into Mega Absol.",
+    "zhEffect": "能讓阿勃梭魯超級進化的持有物。 （超級阿勃梭魯）"
+  },
+  "charizardite-y": {
+    "en": "Charizardite Y",
+    "zh": "噴火龍進化石Ｙ",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Charizard to Mega Evolve into Mega Charizard Y.",
+    "zhEffect": "能讓噴火龍超級進化的持有物。 （超級噴火龍Ｙ）"
+  },
+  "alakazite": {
+    "en": "Alakazite",
+    "zh": "胡地進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Alakazam to Mega Evolve.",
+    "zhEffect": "能讓胡地超級進化的持有物。"
+  },
+  "heracronite": {
+    "en": "Heracronite",
+    "zh": "赫拉克羅斯進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Heracross to Mega Evolve.",
+    "zhEffect": "能讓赫拉克羅斯超級進化的持有物。"
+  },
+  "manectite": {
+    "en": "Manectite",
+    "zh": "雷電獸進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Manectric to Mega Evolve.",
+    "zhEffect": "能讓雷電獸超級進化的持有物。"
+  },
+  "garchompite": {
+    "en": "Garchompite",
+    "zh": "烈咬陸鯊進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Garchomp to Mega Evolve into Mega Garchomp.",
+    "zhEffect": "能讓烈咬陸鯊超級進化的持有物。 （超級烈咬陸鯊）"
+  },
+  "roseli-berry": {
+    "en": "Roseli Berry",
+    "zh": "洛玫果",
+    "category": "BERRY",
+    "enEffect": "Halves the damage taken when the holder is hit with a supereffective Fairy-type move. Disappears for the duration of the battle after a single use.",
+    "zhEffect": "受到效果絕佳的妖精屬性招式時， 傷害會減半。 使用1次後就會在該對戰中消失。"
+  },
+  "sablenite": {
+    "en": "Sablenite",
+    "zh": "勾魂眼進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Sableye to Mega Evolve.",
+    "zhEffect": "能讓勾魂眼超級進化的持有物。"
+  },
+  "altarianite": {
+    "en": "Altarianite",
+    "zh": "七夕青鳥進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Altaria to Mega Evolve.",
+    "zhEffect": "能讓七夕青鳥超級進化的持有物。"
+  },
+  "galladite": {
+    "en": "Galladite",
+    "zh": "艾路雷朵進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Gallade to Mega Evolve.",
+    "zhEffect": "能讓艾路雷朵超級進化的持有物。"
+  },
+  "audinite": {
+    "en": "Audinite",
+    "zh": "差不多娃娃進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Audino to Mega Evolve.",
+    "zhEffect": "能讓差不多娃娃超級進化的持有物。"
+  },
+  "sharpedonite": {
+    "en": "Sharpedonite",
+    "zh": "巨牙鯊進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Sharpedo to Mega Evolve.",
+    "zhEffect": "能讓巨牙鯊超級進化的持有物。"
+  },
+  "slowbronite": {
+    "en": "Slowbronite",
+    "zh": "呆殼獸進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Slowbro to Mega Evolve. It has no effect on Galarian Slowbro.",
+    "zhEffect": "能讓呆殼獸超級進化的持有物。 對伽勒爾的樣子沒有效果。"
+  },
+  "steelixite": {
+    "en": "Steelixite",
+    "zh": "大鋼蛇進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Steelix to Mega Evolve.",
+    "zhEffect": "能讓大鋼蛇超級進化的持有物。"
+  },
+  "pidgeotite": {
+    "en": "Pidgeotite",
+    "zh": "大比鳥進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Pidgeot to Mega Evolve.",
+    "zhEffect": "能讓大比鳥超級進化的持有物。"
+  },
+  "glalitite": {
+    "en": "Glalitite",
+    "zh": "冰鬼護進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Glalie to Mega Evolve.",
+    "zhEffect": "能讓冰鬼護超級進化的持有物。"
+  },
+  "cameruptite": {
+    "en": "Cameruptite",
+    "zh": "噴火駝進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Camerupt to Mega Evolve.",
+    "zhEffect": "能讓噴火駝超級進化的持有物。"
+  },
+  "lopunnite": {
+    "en": "Lopunnite",
+    "zh": "長耳兔進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Lopunny to Mega Evolve.",
+    "zhEffect": "能讓長耳兔超級進化的持有物。"
+  },
+  "beedrillite": {
+    "en": "Beedrillite",
+    "zh": "大針蜂進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Beedrill to Mega Evolve.",
+    "zhEffect": "能讓大針蜂超級進化的持有物。"
+  },
+  "fairy-feather": {
+    "en": "Fairy Feather",
+    "zh": "妖精之羽",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Fairy-type moves by 20%.",
+    "zhEffect": "妖精屬性招式威力會變為1.2倍。"
+  },
+  "clefablite": {
+    "en": "Clefablite",
+    "zh": "皮可西進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Clefable to Mega Evolve.",
+    "zhEffect": "能讓皮可西超級進化的持有物。"
+  },
+  "victreebelite": {
+    "en": "Victreebelite",
+    "zh": "大食花進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Victreebel to Mega Evolve.",
+    "zhEffect": "能讓大食花超級進化的持有物。"
+  },
+  "starminite": {
+    "en": "Starminite",
+    "zh": "寶石海星進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Starmie to Mega Evolve.",
+    "zhEffect": "能讓寶石海星超級進化的持有物。"
+  },
+  "dragoninite": {
+    "en": "Dragoninite",
+    "zh": "快龍進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Dragonite to Mega Evolve.",
+    "zhEffect": "能讓快龍超級進化的持有物。"
+  },
+  "meganiumite": {
+    "en": "Meganiumite",
+    "zh": "大竺葵進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Meganium to Mega Evolve.",
+    "zhEffect": "能讓大竺葵超級進化的持有物。"
+  },
+  "feraligite": {
+    "en": "Feraligite",
+    "zh": "大力鱷進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Feraligatr to Mega Evolve.",
+    "zhEffect": "能讓大力鱷超級進化的持有物。"
+  },
+  "skarmorite": {
+    "en": "Skarmorite",
+    "zh": "盔甲鳥進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Skarmory to Mega Evolve.",
+    "zhEffect": "能讓盔甲鳥超級進化的持有物。"
+  },
+  "froslassite": {
+    "en": "Froslassite",
+    "zh": "雪妖女進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Froslass to Mega Evolve.",
+    "zhEffect": "能讓雪妖女超級進化的持有物。"
+  },
+  "emboarite": {
+    "en": "Emboarite",
+    "zh": "炎武王進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Emboar to Mega Evolve.",
+    "zhEffect": "能讓炎武王超級進化的持有物。"
+  },
+  "excadrite": {
+    "en": "Excadrite",
+    "zh": "龍頭地鼠進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Excadrill to Mega Evolve.",
+    "zhEffect": "能讓龍頭地鼠超級進化的持有物。"
+  },
+  "chandelurite": {
+    "en": "Chandelurite",
+    "zh": "水晶燈火靈進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Chandelure to Mega Evolve.",
+    "zhEffect": "能讓水晶燈火靈超級進化的持有物。"
+  },
+  "chesnaughtite": {
+    "en": "Chesnaughtite",
+    "zh": "布里卡隆進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Chesnaught to Mega Evolve.",
+    "zhEffect": "能讓布里卡隆超級進化的持有物。"
+  },
+  "delphoxite": {
+    "en": "Delphoxite",
+    "zh": "妖火紅狐進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Delphox to Mega Evolve.",
+    "zhEffect": "能讓妖火紅狐超級進化的持有物。"
+  },
+  "greninjite": {
+    "en": "Greninjite",
+    "zh": "甲賀忍蛙進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Greninja to Mega Evolve.",
+    "zhEffect": "能讓甲賀忍蛙超級進化的持有物。"
+  },
+  "floettite": {
+    "en": "Floettite",
+    "zh": "花葉蒂進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Eternal Flower Floette to Mega Evolve.",
+    "zhEffect": "能讓花葉蒂（永恆之花）超級進化的持有物。"
+  },
+  "hawluchanite": {
+    "en": "Hawluchanite",
+    "zh": "摔角鷹人進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Hawlucha to Mega Evolve.",
+    "zhEffect": "能讓摔角鷹人超級進化的持有物。"
+  },
+  "drampanite": {
+    "en": "Drampanite",
+    "zh": "老翁龍進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Drampa to Mega Evolve.",
+    "zhEffect": "能讓老翁龍超級進化的持有物。"
+  },
+  "chimechite": {
+    "en": "Chimechite",
+    "zh": "風鈴鈴進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Chimecho to Mega Evolve.",
+    "zhEffect": "能讓風鈴鈴超級進化的持有物。"
+  },
+  "golurkite": {
+    "en": "Golurkite",
+    "zh": "泥偶巨人進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Golurk to Mega Evolve.",
+    "zhEffect": "能讓泥偶巨人超級進化的持有物。"
+  },
+  "meowsticite": {
+    "en": "Meowsticite",
+    "zh": "超能妙喵進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Meowstic to Mega Evolve.",
+    "zhEffect": "能讓超能妙喵超級進化的持有物。"
+  },
+  "crabominite": {
+    "en": "Crabominite",
+    "zh": "好勝毛蟹進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Crabominable to Mega Evolve.",
+    "zhEffect": "能讓好勝毛蟹超級進化的持有物。"
+  },
+  "scovillainite": {
+    "en": "Scovillainite",
+    "zh": "狠辣椒進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Scovillain to Mega Evolve.",
+    "zhEffect": "能讓狠辣椒超級進化的持有物。"
+  },
+  "glimmoranite": {
+    "en": "Glimmoranite",
+    "zh": "晶光花進化石",
+    "category": "MEGA_STONE",
+    "enEffect": "A held item that allows Glimmora to Mega Evolve.",
+    "zhEffect": "能讓晶光花超級進化的持有物。"
+  },
+  "never-melt-ice": {
+    "en": "Never-Melt Ice",
+    "zh": "不融冰",
+    "category": "POWER_BOOST",
+    "enEffect": "Boosts the power of the holder’s Ice-type moves by 20%.",
+    "zhEffect": "冰屬性招式威力會變為1.2倍。"
+  }
+}
