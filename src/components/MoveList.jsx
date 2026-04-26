@@ -30,9 +30,7 @@ function sortValue(slug, col, lang) {
 function getEffectText(slug, lang) {
   const d = moveData[slug];
   if (!d) return null;
-  const raw = lang === 'zh' ? (d.zhEffect || d.enEffect) : (d.enEffect || d.zhEffect);
-  if (!raw) return null;
-  return raw.replace(/\$effect_chance%/g, (d.effectChance || '?') + '%');
+  return lang === 'zh' ? (d.zhEffect || d.enEffect || null) : (d.enEffect || d.zhEffect || null);
 }
 
 // ── Sub-components ────────────────────────────────────────────────────────────

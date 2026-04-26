@@ -5,7 +5,7 @@ import TypeBadge from '../TypeBadge';
 import { useLang } from '../../context/LangContext';
 import { MEGA_SIGIL_URL } from '../../utils/constants';
 
-export default function PokemonPicker({ onSelect, onClose }) {
+export default function PokemonPicker({ onSelect, onClose, disabledApiNames = [] }) {
   const { list } = usePokemonData();
   const { lang } = useLang();
   const [search, setSearch] = useState('');
@@ -14,6 +14,8 @@ export default function PokemonPicker({ onSelect, onClose }) {
   const filtered = useMemo(() => {
     return list.filter(p => {
       if (!p.loaded || p.unavailable) return false;
+      if (p.isMega) return false;
+      if (disabledApiNames.includes(p.apiName)) return false;
       if (typeFilter.length > 0 && !typeFilter.every(t => p.types.includes(t))) return false;
       if (search) {
         const q = search.toLowerCase();
@@ -24,7 +26,7 @@ export default function PokemonPicker({ onSelect, onClose }) {
       }
       return true;
     });
-  }, [list, typeFilter, search]);
+  }, [list, typeFilter, search, disabledApiNames]);
 
   return (
     /* Backdrop — click to close; centered on desktop, full-screen on mobile */

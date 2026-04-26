@@ -174,6 +174,20 @@ bg-white rounded-[16px] shadow-clay-md   (panel)
 border-b border-clay-border   (header divider)
 ```
 
+### Breathing Room (呼吸感)
+
+Interactive list items (move slots, build cards, table rows) need enough vertical padding to feel
+tappable and visually distinct from each other.
+
+| Context | Min vertical padding | Token |
+|---------|---------------------|-------|
+| Full-size clickable row (e.g. Screen A move slot) | 12 px top + bottom | `py-3` |
+| Compact read-only row (e.g. Screen C mini move slot) | 4 px top + bottom | `py-1` |
+| Card section metadata row | 6 px top + bottom | `py-1.5` |
+
+> **Rule:** If two adjacent interactive rows touch without visible separation, increase `py` by one
+> Tailwind step before adding margin or dividers. Padding is cheaper than extra markup.
+
 ---
 
 ## Future: Pokemon-Themed Palette

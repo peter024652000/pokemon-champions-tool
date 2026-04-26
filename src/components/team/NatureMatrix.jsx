@@ -22,8 +22,8 @@ export default function NatureMatrix({ currentNature, onSelect, onClose }) {
   const labels = STAT_LABELS[lang === 'zh' ? 'zh' : 'en'];
 
   return (
-    <div className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center px-4">
-      <div className="bg-white rounded-[16px] shadow-clay-md w-full max-w-xl">
+    <div className="fixed inset-0 z-[70] bg-black/60 flex items-center justify-center px-4" onClick={onClose}>
+      <div className="bg-white rounded-[16px] shadow-clay-md w-full max-w-xl" onClick={e => e.stopPropagation()}>
         <div className="flex items-center gap-3 px-5 py-3 border-b border-clay-border">
           <button onClick={onClose} className="text-clay-silver hover:text-clay-charcoal text-lg leading-none">✕</button>
           <span className="font-bold text-clay-charcoal">

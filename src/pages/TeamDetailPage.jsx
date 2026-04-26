@@ -135,6 +135,9 @@ export default function TeamDetailPage() {
         <PokemonPicker
           onSelect={handlePickerSelect}
           onClose={() => setPickerSlot(null)}
+          disabledApiNames={hydratedSlots
+            .filter((s, i) => s && i !== pickerSlot)
+            .map(s => s.apiName)}
         />
       )}
 
