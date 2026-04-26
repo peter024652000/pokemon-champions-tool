@@ -30,10 +30,12 @@ export default function StatusView({ slot }) {
 
   if (!slot.stats || slot.stats.length === 0) {
     return (
-      <div className="h-full flex flex-col gap-2">
+      <div className="h-full flex flex-col gap-2.5">
         <div className="flex items-center gap-2">
-          {slot.sprite && <img src={slot.sprite} alt="" className="w-10 h-10 object-contain shrink-0" />}
-          <span className="text-sm font-bold text-clay-charcoal truncate">{fullName}</span>
+          {slot.sprite && <img src={slot.sprite} alt="" className="w-11 h-11 object-contain shrink-0" />}
+          <div className="flex items-center gap-1.5 flex-wrap leading-tight">
+            <span className="text-sm font-bold text-clay-charcoal">{fullName}</span>
+          </div>
         </div>
         <div className="flex-1 flex items-center justify-center text-xs text-clay-border">
           {lang === 'zh' ? '載入中...' : 'Loading...'}
@@ -43,23 +45,21 @@ export default function StatusView({ slot }) {
   }
 
   return (
-    <div className="h-full flex flex-col gap-2">
-      {/* Pokemon header */}
+    <div className="h-full flex flex-col gap-2.5">
+      {/* Pokemon header: sprite + name + types on same line */}
       <div className="flex items-center gap-2">
         {slot.sprite && (
           <img
             src={slot.sprite}
             alt=""
-            className="w-10 h-10 object-contain shrink-0"
+            className="w-11 h-11 object-contain shrink-0"
             onError={slot.spriteFallback ? e => { e.currentTarget.src = slot.spriteFallback; e.currentTarget.onerror = null; } : undefined}
           />
         )}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1">
-            {slot.isMega && <img src={MEGA_SIGIL_URL} alt="Mega" className="h-3.5 w-3.5" />}
-            <span className="text-sm font-bold text-clay-charcoal truncate leading-tight">{fullName}</span>
-          </div>
-          <div className="flex gap-0.5 flex-wrap mt-0.5">
+          <div className="flex items-center gap-1.5 flex-wrap leading-tight">
+            {slot.isMega && <img src={MEGA_SIGIL_URL} alt="Mega" className="h-3.5 w-3.5 shrink-0" />}
+            <span className="text-sm font-bold text-clay-charcoal">{fullName}</span>
             {slot.types?.map(t => <TypeBadge key={t} type={t} size="xs" />)}
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function StatusView({ slot }) {
 
           return (
             <div key={statName} className="flex items-center gap-1.5">
-              <span className={`w-10 text-right text-[11px] font-medium shrink-0 ${
+              <span className={`w-10 text-right text-xs font-semibold shrink-0 whitespace-nowrap ${
                 natureUp ? 'text-red-500' : natureDown ? 'text-blue-500' : 'text-clay-silver'
               }`}>
                 {STAT_NAMES_ZH[statName]}{natureUp ? '↑' : natureDown ? '↓' : ''}
@@ -98,8 +98,8 @@ export default function StatusView({ slot }) {
                   style={{ width: `${barPct}%`, backgroundColor: color }}
                 />
               </div>
-              <span className="text-[11px] text-clay-silver shrink-0 font-mono whitespace-nowrap">
-                {base}<span className="text-clay-border mx-0.5">—</span>{bp}
+              <span className="text-xs text-clay-silver shrink-0 font-mono w-7 text-right">
+                {bp > 0 ? `+${bp}` : ''}
               </span>
             </div>
           );
