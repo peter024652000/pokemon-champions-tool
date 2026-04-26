@@ -1,6 +1,6 @@
 # Pokemon Champions Tool — 工作進度
 
-> 最後更新：2026-04-25（第二次）
+> 最後更新：2026-04-26
 
 ---
 
@@ -106,25 +106,38 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
   - `/team`：隊伍列表（TeamListPage），卡片有 ✕ 刪除、鉛筆編輯提示、2×3 精靈圖預覽
   - `/team/:teamId`：單隊編輯（TeamDetailPage），可編輯隊伍名稱、回上一頁
   - `useTeams.js` hook：多隊陣列 + localStorage 持久化（key: `champions-teams-v1`）
+  - `useBuilds.js` hook：單隊內各格配置 localStorage 持久化（key: `champions-builds-v1`）
 - **組隊流程**：點格 → PokemonPicker 選寶可夢 → ConfigPanel 配置
   - PokemonPicker：全螢幕、大卡片（仿圖鑑）、屬性篩選 + 搜尋
-  - ConfigPanel：左側 BP 分配（▲ 填滿 / ✕ 歸零，原本配色 + 透明度）、右側四招、底部特性 + 個性
-  - MovePicker：全螢幕、圓形屬性篩選（附圖示）、欄位標題（屬性/類別/招式名稱/威力/命中）
+  - ConfigPanel：左側 BP 分配（▲ 填滿 / ✕ 歸零）、右側四招、底部特性 + 個性
+  - MovePicker（Screen B）：圓形屬性篩選、欄位標題、hover tooltip（渲染在 transform 容器外避免位移）
+  - **ItemPicker（Screen D）**：搜尋 + 6 分類 filter（回復/攻強/能力/果子/進化石/其他）+ 圖示 + hover 效果 tooltip（MEGA_STONE 除外）
   - NatureMatrix：5×5 個性矩陣
-  - AbilityPicker：特性選擇含說明（隱藏特性標籤已移除）
-- **格子顯示**：能力 tab（AbilityView：特性、持有物、四招）、狀態 tab（StatusView：Lv50 計算值）
+  - AbilityPicker：特性選擇含說明
+- **格子顯示**：能力 tab（AbilityView：特性、持有物圖示+名稱、四招圓形 icon 樣式）、狀態 tab（StatusView：Lv50 計算值）
+- **隊伍卡片整修**（2026-04-26）：
+  - TeamSlot：整張卡片可點擊開啟設定，移除 ✎ 按鈕，保留 ✕
+  - AbilityView：名稱＋屬性同行、招式改圓形 icon 樣式（對齊 ConfigPanel）、ItemSprite 雙層 fallback
+  - StatusView：名稱＋屬性同行、文字規格統一
 - **ConfigPanel 細節優化**（2026-04-25）：
-  - Header：sprite `w-11 h-11`，名稱 `text-lg font-bold`，TypeBadge `size="sm"`，`py-4`
-  - Screen B 欄寬（中英文均適用）：TypeBadge `w-20`（80px）、類別 `w-8 sm:w-9`、名稱 `flex-1 min-w-0`、威力 `w-10 sm:w-14`、命中 `w-12 sm:w-16`
-  - Screen B 屬性標籤：改用全站共用 `TypeBadge` 元件
-  - Screen A 所有區塊標題統一 `text-sm font-bold text-clay-charcoal`（能力分配/招式/個性/特性/持有物同層級）
-  - 個性/特性卡片值改 `text-sm font-medium`（同尺寸但輕量，不壓過標題）
-  - 個性/特性卡片等高：`flex flex-col` wrapper + `flex-1` button
-  - 底部區塊（個性/特性/持有物）空白平均分配上下：`flex-1 flex flex-col` + 兩個 `flex-1` spacer
+  - Header：sprite `w-11 h-11`，名稱 `text-lg font-bold`，TypeBadge `size="sm"`
+  - Screen B 欄寬（中英文均適用）：TypeBadge `w-20`、類別 `w-8 sm:w-9`、名稱 `flex-1 min-w-0`
+  - Screen A 所有區塊標題統一 `text-sm font-bold text-clay-charcoal`
   - 持有物與個性特性之間加 `border-t border-clay-border/50` 明顯分隔
 - **Layout Nav 修正**（2026-04-25）：BattleNavDropdown 移入同一 flex 容器，消除間距不一致
 - **DESIGN.md 更新**（2026-04-25）：新增 Typography Scale 完整表、Nav spacing rule、split-panel modal compact context 規則
 - **PokemonContext**：把 usePokemonList 提升至 app root，Pokédex 與組隊共用同一份資料
+
+### 資料層重建（2026-04-26）
+- **`scripts/build-moves.js`**：從 champout (MIT) 重建 move-data.json（495 招，補齊繁中名稱與效果說明，移除 `$effect_chance%` 佔位符）
+- **`scripts/build-items.js`**：從 champout (MIT) 建立 item-data.json（117 道具，含分類 + 雙語效果說明）
+- **`src/data/item-data.json`**（新）：117 道具，分 6 類（BERRY 28、MEGA_STONE 59、POWER_BOOST 18、STAT_BOOST 5、RECOVERY 3、OTHER 4）
+- **ItemSprite 元件**：sprite 來源 PokeAPI → Serebii 兩層 fallback；MEGA_STONE fallback 顯示 Mega 印記，其餘顯示 `?`
+- **`never-melt-ice` slug 修正**：`toSlug` 保留英文名中的連字號，避免 PokeAPI 找不到圖示
+- 資料來源：projectpokemon/champout（MIT License）
+
+### 版權聲明
+- 首頁頁腳新增兩行：遊戲版權（任天堂/寶可夢公司）+ 資料來源連結（champout MIT + PokéAPI）
 
 ---
 
@@ -133,6 +146,7 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 ### move-effects.json 繁中翻譯校訂
 - 已完成初版（428 種效果），已比對官方繁中 flavor text 修正部分用詞
 - **尚未完整校訂**：語感、用詞可能仍與官方慣用說法有出入
+- **注意**：champout 的 `wazainfo_syn.json` 已有官方繁中效果說明，新建的 move-data.json 直接使用；move-effects.json 已不再被招式相關元件引用
 
 ---
 
@@ -142,17 +156,20 @@ React 19 + Vite 5 + Tailwind CSS v3 的寶可夢雙打查詢工具。
 - [ ] **`effectChance` 數值與 Champions 不符**：move-data.json 機率來自主線 PokeAPI，Champions 有調整（例：Moonblast 主線 30% → Champions 10%；Iron Head 主線 30% → Champions 20%）。需逐一對照官方資料校正
 - [ ] **`move-effects.json` 繁中翻譯持續校訂中**
 - [ ] **部分地區形態可能遺漏**（`championsIds.js` 手動維護）
-- [ ] **Z-A 新 Mega 形態無圖片**：PokeAPI 尚未收錄這批新 Mega 的圖檔，顯示為問號
+- [ ] **Z-A 新 Mega 形態無圖片**：PokeAPI 尚未收錄這批新 Mega 的寶可夢精靈圖，顯示為問號（道具圖示已透過 Serebii fallback 解決）
 
 ### 功能
 - [ ] 招式列表上限 60 招（效能考量），超過的招式無法顯示
 - [ ] 介面固定文字中英切換（Tab 標籤等目前仍為中文）
 - [ ] 速度計算 tab 的 BP 與種族值分配 BP 目前獨立，未互通
 - [ ] 手機版自適應（目前無 sm:/md: 響應式前綴）
-- [ ] 部署（Vercel / GitHub Pages）尚未設定，功能穩定後再處理
+- [ ] 部分道具（如妖精之羽）PokeAPI 與 Serebii 均無圖示，顯示為 `?`（Champions 原創道具，公開來源未收錄）
 
 ### 已解決的舊問題
 - ~~中文名稱未顯示~~（改用本地 pokemon-names.json，不再依賴 PokeAPI 中文）
+- ~~招式繁中名稱/效果說明缺漏~~（champout 重建 move-data.json，495 招全覆蓋）
+- ~~持有物只能文字輸入~~（ItemPicker Screen D + ItemSprite 圖示系統）
+- ~~招式 tooltip 位置亂跑~~（渲染移至 transform 容器外）
 - ~~點擊無反應 / Modal 出現在頁面底部~~（Vite 降版 + filtered 渲染）
 - ~~動態像素圖（Showdown sprites）~~（試用後回退，視覺干擾）
 - ~~關閉按鈕導致 overlay 版面跑掉~~（fixed position 衝突修正）

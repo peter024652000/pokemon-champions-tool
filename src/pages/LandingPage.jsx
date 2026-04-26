@@ -88,10 +88,17 @@ export default function LandingPage() {
       </div>
 
       {/* Footer note */}
-      <div className="mt-auto py-6 text-center text-xs text-clay-silver px-4">
-        {zh
-          ? '資料來源：PokeAPI（主線數值）。部分數值可能與 Pokémon Champions 遊戲內不同。'
-          : 'Data source: PokeAPI (main series). Some values may differ from in-game Pokémon Champions data.'}
+      <div className="mt-auto py-6 text-center text-xs text-clay-silver px-4 space-y-1">
+        <div>
+          {zh
+            ? '遊戲內容版權屬任天堂／寶可夢公司所有。本工具與官方無關。'
+            : 'Game content © Nintendo / The Pokémon Company. This tool is unofficial and unaffiliated.'}
+        </div>
+        <div>
+          {zh
+            ? <>招式與道具資料來自 <a href="https://github.com/projectpokemon/champout" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay-charcoal">projectpokemon/champout</a>（MIT）；寶可夢基礎資料來自 <a href="https://pokeapi.co" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay-charcoal">PokéAPI</a>。部分數值可能與遊戲內不同。</>
+            : <>Move & item data from <a href="https://github.com/projectpokemon/champout" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay-charcoal">projectpokemon/champout</a> (MIT); Pokémon data from <a href="https://pokeapi.co" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay-charcoal">PokéAPI</a>. Some values may differ from in-game data.</>}
+        </div>
       </div>
     </div>
   );
